@@ -1,0 +1,3 @@
+var a;
+lire a;
+ecrire (a+0)*1-0;

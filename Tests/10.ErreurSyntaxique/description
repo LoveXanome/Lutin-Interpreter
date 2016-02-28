@@ -1,0 +1,1 @@
+Le flux contient des jetons reconnus par l'analyseur lexical mais qui ne correspondent pas à la grammaire du langage - récupération sur erreur (exemple).
