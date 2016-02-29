@@ -1,1 +1,10 @@
-ExpressionMultiplication.cpp
+#include "ExpressionMultiplication.hpp"
+
+ExpressionMultiplication::ExpressionMultiplication()
+{
+
+}
+ExpressionMultiplication::~ExpressionMultiplication()
+{
+
+}

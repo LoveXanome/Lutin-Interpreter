@@ -1,7 +1,10 @@
 #ifndef IDENTIFIANT_HPP
 #define IDENTIFIANT_HPP
 
-class Identifiant
+#include <iostream>
+#include "Expression.hpp"
+
+class Identifiant : public Expression
 {
 public:
 	Identifiant();

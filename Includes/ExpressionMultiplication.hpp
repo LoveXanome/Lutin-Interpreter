@@ -1,7 +1,10 @@
 #ifndef EXPRESSIONMULTIPLICATION_HPP
 #define EXPRESSIONMULTIPLICATION_HPP
 
-class ExpressionMultiplication
+#include <iostream>
+#include "ExpressionBinaire.hpp"
+
+class ExpressionMultiplication : public ExpressionBinaire
 {
 public:
 	ExpressionMultiplication();

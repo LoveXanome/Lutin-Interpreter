@@ -1,7 +1,10 @@
 #ifndef VALEUR_HPP
 #define VALEUR_HPP
 
-class Valeur
+#include <iostream>
+#include "Expression.hpp"
+
+class Valeur : public Expression
 {
 public:
 	Valeur();

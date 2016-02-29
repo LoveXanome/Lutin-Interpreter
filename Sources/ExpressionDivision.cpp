@@ -1,1 +1,10 @@
-ExpressionDivision.cpp
+#include "ExpressionDivision.hpp"
+
+ExpressionDivision::ExpressionDivision()
+{
+
+}
+ExpressionDivision::~ExpressionDivision()
+{
+
+}

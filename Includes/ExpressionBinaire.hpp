@@ -1,12 +1,14 @@
 #ifndef EXPRESSIONBINAIRE_HPP
 #define EXPRESSIONBINAIRE_HPP
 
-class ExpressionBinaire
+#include <iostream>
+#include "Expression.hpp"
+
+class ExpressionBinaire : public Expression
 {
 public:
 	ExpressionBinaire();
 	virtual ~ExpressionBinaire();
-	double eval(Variables);
 	
 private:
 	

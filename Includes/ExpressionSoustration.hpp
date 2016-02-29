@@ -1,7 +1,10 @@
 #ifndef EXPRESSIONSOUSTRACTION_HPP
 #define EXPRESSIONSOUSTRACTION_HPP
 
-class ExpressionSoustraction
+#include <iostream>
+#include "ExpressionBinaire.hpp"
+
+class ExpressionSoustraction : public ExpressionBinaire
 {
 public:
 	ExpressionSoustraction();

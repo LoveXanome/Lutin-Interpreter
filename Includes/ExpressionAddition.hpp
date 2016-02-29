@@ -1,8 +1,11 @@
 #ifndef EXPRESSIONADDITION_HPP
 #define EXPRESSIONADDITION_HPP
 
-class ExpressionAddition
-{
+#include <iostream>
+#include "ExpressionBinaire.hpp"
+
+class ExpressionAddition : public ExpressionBinaire
+{	
 public:
 	ExpressionAddition();
 	virtual ~ExpressionAddition();

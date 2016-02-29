@@ -1,1 +1,10 @@
-ExpressionSoustraction.cpp
+#include "ExpressionSoustraction.hpp"
+
+ExpressionSoustraction::ExpressionSoustraction()
+{
+
+}
+ExpressionSoustraction::~ExpressionSoustraction()
+{
+
+}
