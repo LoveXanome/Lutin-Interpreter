@@ -2,7 +2,7 @@
 
 AutomateLutin::AutomateLutin()
 {
-	// TODO initialize state stack
+	// TODO : init first state
 }
 
 AutomateLutin::~AutomateLutin()
@@ -13,3 +13,5 @@ void AutomateLutin::lecture()
 {
 	// TODO
 }
+
+// Transition & decalage
