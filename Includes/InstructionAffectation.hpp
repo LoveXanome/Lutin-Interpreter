@@ -1,5 +1,5 @@
 #ifndef INSTRUCTION_AFFECTATION_HPP
-#define INSTRUCTION_HPP
+#define INSTRUCTION_AFFECTATION_HPP
 
 #include <iostream>
 #include <string>
