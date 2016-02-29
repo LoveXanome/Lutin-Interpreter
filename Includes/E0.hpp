@@ -1,11 +1,12 @@
-#ifndef E0.HPP
-#define E0.HPP
-#include <Etat.hpp>
-#include <Symbole.hpp>
+#ifndef E0_HPP
+#define E0_HPP
 
-class E0 : public class Etat {
-	public :
-		bool transition(Automate & automate, Symbole * s);
+#include "Etat.hpp"
+
+class E0 : public Etat
+{
+	public:
+		bool transition(AutomateLutin& automate, Symbole* s);
 };
 
-#endif //E0.HPP
+#endif //E0_HPP

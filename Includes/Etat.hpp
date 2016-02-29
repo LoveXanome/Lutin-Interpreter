@@ -1,22 +1,21 @@
-/*
- * Etat.hpp
- * 
- * Copyright 2016 Bulme Kevin <kbulme@if501-219-15.insa-lyon.fr> Mas Kevin
- * 
- */
-#ifndef ETAT.HPP
-#define ETAT.HPP
+#ifndef ETAT_HPP
+#define ETAT_HPP
 
+#include <string>
 
-class Etat {
-	public :
-		Etat(string name);
+#include "AutomateLutin.hpp"
+#include "Symbole.hpp"
+
+class Etat
+{
+	public:
+		Etat(std::string name);
 		virtual ~Etat();
 		void print() const;
-		virtual bool transition(Automate & automate, Symbole * s) = 0 ;
+		virtual bool transition(AutomateLutin& automate, Symbole* s) = 0;
 		
-	protected :
-		string name;
+	protected:
+		std::string name;
 };
 
-#endif //ETAT.HPP
+#endif // ETAT_HPP
