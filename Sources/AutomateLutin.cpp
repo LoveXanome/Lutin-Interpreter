@@ -2,6 +2,7 @@
 
 AutomateLutin::AutomateLutin()
 {
+	// TODO initialize state stack
 }
 
 AutomateLutin::~AutomateLutin()

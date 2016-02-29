@@ -14,7 +14,6 @@ class AutomateLutin
 	private:
 		std::stack<Etat> etats;
 		std::stack<Etat> symboles;
-	
 };
 
 #endif // AUTOMATE_LUTIN_HPP

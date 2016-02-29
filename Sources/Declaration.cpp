@@ -1,1 +1,11 @@
-Declaration.cpp
+#include "Declaration.hpp"
+
+Declaration::Declaration()
+{
+	
+}
+
+Declaration::~Declaration()
+{
+	
+}
