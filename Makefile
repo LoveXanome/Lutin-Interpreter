@@ -3,7 +3,7 @@ INCDIR=Includes/
 BUILDDIR=Objects/
 EXE=lut
 
-FILES=AutomateLutin
+FILES=AutomateLutin Instruction InstructionAffectation
 SRC=$(addprefix $(SRCDIR), $(addsuffix .cpp, $(FILES)))
 INC=$(addprefix $(INCDIR), $(addsuffix .hpp, $(FILES)))
 OBJ=$(addprefix $(BUILDDIR), $(addsuffix .o, $(FILES)))
