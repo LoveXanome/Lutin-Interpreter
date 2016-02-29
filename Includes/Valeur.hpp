@@ -11,6 +11,7 @@ public:
 	virtual ~Valeur();
 	
 private:
+	double valeur;
 	
 };
 

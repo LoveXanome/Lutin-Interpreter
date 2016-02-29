@@ -2,6 +2,7 @@
 #define IDENTIFIANT_HPP
 
 #include <iostream>
+#include <string>
 #include "Expression.hpp"
 
 class Identifiant : public Expression
@@ -11,6 +12,7 @@ public:
 	virtual ~Identifiant();
 	
 private:
+	std::string Identifiant;
 	
 };
 
