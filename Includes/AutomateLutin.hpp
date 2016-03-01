@@ -3,6 +3,8 @@
 
 #include <stack>
 #include "Etat.hpp"
+#include "TableDesSymboles.hpp"
+#include "Lexer.hpp"
 
 class AutomateLutin
 {
@@ -13,7 +15,9 @@ public:
 	
 private:
 	std::stack<Etat> etats;
-	std::stack<Etat> symboles;
+	std::stack<Symbole> symboles;
+	TableDesSymboles tableSymboles;
+	Lexer lexer;
 };
 
 #endif // AUTOMATE_LUTIN_HPP
