@@ -3,14 +3,20 @@ INCDIR=Includes/
 BUILDDIR=Objects/
 EXE=lut
 
-FILES=AutomateLutin Instruction InstructionAffectation InstructionEcriture
+STATE_FILES=Etat E0
+GENERAL_FILES=AutomateLutin Programme Lexer TableDesSymboles Symbole
+INSTRUCTION_FILES=Instruction InstructionAffectation InstructionEcriture InstructionLecture ListeInstructions
+DECLARATION_FILES=Declaration DeclarationConstante DeclarationVariable ListeDeclarations
+EXPRESSION_FILES=Expression ExpressionBinaire ExpressionAddition ExpressionSoustraction ExpressionMultiplication ExpressionDivision
+FILES=$(GENERAL_FILES) $(STATE_FILES) $(INSTRUCTION_FILES) $(DECLARATION_FILES) $(EXPRESSION_FILES)
+
 SRC=$(addprefix $(SRCDIR), $(addsuffix .cpp, $(FILES)))
 INC=$(addprefix $(INCDIR), $(addsuffix .hpp, $(FILES)))
 OBJ=$(addprefix $(BUILDDIR), $(addsuffix .o, $(FILES)))
 MAIN=$(SRCDIR)main.cpp
 
 COMP=g++
-COMPFLAGS=-Wall
+COMPFLAGS=-Wall -Werror -std=c++11
 
 all: builddir lutin
 

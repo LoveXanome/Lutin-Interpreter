@@ -1,6 +1,8 @@
 #ifndef AUTOMATE_LUTIN_HPP
 #define AUTOMATE_LUTIN_HPP
 
+class Etat;
+
 #include <stack>
 #include "Etat.hpp"
 #include "TableDesSymboles.hpp"
@@ -14,8 +16,8 @@ public:
 	void lecture();
 	
 private:
-	std::stack<Etat> etats;
-	std::stack<Symbole> symboles;
+	std::stack<Etat*> etats;
+	std::stack<Symbole*> symboles;
 	TableDesSymboles tableSymboles;
 	Lexer lexer;
 };

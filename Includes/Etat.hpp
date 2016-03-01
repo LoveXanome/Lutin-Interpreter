@@ -3,6 +3,8 @@
 
 #include <string>
 
+class AutomateLutin;
+
 #include "AutomateLutin.hpp"
 #include "Symbole.hpp"
 

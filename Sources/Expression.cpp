@@ -9,7 +9,8 @@ Expression::~Expression()
 {
 
 }
+
 double Expression::eval(std::string variables)
 {
-
+	return 0;
 }

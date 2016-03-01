@@ -1,8 +1,7 @@
-#include <E0.hpp>
-bool E0::transition(Automate & automate, Symbole * s)
+#include "E0.hpp"
+
+bool E0::transition(AutomateLutin& automate, Symbole * s)
 {
-	switch(* s){
-		case
-	}
-		
+	// TODO
+	return false;
 }

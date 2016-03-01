@@ -1,5 +1,5 @@
 #include "Lexer.hpp"
-	
+
 Lexer::Lexer()
 {
 	
@@ -10,12 +10,12 @@ Lexer::~Lexer()
 	
 }
 
-Symbole Lexer::getNext()
+Symbole* Lexer::getNext()
 {
-	
+	return 0;
 }
 
-Symbole Lexer::readNext() const
+Symbole* Lexer::readNext() const
 {
-	
+	return 0;
 }

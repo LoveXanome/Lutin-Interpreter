@@ -29,3 +29,6 @@
 
 # Our executable
 lut
+
+# Objects directory
+Objects/

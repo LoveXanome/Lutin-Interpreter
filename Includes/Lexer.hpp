@@ -9,8 +9,8 @@ public:
 	Lexer();
 	virtual ~Lexer();
 	
-	Symbole getNext();
-	Symbole readNext() const;
+	Symbole* getNext();
+	Symbole* readNext() const;
 };
 
 #endif // LEXER_HPP
