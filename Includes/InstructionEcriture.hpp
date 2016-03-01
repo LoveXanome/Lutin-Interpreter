@@ -1,16 +1,13 @@
 #ifndef INSTRUCTION_ECRITURE_HPP
 #define INSTRUCTION_ECRITURE_HPP
 
-#include <iostream>
-#include <string>
+#include "Instruction.hpp"
 
-using namespace std;
-
-class InstructionEcriture
+class InstructionEcriture : public Instruction
 {
-	public:
-	 InstructionEcriture();
-	 virtual ~InstructionEcriture();
+public:
+	InstructionEcriture();
+	virtual ~InstructionEcriture();
 };
 
-#endif
+#endif // INSTRUCTION_ECRITURE_HPP

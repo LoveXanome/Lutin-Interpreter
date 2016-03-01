@@ -1,1 +1,11 @@
-ListeDeclaration.cpp
+#include "ListeDeclarations.hpp"
+
+ListeDeclarations::ListeDeclarations()
+{
+	
+}
+
+ListeDeclarations::~ListeDeclarations()
+{
+	
+}

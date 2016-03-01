@@ -1,11 +1,13 @@
 #ifndef INSTRUCTION_HPP
 #define INSTRUCTION_HPP
 
-class Instruction
+#include "Symbole.hpp"
+
+class Instruction : public Symbole
 {
-	public:
-	 Instruction();
-	 virtual ~Instruction();
+public:
+	Instruction();
+	virtual ~Instruction();
 };
 
-#endif
+#endif // INSTRUCTION_HPP

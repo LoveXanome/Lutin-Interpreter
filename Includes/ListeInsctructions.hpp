@@ -1,24 +1,14 @@
 #ifndef LISTE_INSTRUCTIONS_HPP
 #define LISTE_INSTRUCTIONS_HPP
 
-#include <iostream>
-#include <string>
 #include <vector>
 #include "Instruction.hpp"
 
-using namespace std;
-
-class ListeInstructions
+class ListeInstructions : public std::vector<Instruction>
 { 
-	public:
-	 ListeInstructions();
-	 virtual ~ListeInstructions();
-	 
-	 void addInstruction(Instruction instruction);
-	 vector<Instruction>::iterator getIterator();
-	
-	private:
-		vector<Instruction> vInstructions;
+public:
+	ListeInstructions();
+	virtual ~ListeInstructions();
 };
 
-#endif
+#endif // LISTE_INSTRUCTIONS_HPP

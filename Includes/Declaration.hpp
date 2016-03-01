@@ -2,8 +2,9 @@
 #define DECLARATION_HPP
 
 #include <string>
+#include "Symbole.hpp"
 
-class Declaration
+class Declaration : public Symbole
 {
 public:
 	Declaration();

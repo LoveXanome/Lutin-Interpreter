@@ -1,22 +1,19 @@
 #ifndef INSTRUCTION_AFFECTATION_HPP
 #define INSTRUCTION_AFFECTATION_HPP
 
-#include <iostream>
 #include <string>
+#include "Instruction.hpp"
+#include "Expression.hpp"
 
-using namespace std;
-
-class InstructionAffectation
+class InstructionAffectation : public Instruction
 {
-	public:
-	 InstructionAffectation(string identifiant);
-	 virtual ~InstructionAffectation();
+public:
+	InstructionAffectation(std::string identifiant);
+	virtual ~InstructionAffectation();
 	 
-	 string getIdentifiant();
-	 void setIdentifiant(string identifiant);
-	
-	private:
-	 string identifiant;
+private:
+	std::string identifiant;
+	Expression expression;
 };
 
-#endif
+#endif // INSTRUCTION_AFFECTATION_HPP
