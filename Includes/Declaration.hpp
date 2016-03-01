@@ -5,12 +5,12 @@
 
 class Declaration
 {
-	public:
-		Declaration();
-		virtual ~Declaration();
+public:
+	Declaration();
+	virtual ~Declaration();
 
-	protected:
-		std::string identifiant;
+protected:
+	std::string identifiant;
 };
 
 #endif // DECLARATION_HPP

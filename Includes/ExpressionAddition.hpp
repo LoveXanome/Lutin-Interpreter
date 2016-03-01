@@ -1,17 +1,13 @@
-#ifndef EXPRESSIONADDITION_HPP
-#define EXPRESSIONADDITION_HPP
+#ifndef EXPRESSION_ADDITION_HPP
+#define EXPRESSION_ADDITION_HPP
 
-#include <iostream>
 #include "ExpressionBinaire.hpp"
 
 class ExpressionAddition : public ExpressionBinaire
-{	
+{
 public:
 	ExpressionAddition();
 	virtual ~ExpressionAddition();
-	
-private:
-	
 };
 
-#endif // EXPRESSIONADDITION_HPP
+#endif // EXPRESSION_ADDITION_HPP

@@ -1,9 +1,10 @@
 #include "ExpressionDivision.hpp"
 
-ExpressionDivision::ExpressionDivision()
+ExpressionDivision::ExpressionDivision() : ExpressionBinaire
 {
 
 }
+
 ExpressionDivision::~ExpressionDivision()
 {
 

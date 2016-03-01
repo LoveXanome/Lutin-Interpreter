@@ -1,9 +1,10 @@
 #include "ExpressionAddition.hpp"
 
-ExpressionAddition::ExpressionAddition()
+ExpressionAddition::ExpressionAddition() : ExpressionBinaire()
 {
 
 }
+
 ExpressionAddition::~ExpressionAddition()
 {
 

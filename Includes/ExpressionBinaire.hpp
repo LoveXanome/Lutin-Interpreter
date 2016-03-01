@@ -1,7 +1,6 @@
-#ifndef EXPRESSIONBINAIRE_HPP
-#define EXPRESSIONBINAIRE_HPP
+#ifndef EXPRESSION_BINAIRE_HPP
+#define EXPRESSION_BINAIRE_HPP
 
-#include <iostream>
 #include "Expression.hpp"
 
 class ExpressionBinaire : public Expression
@@ -10,8 +9,9 @@ public:
 	ExpressionBinaire();
 	virtual ~ExpressionBinaire();
 	
-private:
-	
+protected:
+	Expression membreGauche;
+	Expression membreDroite;
 };
 
-#endif // EXPRESSIONBINAIRE_HPP
+#endif // EXPRESSION_BINAIRE_HPP

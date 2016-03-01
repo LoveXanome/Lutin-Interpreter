@@ -1,7 +1,6 @@
 #ifndef IDENTIFIANT_HPP
 #define IDENTIFIANT_HPP
 
-#include <iostream>
 #include <string>
 #include "Expression.hpp"
 
@@ -12,7 +11,7 @@ public:
 	virtual ~Identifiant();
 	
 private:
-	std::string Identifiant;
+	std::string identifiant;
 	
 };
 

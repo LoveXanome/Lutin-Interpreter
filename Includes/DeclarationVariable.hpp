@@ -5,9 +5,9 @@
 
 class DeclarationVariable : public Declaration
 {
-	public:
-		DeclarationVariable();
-		virtual ~DeclarationVariable();
+public:
+	DeclarationVariable();
+	virtual ~DeclarationVariable();
 };
 
 #endif // DECLARATION_VARIABLE_HPP

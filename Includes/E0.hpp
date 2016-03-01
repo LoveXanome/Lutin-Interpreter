@@ -5,8 +5,8 @@
 
 class E0 : public Etat
 {
-	public:
-		bool transition(AutomateLutin& automate, Symbole* s);
+public:
+	bool transition(AutomateLutin& automate, Symbole* s);
 };
 
 #endif //E0_HPP

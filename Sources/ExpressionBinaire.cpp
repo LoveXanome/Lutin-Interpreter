@@ -1,9 +1,10 @@
 #include "ExpressionBinaire.hpp"
 
-ExpressionBinaire::ExpressionBinaire()
+ExpressionBinaire::ExpressionBinaire() : Expression()
 {
 
 }
+
 ExpressionBinaire::~ExpressionBinaire()
 {
 

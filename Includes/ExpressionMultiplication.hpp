@@ -1,7 +1,6 @@
-#ifndef EXPRESSIONMULTIPLICATION_HPP
-#define EXPRESSIONMULTIPLICATION_HPP
+#ifndef EXPRESSION_MULTIPLICATION_HPP
+#define EXPRESSION_MULTIPLICATION_HPP
 
-#include <iostream>
 #include "ExpressionBinaire.hpp"
 
 class ExpressionMultiplication : public ExpressionBinaire
@@ -9,9 +8,6 @@ class ExpressionMultiplication : public ExpressionBinaire
 public:
 	ExpressionMultiplication();
 	virtual ~ExpressionMultiplication();
-	
-private:
-	
 };
 
-#endif // EXPRESSIONMULTIPLICATION_HPP
+#endif // EXPRESSION_MULTIPLICATION_HPP

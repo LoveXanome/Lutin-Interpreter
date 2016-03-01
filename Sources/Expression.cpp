@@ -1,14 +1,15 @@
-include "Expression.hpp"
+#include "Expression.hpp"
 
 Expression::Expression()
 {
 
 }
+
 Expression::~Expression()
 {
 
 }
-double eval(string Variables)
+double Expression::eval(std::string variables)
 {
 
 }

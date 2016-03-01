@@ -1,9 +1,10 @@
 #include "ExpressionSoustraction.hpp"
 
-ExpressionSoustraction::ExpressionSoustraction()
+ExpressionSoustraction::ExpressionSoustraction() : ExpressionBinaire()
 {
 
 }
+
 ExpressionSoustraction::~ExpressionSoustraction()
 {
 

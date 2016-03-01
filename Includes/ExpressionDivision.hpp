@@ -1,16 +1,13 @@
-#ifndef EXPRESSIONDIVISION_HPP
-#define EXPRESSIONDIVISION_HPP
+#ifndef EXPRESSION_DIVISION_HPP
+#define EXPRESSION_DIVISION_HPP
 
-#include <iostream>
 #include "ExpressionBinaire.hpp"
 
 class ExpressionDivision : public ExpressionBinaire
+{
 public:
 	ExpressionDivision();
 	virtual ~ExpressionDivision();
-	
-private:
-	
 };
 
-#endif // EXPRESSIONDIVISION_HPP
+#endif // EXPRESSION_DIVISION_HPP

@@ -5,12 +5,12 @@
 
 class DeclarationConstante : public Declaration 
 {
-	public:
-		DeclarationConstante();
-		virtual ~DeclarationConstante();
-		
-	private:
-		double valeur;
+public:
+	DeclarationConstante();
+	virtual ~DeclarationConstante();
+	
+private:
+	double valeur;
 };
 
 #endif // DECLARATION_CONSTANTE_HPP

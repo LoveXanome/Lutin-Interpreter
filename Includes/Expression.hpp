@@ -1,19 +1,15 @@
 #ifndef EXPRESSION_HPP
 #define EXPRESSION_HPP
 
-#include <iostream>
 #include <string>
 #include "Symbole.hpp"
 
-class ExpressionAddition : public Symbole
+class Expression : public Symbole
 {
 public:
 	Expression();
 	virtual ~Expression();
-	double eval(string Variables);
-	
-private:
-	
+	double eval(std::string variables);
 };
 
 #endif // EXPRESSION_HPP

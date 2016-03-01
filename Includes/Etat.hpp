@@ -8,14 +8,14 @@
 
 class Etat
 {
-	public:
-		Etat(std::string name);
-		virtual ~Etat();
-		void print() const;
-		virtual bool transition(AutomateLutin& automate, Symbole* s) = 0;
-		
-	protected:
-		std::string name;
+public:
+	Etat(std::string name);
+	virtual ~Etat();
+	void print() const;
+	virtual bool transition(AutomateLutin& automate, Symbole* s) = 0;
+	
+protected:
+	std::string name;
 };
 
 #endif // ETAT_HPP
