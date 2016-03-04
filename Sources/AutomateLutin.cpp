@@ -7,6 +7,7 @@ AutomateLutin::AutomateLutin()
 
 AutomateLutin::~AutomateLutin()
 {
+	delete lexer;
 }
 
 void AutomateLutin::lecture()
@@ -14,4 +15,4 @@ void AutomateLutin::lecture()
 	// TODO
 }
 
-// Transition & decalage
+// fonction Transition & decalage

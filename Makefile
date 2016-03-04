@@ -4,7 +4,7 @@ BUILDDIR=Objects/
 EXE=lut
 
 STATE_FILES=Etat E0
-GENERAL_FILES=AutomateLutin Programme Lexer TableDesSymboles Symbole
+GENERAL_FILES=AutomateLutin Programme Lexer TableDesSymboles Symbole CommandLineParser LutinArgsFabric
 INSTRUCTION_FILES=Instruction InstructionAffectation InstructionEcriture InstructionLecture ListeInstructions
 DECLARATION_FILES=Declaration DeclarationConstante DeclarationVariable ListeDeclarations
 EXPRESSION_FILES=Expression ExpressionBinaire ExpressionAddition ExpressionSoustraction ExpressionMultiplication ExpressionDivision
@@ -19,6 +19,8 @@ COMP=g++
 COMPFLAGS=-Wall -Werror -std=c++11
 
 all: builddir lutin
+
+remake: clean all
 
 $(BUILDDIR)%.o : $(SRCDIR)%.cpp
 	$(COMP) -o $@ -c $< $(COMPFLAGS) -I $(INCDIR)

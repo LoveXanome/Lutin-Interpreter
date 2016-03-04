@@ -1,6 +1,6 @@
 #include "Lexer.hpp"
 
-Lexer::Lexer()
+Lexer::Lexer(std::string fileName)
 {
 	
 }

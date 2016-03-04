@@ -19,7 +19,7 @@ private:
 	std::stack<Etat*> etats;
 	std::stack<Symbole*> symboles;
 	TableDesSymboles tableSymboles;
-	Lexer lexer;
+	Lexer* lexer;
 };
 
 #endif // AUTOMATE_LUTIN_HPP
