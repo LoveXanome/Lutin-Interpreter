@@ -2,22 +2,26 @@
 #include "CommandLineParser.hpp"
 
 #include <string>
+#include <exception>
 
 #include <iostream>
 #include <fstream>
 
 int main(int argc, char** argv)
 {
-	CommandLineParser cmdLineParser(argc, argv);
-	
-	std::cout << cmdLineParser.getFileName() << std::endl;
-	std::cout << cmdLineParser.getOptions() << std::endl;
-	
-	// -o  : transformation
-	// -a : analyse statique
-	// -p affichage
-	// -e execution
-	
+	try
+	{
+		CommandLineParser cmdLineParser(argc, argv);
+		std::cout << cmdLineParser.getFileName() << std::endl;
+		std::cout << cmdLineParser.getOptions() << std::endl;
+		// Create AutomateLutin
+	}
+	catch (const std::exception& ex)
+	{
+		std::cerr << ex.what() << std::endl;
+		return 1;
+	}
+
 	// TODO command line parser + error testing + unit tests
 	/*std::string fileName = argv[1];
 	

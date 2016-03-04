@@ -24,7 +24,6 @@
 
 # Executables
 *.exe
-*.out
 *.app
 
 # Our executable
@@ -32,3 +31,6 @@ lut
 
 # Objects directory
 Objects/
+
+# Test results
+*.csv

@@ -12,7 +12,7 @@ public:
 	std::string getFileName() const;
 	
 private:
-	/* Corresponds to the bitwise 'or' (|) of matched options */
+	/* Corresponds to the bitwise 'or' of matched options */
 	int options;
 	std::string fileName;
 

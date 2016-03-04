@@ -1,5 +1,9 @@
 #include "LutinArgsFabric.hpp"
 
+#include <cstdio>
+#include <string>
+#include <stdexcept>
+
 LutinArgs LutinArgsFabric::makeLutinArg(const char option)
 {
 	switch (option)
@@ -13,7 +17,11 @@ LutinArgs LutinArgsFabric::makeLutinArg(const char option)
 		case EXECUTION_OPT:
 			return EXECUTION;
 		default:
-			return (LutinArgs)0;
-			// TODO or throw exception
+			char* tmpError = new char[19];
+			sprintf(tmpError, "Invalid option '%c'", option);
+			std::string errorMsg(tmpError);
+			delete[] tmpError;
+			
+			throw std::invalid_argument(errorMsg);
 	}
 }
