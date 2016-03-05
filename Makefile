@@ -4,7 +4,7 @@ BUILDDIR=Objects/
 EXE=lut
 
 STATE_FILES=Etat E0
-GENERAL_FILES=AutomateLutin Programme Lexer TableDesSymboles Symbole CommandLineParser LutinArgsFabric
+GENERAL_FILES=AutomateLutin Programme Lexer TableDesSymboles Symbole CommandLineParser LutinArgsFabric StringHelper
 INSTRUCTION_FILES=Instruction InstructionAffectation InstructionEcriture InstructionLecture ListeInstructions
 DECLARATION_FILES=Declaration DeclarationConstante DeclarationVariable ListeDeclarations
 EXPRESSION_FILES=Expression ExpressionBinaire ExpressionAddition ExpressionSoustraction ExpressionMultiplication ExpressionDivision

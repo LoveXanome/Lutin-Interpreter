@@ -1,8 +1,18 @@
 #include "AutomateLutin.hpp"
 
-AutomateLutin::AutomateLutin()
+#include <iostream>
+
+#include "Programme.hpp"
+#include "E0.hpp"
+
+AutomateLutin::AutomateLutin(const std::string& fileName, const int options)
 {
-	// TODO : init first state
+	lexer = new Lexer(fileName);
+	
+	symboles.push(new Programme);
+	etats.push(new E0);
+	
+	// options
 }
 
 AutomateLutin::~AutomateLutin()
@@ -13,6 +23,13 @@ AutomateLutin::~AutomateLutin()
 void AutomateLutin::lecture()
 {
 	// TODO
+	std::cout << "LECTURE" << std::endl;
 }
 
-// fonction Transition & decalage
+void AutomateLutin::decalage(Symbole* symbole, Etat* etat)
+{
+}
+
+void AutomateLutin::reduction(Etat* etat, int nb)
+{
+}

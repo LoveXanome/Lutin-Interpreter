@@ -18,7 +18,7 @@ CommandLineParser::CommandLineParser(const int argc, char** argv) : options(0)
 		else
 		{
 			if (fileName != "")
-				throw std::invalid_argument("More than one lutin source file specified")
+				throw std::invalid_argument("More than one lutin source file specified");
 				
 			fileName = arg;
 		}

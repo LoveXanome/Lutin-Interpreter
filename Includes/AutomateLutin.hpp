@@ -3,6 +3,7 @@
 
 class Etat;
 
+#include <string>
 #include <stack>
 #include "Etat.hpp"
 #include "TableDesSymboles.hpp"
@@ -11,9 +12,11 @@ class Etat;
 class AutomateLutin
 {
 public:
-	AutomateLutin();
+	AutomateLutin(const std::string& fileName, const int options);
 	virtual ~AutomateLutin();
 	void lecture();
+	void decalage(Symbole* symbole, Etat* etat);
+	void reduction(Etat* etat, int nb);
 	
 private:
 	std::stack<Etat*> etats;
