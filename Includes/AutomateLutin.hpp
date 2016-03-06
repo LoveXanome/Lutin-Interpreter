@@ -5,9 +5,12 @@ class Etat;
 
 #include <string>
 #include <stack>
+#include <unordered_map>
+#include "Declaration.hpp"
 #include "Etat.hpp"
-#include "TableDesSymboles.hpp"
 #include "Lexer.hpp"
+
+typedef std::unordered_map<std::string, Declaration> TableDesSymboles;
 
 class AutomateLutin
 {
