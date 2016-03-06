@@ -17,7 +17,7 @@ bool E0::transition(AutomateLutin* automate, Symbole* s)
 	switch (*s)
 	{
         case D:
-            automate.decalage(s, new E1);
+            //automate->decalage(s, new E1);
             break;
     }
 	return false;
