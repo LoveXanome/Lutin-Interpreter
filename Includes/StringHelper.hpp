@@ -15,5 +15,4 @@ private:
 	StringHelper();
 };
 
-
 #endif // STRING_HELPER_HPP

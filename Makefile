@@ -15,21 +15,28 @@ INC=$(addprefix $(INCDIR), $(addsuffix .hpp, $(FILES)))
 OBJ=$(addprefix $(BUILDDIR), $(addsuffix .o, $(FILES)))
 MAIN=$(SRCDIR)main.cpp
 
-COMP=g++
-COMPFLAGS=-Wall -Werror -std=c++11
+COMP=@g++
+LINKER=@g++
+COMMONFLAGS=-std=c++11
+COMPFLAGS=$(COMMONFLAGS) -Wall -Werror
+LINKERFLAGS=$(COMMONFLAGS)
+ECHO=@echo
 
 all: builddir lutin
 
 remake: clean all
 
 $(BUILDDIR)%.o : $(SRCDIR)%.cpp
+	$(ECHO) "Compiling $< (generating $@)"
 	$(COMP) -o $@ -c $< $(COMPFLAGS) -I $(INCDIR)
 
 main.o: $(MAIN)
+	$(ECHO) "Compiling $(MAIN)"
 	$(COMP) -o $(BUILDDIR)main.o -c $(MAIN) $(COMPFLAGS) -I $(INCDIR)
 
 lutin: main.o $(OBJ)
-	$(COMP) $(COMPFLAGS) -o $(EXE) $(OBJ) $(BUILDDIR)main.o $(INC)
+	$(ECHO) "Linking $(EXE)"
+	$(LINKER) $(LINKERFLAGS) -o $(EXE) $(OBJ) $(BUILDDIR)main.o $(INC)
 
 builddir:
 	mkdir -p $(BUILDDIR)
