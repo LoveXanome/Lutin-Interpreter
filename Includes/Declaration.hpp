@@ -1,33 +1,18 @@
-/*************************************************************************
-                           Declaration  
-*************************************************************************/
 
-#if!defined ( DECLARATION_HPP )
+#ifndef DECLARATION_HPP
 #define DECLARATION_HPP
 
 #include <string>
+#include "Symbole.hpp"
 
-
-class Declaration
+class Declaration : public Symbole
 {
-
 public:
-//----------------------------------------------------- Méthodes publiques
-
-
-//-------------------------------------------- Constructeurs - destructeur
-    Declaration();
-    virtual ~Declaration();
-
+	Declaration();
+	virtual ~Declaration();
 
 protected:
-//----------------------------------------------------- Méthodes protégées
-
-//----------------------------------------------------- Attributs protégés
-	string identifiant;
+	std::string identifiant;
 };
 
-//--------------------------- Autres définitions dépendantes de <Declaration>
-
 #endif // DECLARATION_HPP
-

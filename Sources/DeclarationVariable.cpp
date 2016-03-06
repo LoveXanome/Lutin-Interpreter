@@ -1,1 +1,11 @@
-DeclarationVariable.cpp
+#include "DeclarationVariable.hpp"
+
+DeclarationVariable::DeclarationVariable() : Declaration()
+{
+	
+}
+
+DeclarationVariable::~DeclarationVariable()
+{
+	
+}
