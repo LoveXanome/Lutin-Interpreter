@@ -1,6 +1,8 @@
 #include "Declaration.hpp"
 
-Declaration::Declaration() : Symbole()
+#include "SymboleEnum.hpp"
+
+Declaration::Declaration() : Symbole(D)
 {
 	
 }

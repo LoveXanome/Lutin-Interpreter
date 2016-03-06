@@ -1,6 +1,8 @@
 #include "ExpressionAddition.hpp"
 
-ExpressionAddition::ExpressionAddition() : ExpressionBinaire()
+#include "SymboleEnum.hpp"
+
+ExpressionAddition::ExpressionAddition() : ExpressionBinaire(PLUS)
 {
 
 }

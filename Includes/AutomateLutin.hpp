@@ -16,13 +16,19 @@ public:
 	virtual ~AutomateLutin();
 	void lecture();
 	void decalage(Symbole* symbole, Etat* etat);
-	void reduction(Etat* etat, int nb);
+	void reduction(Etat* etat, const unsigned int nb);
 	
 private:
+	int options;
 	std::stack<Etat*> etats;
 	std::stack<Symbole*> symboles;
 	TableDesSymboles tableSymboles;
 	Lexer* lexer;
+	
+	void transformation();
+	void analyseStatique();
+	void execution();
+	void affichage();
 };
 
 #endif // AUTOMATE_LUTIN_HPP

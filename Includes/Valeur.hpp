@@ -6,7 +6,7 @@
 class Valeur : public Expression
 {
 public:
-	Valeur();
+	Valeur(const double& valeur);
 	virtual ~Valeur();
 	
 private:

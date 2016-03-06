@@ -1,6 +1,6 @@
 #include "Symbole.hpp"
 
-Symbole::Symbole()
+Symbole::Symbole(const SymboleEnum& enumRepresentation) : enumRepresentation(enumRepresentation)
 {
 	
 }

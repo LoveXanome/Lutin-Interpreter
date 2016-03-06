@@ -9,6 +9,7 @@ public:
 	virtual ~StringHelper();
 	
 	static std::string format(const std::string& fmt_str, ...);
+	static bool isOnlyWhitespaces(const std::string& str);
 	
 private:
 	StringHelper();

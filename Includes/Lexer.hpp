@@ -11,10 +11,10 @@ public:
 	Lexer(const std::string& fileName);
 	virtual ~Lexer();
 	
-	Symbole* getNext();
-	Symbole* readNext() const;
+	virtual Symbole* getNext() = 0;
+	virtual Symbole* readNext() const = 0;
 	
-private:
+protected:
 	std::ifstream* fileStream;
 };
 

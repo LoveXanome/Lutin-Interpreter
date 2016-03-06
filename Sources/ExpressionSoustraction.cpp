@@ -1,6 +1,8 @@
 #include "ExpressionSoustraction.hpp"
 
-ExpressionSoustraction::ExpressionSoustraction() : ExpressionBinaire()
+#include "SymboleEnum.hpp"
+
+ExpressionSoustraction::ExpressionSoustraction() : ExpressionBinaire(MOINS)
 {
 
 }

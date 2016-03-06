@@ -1,6 +1,8 @@
 #include "Programme.hpp"
 
-Programme::Programme() : Symbole()
+#include "SymboleEnum.hpp"
+
+Programme::Programme() : Symbole(E)
 {
 	
 }

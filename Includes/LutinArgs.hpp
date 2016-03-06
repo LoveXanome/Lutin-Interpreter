@@ -9,4 +9,9 @@ enum LutinArgs // TODO smaller int type
 	EXECUTION = 8 			// b00001000
 };
 
+inline LutinArgs operator | (LutinArgs a, LutinArgs b)
+{
+	return static_cast<LutinArgs>(static_cast<int>(a) | static_cast<int>(b));
+}
+
 #endif // LUTIN_ARGS_HPP

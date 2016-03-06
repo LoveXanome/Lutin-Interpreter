@@ -1,6 +1,8 @@
 #include "Valeur.hpp"
 
-Valeur::Valeur() : Expression()
+#include "SymboleEnum.hpp"
+
+Valeur::Valeur(const double& valeur) : Expression(VALEUR), valeur(valeur)
 {
 
 }

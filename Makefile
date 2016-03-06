@@ -4,10 +4,10 @@ BUILDDIR=Objects/
 EXE=lut
 
 STATE_FILES=Etat E0
-GENERAL_FILES=AutomateLutin Programme Lexer TableDesSymboles Symbole CommandLineParser LutinArgsFabric StringHelper
+GENERAL_FILES=AutomateLutin Programme Lexer FileLexer LineLexer TableDesSymboles Symbole CommandLineParser LutinArgsFabric StringHelper SymbolFabric SymboleTerminal RegexHelper
 INSTRUCTION_FILES=Instruction InstructionAffectation InstructionEcriture InstructionLecture ListeInstructions
 DECLARATION_FILES=Declaration DeclarationConstante DeclarationVariable ListeDeclarations
-EXPRESSION_FILES=Expression ExpressionBinaire ExpressionAddition ExpressionSoustraction ExpressionMultiplication ExpressionDivision
+EXPRESSION_FILES=Expression ExpressionBinaire ExpressionAddition ExpressionSoustraction ExpressionMultiplication ExpressionDivision Identifiant Valeur
 FILES=$(GENERAL_FILES) $(STATE_FILES) $(INSTRUCTION_FILES) $(DECLARATION_FILES) $(EXPRESSION_FILES)
 
 SRC=$(addprefix $(SRCDIR), $(addsuffix .cpp, $(FILES)))

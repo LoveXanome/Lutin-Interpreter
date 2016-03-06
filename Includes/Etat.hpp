@@ -14,7 +14,7 @@ public:
 	Etat();
 	virtual ~Etat();
 	void print() const;
-	virtual bool transition(AutomateLutin& automate, Symbole* s) = 0;
+	virtual bool transition(AutomateLutin* automate, Symbole* s) = 0;
 };
 
 #endif // ETAT_HPP

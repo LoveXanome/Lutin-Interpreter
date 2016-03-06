@@ -1,6 +1,8 @@
 #include "Identifiant.hpp"
 
-Identifiant::Identifiant() : Expression()
+#include "SymboleEnum.hpp"
+
+Identifiant::Identifiant(const std::string& identifiant) : Expression(IDENTIFIANT), identifiant(identifiant)
 {
 
 }

@@ -1,6 +1,8 @@
 #include "ExpressionMultiplication.hpp"
 
-ExpressionMultiplication::ExpressionMultiplication() : ExpressionBinaire()
+#include "SymboleEnum.hpp"
+
+ExpressionMultiplication::ExpressionMultiplication() : ExpressionBinaire(MULTIPLIER)
 {
 
 }

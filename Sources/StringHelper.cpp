@@ -3,6 +3,7 @@
 #include <memory>
 #include <cstdarg>
 #include <cstring>
+#include <algorithm>
 
 StringHelper::StringHelper()
 {
@@ -32,4 +33,9 @@ std::string StringHelper::format(const std::string& fmt_str, ...)
             break;
     }
     return std::string(formatted.get());
+}
+
+bool StringHelper::isOnlyWhitespaces(const std::string& str)
+{
+	return std::all_of(str.begin(), str.end(), isspace);
 }

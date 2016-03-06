@@ -1,6 +1,8 @@
 #include "Instruction.hpp"
 
-Instruction::Instruction() : Symbole()
+#include "SymboleEnum.hpp"
+
+Instruction::Instruction() : Symbole(I)
 {
 	
 }

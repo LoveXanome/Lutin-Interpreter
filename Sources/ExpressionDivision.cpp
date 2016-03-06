@@ -1,6 +1,8 @@
 #include "ExpressionDivision.hpp"
 
-ExpressionDivision::ExpressionDivision() : ExpressionBinaire()
+#include "SymboleEnum.hpp"
+
+ExpressionDivision::ExpressionDivision() : ExpressionBinaire(DIVISER)
 {
 
 }

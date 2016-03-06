@@ -7,7 +7,7 @@
 class Identifiant : public Expression
 {
 public:
-	Identifiant();
+	Identifiant(const std::string& identifiant);
 	virtual ~Identifiant();
 	
 private:

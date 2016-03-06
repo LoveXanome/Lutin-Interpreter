@@ -1,24 +1,13 @@
 #ifndef SYMBOLE_TERMINAL_HPP
 #define SYMBOLE_TERMINAL_HPP
 
-enum SymboleTerminal
+#include "Symbole.hpp"
+
+class SymboleTerminal : public Symbole
 {
-	Plus,
-	Moins,
-	Multiplier,
-	Diviser,
-	ParentheseOuvrante,
-	ParentheseFermante,
-	Var,
-	PointVirgule,
-	Const,
-	Virgule,
-	Identifiant,
-	Egal,
-	Valeur,
-	Affectation,
-	Ecrire,
-	Lire
+public:
+	SymboleTerminal(const SymboleEnum& enumRepresentation);
+	virtual ~SymboleTerminal();
 };
 
 #endif // SYMBOLE_TERMINAL_HPP
