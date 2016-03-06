@@ -11,3 +11,8 @@ Identifiant::~Identifiant()
 {
 
 }
+
+std::string Identifiant::getIdentifiant() const
+{
+	return identifiant;
+}

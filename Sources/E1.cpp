@@ -10,18 +10,26 @@ E1::~E1()
 	
 }
 
-bool E1::transition(AutomateLutin& automate, Symbole * s)
+bool E1::transition(AutomateLutin* automate, Symbole * s)
 {
-	switch (*s){
-        case Const :
-            automate.decalage(s, new E34);
+	switch (*s)
+	{
+        case CONST:
+            //automate.decalage(s, new E34);
             break;
-        case I :
-            automate.decalage(s, new E2);
+        case VAR:
+			automate->decalage(s, new E28);
+			break;
+		case IDENTIFIANT:
+		case ECRIRE:
+		case LIRE:
+        case I:
+            //automate->decalage(s, new E2);
             break;
-        case D2 :
-            automate.decalage(s, new E27);
+        case D2: // can happen ???
+            //automate->decalage(s, new E27);
             break;
+        
     }
 	return false;
 }

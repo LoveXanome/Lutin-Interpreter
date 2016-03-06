@@ -11,4 +11,4 @@ public:
 	bool transition(AutomateLutin* automate, Symbole* s);
 };
 
-#endif //E0_HPP
+#endif // E0_HPP

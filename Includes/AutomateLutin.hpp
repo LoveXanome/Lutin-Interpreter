@@ -16,7 +16,7 @@ public:
 	virtual ~AutomateLutin();
 	void lecture();
 	void decalage(Symbole* symbole, Etat* etat);
-	void reduction(Etat* etat, const unsigned int nb);
+	void reduction(Symbole* symbole, const unsigned int nb);
 	
 private:
 	int options;

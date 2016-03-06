@@ -1,6 +1,6 @@
 #include "DeclarationVariable.hpp"
 
-DeclarationVariable::DeclarationVariable() : Declaration()
+DeclarationVariable::DeclarationVariable(const std::string& identifiant, const SymboleEnum& enumRepresentation) : Declaration(identifiant, enumRepresentation)
 {
 	
 }
