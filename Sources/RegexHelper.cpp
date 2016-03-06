@@ -39,7 +39,7 @@ std::string RegexHelper::findFirstMatchingRegex(const std::string& str)
 	ifFirstRegexReplace(str, VIRGULE_REGEX_STR, &firstPosition, &firstRegexStr);
 
 	if (firstPosition == str.size())
-		throw std::runtime_error(StringHelper::format("The line '%s' could not be interpreted", str.c_str()));
+		throw std::runtime_error(StringHelper::format("'%s' could not be interpreted", str.c_str()));
 		
 	return firstRegexStr;
 }

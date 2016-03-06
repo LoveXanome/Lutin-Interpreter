@@ -5,9 +5,6 @@
 #include "E0.hpp"
 #include "LutinArgs.hpp"
 
-
-#include <iostream>
-
 AutomateLutin::AutomateLutin(const std::string& fileName, const int options)
 {
 	lexer = new FileLexer(fileName);
@@ -20,8 +17,19 @@ AutomateLutin::AutomateLutin(const std::string& fileName, const int options)
 
 AutomateLutin::~AutomateLutin()
 {
+	while (!etats.empty())
+	{
+		delete etats.top();
+		etats.pop();
+	}
+	
+	while (!symboles.empty())
+	{
+		delete symboles.top();
+		symboles.pop();
+	}
+	
 	delete lexer;
-	// TODO delete etats & symboles
 }
 
 void AutomateLutin::lecture()

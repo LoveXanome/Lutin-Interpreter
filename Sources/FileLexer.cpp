@@ -17,7 +17,8 @@ FileLexer::FileLexer(const std::string& fileName) : Lexer(fileName), currentIdx(
 
 FileLexer::~FileLexer()
 {
-	// TODO delete symboles
+	for (auto it = symboles.begin(); it != symboles.end(); ++it)
+		delete *it;
 }
 	
 Symbole* FileLexer::getNext()
