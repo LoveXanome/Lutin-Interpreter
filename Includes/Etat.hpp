@@ -9,10 +9,11 @@ class AutomateLutin;
 #include "Symbole.hpp"
 
 class Etat
+
 {
 protected :
 	typedef enum {ACCEPTE, RECONNU, NON_RECONNU, REDUIT, SUIVANT_NON_VALIDE, ERREUR_INIT} valeurRetour;	
-	
+
 public:
 	Etat();
 	virtual ~Etat();

@@ -1,19 +1,17 @@
-#include "E31.hpp"
+#include "E27.hpp"
 
 #include "SymboleEnum.hpp"
 #include "SymboleDefaut.hpp"
 
-E31::E31() : Etat()
+E27::E27() : Etat()
 {
-	
 }
 
-E31::~E31()
+E27::~E27()
 {
-	
 }
 
-valeurRetour E31::transition(AutomateLutin* automate, Symbole* s)
+valeurRetour E27::transition(AutomateLutin* automate, Symbole* s)
 {
 	switch (*s)
 	{
@@ -24,10 +22,10 @@ valeurRetour E31::transition(AutomateLutin* automate, Symbole* s)
 		case CONST:
 			automate->popSymbole();
 			automate->popSymbole();
-			automate->popSymbole();
-			automate->reduction(new SymboleDefaut(D2), 3);
+			
+			automate->reduction(new SymboleDefaut(D), 2);
 			return REDUIT;
+			break;
 	}
-	
 	return NON_RECONNU;
 }

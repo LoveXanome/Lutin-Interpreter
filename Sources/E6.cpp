@@ -1,5 +1,9 @@
 #include "E6.hpp"
 
+#include "SymboleDefaut.hpp"
+#include "InstructionLecture.hpp"
+#include "Identifiant.hpp"
+
 E6::E6() : Etat()
 {
 	
@@ -27,5 +31,5 @@ valeurRetour E6::transition(AutomateLutin* automate, Symbole * s)
 	{
 		retour = SUIVANT_NON_VALIDE;
     }
-	return retour;
+	return NON_RECONNU;
 }

@@ -8,6 +8,7 @@ class Valeur : public Expression
 public:
 	Valeur(const double& valeur);
 	virtual ~Valeur();
+	double getValeur() const;
 	
 private:
 	double valeur;

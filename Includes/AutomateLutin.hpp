@@ -8,6 +8,8 @@ class Etat;
 #include "Etat.hpp"
 #include "TableDesSymboles.hpp"
 #include "Lexer.hpp"
+#include "Declaration.hpp"
+#include "Programme.hpp"
 
 class AutomateLutin
 {
@@ -15,8 +17,11 @@ public:
 	AutomateLutin(const std::string& fileName, const int options);
 	virtual ~AutomateLutin();
 	void lecture();
-	void decalage(Symbole* symbole, Etat* etat);
-	void reduction(Symbole* symbole);
+	void decalage(Symbole* symbole, Etat* etat, bool readNext);
+	void reduction(Symbole* symbole, const unsigned int nbEtats);
+	Symbole* popSymbole();
+	void addDeclarationToProgram(Declaration* d);
+	void addInstructionToProgram(Instruction* i);
 	
 private:
 	int options;
@@ -24,8 +29,8 @@ private:
 	std::stack<Symbole*> symboles;
 	TableDesSymboles tableSymboles;
 	Lexer* lexer;
+	Programme programme;
 	
-	bool isTerminal(const Symbole* s) const;
 	void transformation();
 	void analyseStatique();
 	void execution();

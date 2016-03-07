@@ -6,7 +6,7 @@
 class DeclarationConstante : public Declaration 
 {
 public:
-	DeclarationConstante(const std::string& identifiant, const double& valeur, const SymboleEnum& enumRepresentation);
+	DeclarationConstante(const std::string& identifiant, const double& valeur);
 	virtual ~DeclarationConstante();
 	
 private:

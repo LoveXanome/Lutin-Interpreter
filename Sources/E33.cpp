@@ -1,30 +1,31 @@
-#include "E29.hpp"
+#include "E33.hpp"
 
-#include "DeclarationVariable.hpp"
+#include "SymboleEnum.hpp"
 #include "Identifiant.hpp"
 #include "SymboleDefaut.hpp"
+#include "DeclarationVariable.hpp"
 
-E29::E29() : Etat()
+E33::E33() : Etat()
 {
 }
 
-E29::~E29()
+E33::~E33()
 {
 }
 
-valeurRetour E29::transition(AutomateLutin* automate, Symbole* s)
+valeurRetour E33::transition(AutomateLutin* automate, Symbole* s)
 {
 	switch (*s)
 	{
 		case POINT_VIRGULE:
 		case VIRGULE:
 			Identifiant* i = (Identifiant*) automate->popSymbole();
+			automate->popSymbole();
+			automate->popSymbole();
 			automate->addDeclarationToProgram(new DeclarationVariable(i->getIdentifiant()));
 			
-			automate->reduction(new SymboleDefaut(ID), 1);
+			automate->reduction(new SymboleDefaut(ID), 3);
 			return REDUIT;
 	}
-
 	return NON_RECONNU;
 }
-

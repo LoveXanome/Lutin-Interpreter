@@ -8,7 +8,7 @@ class E38 : public Etat
 public:
 	E38();
 	virtual ~E38();
-	valeurRetour E38::transition(AutomateLutin* automate, Symbole * s);
+	valeurRetour transition(AutomateLutin* automate, Symbole * s);
 };
 
 #endif //E38_HPP

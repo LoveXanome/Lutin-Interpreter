@@ -7,7 +7,7 @@
 class DeclarationVariable : public Declaration
 {
 public:
-	DeclarationVariable(const std::string& identifiant, const SymboleEnum& enumRepresentation);
+	DeclarationVariable(const std::string& identifiant);
 	virtual ~DeclarationVariable();
 };
 

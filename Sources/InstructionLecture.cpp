@@ -1,6 +1,6 @@
 #include "InstructionLecture.hpp"
 
-InstructionLecture::InstructionLecture() : Instruction()
+InstructionLecture::InstructionLecture(const std::string& identifiant) : Instruction(), identifiant(identifiant)
 {
 	
 }

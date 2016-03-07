@@ -8,7 +8,7 @@ class E40 : public Etat
 public:
 	E40();
 	virtual ~E40();
-	valeurRetour E40::transition(AutomateLutin* automate, Symbole * s);
+	valeurRetour transition(AutomateLutin* automate, Symbole * s);
 };
 
 #endif //E40_HPP

@@ -8,7 +8,7 @@ class E42 : public Etat
 public:
 	E42();
 	virtual ~E42();
-	valeurRetour E42::transition(AutomateLutin* automate, Symbole * s);
+	valeurRetour transition(AutomateLutin* automate, Symbole * s);
 };
 
 #endif //E42_HPP
