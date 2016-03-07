@@ -29,5 +29,5 @@ valeurRetour E6::transition(AutomateLutin* automate, Symbole * s)
             automate->reduction(new SymboleDefaut(I2), 3);
             return REDUIT;
     }
-	return retour;
+	return NON_RECONNU;
 }
