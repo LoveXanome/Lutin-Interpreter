@@ -11,7 +11,7 @@ E27::~E27()
 {
 }
 
-Etat::valeurRetour E27::transition(AutomateLutin* automate, Symbole* s)
+valeurRetour E27::transition(AutomateLutin* automate, Symbole* s)
 {
 	switch (*s)
 	{

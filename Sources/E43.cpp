@@ -15,7 +15,7 @@ E43::~E43()
 	
 }
 
-Etat::valeurRetour E43::transition(AutomateLutin* automate, Symbole * s)
+valeurRetour E43::transition(AutomateLutin* automate, Symbole * s)
 {
 	switch (*s)
 	{

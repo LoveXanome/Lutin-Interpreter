@@ -12,7 +12,7 @@ E26::~E26()
 	
 }
 
-Etat::valeurRetour E26::transition(AutomateLutin* automate, Symbole * s)
+valeurRetour E26::transition(AutomateLutin* automate, Symbole * s)
 {
     valeurRetour retour = SUIVANT_NON_VALIDE;
     switch (*s)

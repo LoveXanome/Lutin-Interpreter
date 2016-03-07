@@ -10,7 +10,7 @@ E20::~E20()
 	
 }
 
-Etat::valeurRetour E20::transition(AutomateLutin* automate, Symbole * s)
+valeurRetour E20::transition(AutomateLutin* automate, Symbole * s)
 {
 	switch (*s){
         case ParentheseOuvrante :

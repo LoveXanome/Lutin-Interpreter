@@ -10,7 +10,7 @@ E9::~E9()
 	
 }
 
-Etat::valeurRetour E9::transition(AutomateLutin* automate, Symbole * s)
+valeurRetour E9::transition(AutomateLutin* automate, Symbole * s)
 {
 	switch (*s){
         case PointVirgule :

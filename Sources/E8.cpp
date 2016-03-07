@@ -10,7 +10,7 @@ E8::~E8()
 	
 }
 
-Etat::valeurRetour E8::transition(AutomateLutin* automate, Symbole * s)
+valeurRetour E8::transition(AutomateLutin* automate, Symbole * s)
 {
 	switch (*s){
         case Identifiant :

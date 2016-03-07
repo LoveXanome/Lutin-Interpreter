@@ -14,7 +14,7 @@ E30::~E30()
 	
 }
 
-Etat::valeurRetour E30::transition(AutomateLutin* automate, Symbole* s)
+valeurRetour E30::transition(AutomateLutin* automate, Symbole* s)
 {
 	switch (*s)
 	{

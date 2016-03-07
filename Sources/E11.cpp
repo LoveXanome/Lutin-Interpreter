@@ -10,7 +10,7 @@ E11::~E11()
 	
 }
 
-Etat::valeurRetour E11::transition(AutomateLutin* automate, Symbole * s)
+valeurRetour E11::transition(AutomateLutin* automate, Symbole * s)
 {
 	switch (*s){
         case default :

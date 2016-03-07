@@ -10,7 +10,7 @@ E7::~E7()
 	
 }
 
-Etat::valeurRetour E7::transition(AutomateLutin* automate, Symbole * s)
+valeurRetour E7::transition(AutomateLutin* automate, Symbole * s)
 {
 	switch (*s){
         case Affectation :

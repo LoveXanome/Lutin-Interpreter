@@ -8,7 +8,6 @@ class E6 : public Etat
 public:
 	E6();
 	virtual ~E6();
-	
 	valeurRetour transition(AutomateLutin* automate, Symbole* s);
 };
 

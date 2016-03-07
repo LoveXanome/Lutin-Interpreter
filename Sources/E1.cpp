@@ -15,7 +15,7 @@ E1::~E1()
 	
 }
 
-Etat::valeurRetour E1::transition(AutomateLutin* automate, Symbole * s)
+valeurRetour E1::transition(AutomateLutin* automate, Symbole * s)
 {
 	valeurRetour retour = RECONNU;
 	switch (*s)

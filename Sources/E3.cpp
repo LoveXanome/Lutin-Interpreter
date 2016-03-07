@@ -12,7 +12,7 @@ E3::~E3()
 	
 }
 
-Etat::valeurRetour E3::transition(AutomateLutin* automate, Symbole * s)
+valeurRetour E3::transition(AutomateLutin* automate, Symbole * s)
 {
 	switch (*s){
         default :
