@@ -3,7 +3,7 @@ INCDIR=Includes/
 BUILDDIR=Objects/
 EXE=lut
 
-STATE_FILES=Etat E0 E1 28 29
+STATE_FILES=Etat E0 E1 E27 E28 E29 E30 E31 E32 E33
 GENERAL_FILES=AutomateLutin Programme Lexer FileLexer LineLexer TableDesSymboles Symbole CommandLineParser LutinArgsFabric StringHelper SymbolFabric SymboleTerminal RegexHelper SymboleDefaut
 INSTRUCTION_FILES=Instruction InstructionAffectation InstructionEcriture InstructionLecture ListeInstructions
 DECLARATION_FILES=Declaration DeclarationConstante DeclarationVariable ListeDeclarations

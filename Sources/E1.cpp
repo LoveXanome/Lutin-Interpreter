@@ -26,8 +26,8 @@ valeurRetour E1::transition(AutomateLutin* automate, Symbole * s)
         case I:
             //automate->decalage(s, new E2);
             break;
-        case D2: // can happen ???
-            //automate->decalage(s, new E27);
+        case D2:
+            automate->decalage(s, new E27, false);
             break;
         
     }

@@ -17,10 +17,10 @@ valeurRetour E30::transition(AutomateLutin* automate, Symbole* s)
 	switch (*s)
 	{
 		case POINT_VIRGULE:
-			automate->decalage(s, new E31);
+			automate->decalage(s, new E31, true);
 			break;
 		case VIRGULE:
-			automate->decalage(s, new E32);
+			automate->decalage(s, new E32, true);
 			break;
     }
 	return NON_RECONNU;
