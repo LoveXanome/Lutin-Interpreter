@@ -8,7 +8,7 @@ class E30 : public Etat
 public:
 	E30();
 	virtual ~E30();
-	valeurRetour(AutomateLutin* automate, Symbole* s);
+	valeurRetour transition(AutomateLutin* automate, Symbole* s);
 };
 
 #endif // E30_HPP

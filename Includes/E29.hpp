@@ -8,7 +8,7 @@ class E29 : public Etat
 public:
 	E29();
 	virtual ~E29();
-	valeurRetour(AutomateLutin* automate, Symbole* s);
+	valeurRetour transition(AutomateLutin* automate, Symbole* s);
 };
 
 #endif // E29_HPP

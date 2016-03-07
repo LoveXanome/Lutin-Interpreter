@@ -8,7 +8,7 @@ class E16 : public Etat
 public:
 	E16();
 	virtual ~E16();
-	valeurRetour(AutomateLutin* automate, Symbole* s);
+	valeurRetour transition(AutomateLutin* automate, Symbole* s);
 };
 
 #endif //E16_HPP
