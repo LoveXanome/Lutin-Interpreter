@@ -4,6 +4,9 @@
 #include "Programme.hpp"
 #include "E0.hpp"
 #include "LutinArgs.hpp"
+#include "Identifiant.hpp"
+#include "Valeur.hpp"
+#include "SymboleTerminal.hpp"
 
 AutomateLutin::AutomateLutin(const std::string& fileName, const int options)
 {
@@ -51,34 +54,26 @@ void AutomateLutin::lecture()
 }
 
 void AutomateLutin::decalage(Symbole* symbole, Etat* etat)
-{
-	// Empiler seulement les symboles "utiles"
-	// Peut-être mettre les instructions / declarations dans un attribut "Programme"
-	// Donc méthodes addIntructionToProgram() & addDeclarationToProgram() ?
-	
-	// Quand est-ce qu'on dépile les symboles? Sert à quoi cette liste?
-	
-	// Si symbole non terminal a fait la transitio
-	// -> ne pas lire le prochaine symbole du fichier
-	// Sinon, faire un getNext()
-	
-	//symboles.push(symbole);
+{	
+	symboles.push(symbole);
 	etats.push(etat);
 	
-	Symbole* nextSymbole = lexer->getNext();
-	etat->transition(this, nextSymbole);
+	if (isTerminal(symbole))
+		symbole = lexer->getNext();
+	
+	etat->transition(this, symbole);
 }
 
-void AutomateLutin::reduction(Symbole* symbole, const unsigned int nb)
+void AutomateLutin::reduction(Symbole* symbole)
 {
-	symboles.push(symbole);
-	
-	for (unsigned int i = 0; i < nb; ++i)
-		etats.pop();
-		
 	etats.top()->transition(this, symbole);
 }
 
+
+bool AutomateLutin::isTerminal(const Symbole* s) const
+{
+	return dynamic_cast<SymboleTerminal>(*s) || dynamic_cast<Identifiant>(*s) || dynamic_cast<Valeur>(*s);
+}
 
 void AutomateLutin::transformation()
 {

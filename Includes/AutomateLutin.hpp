@@ -16,7 +16,7 @@ public:
 	virtual ~AutomateLutin();
 	void lecture();
 	void decalage(Symbole* symbole, Etat* etat);
-	void reduction(Symbole* symbole, const unsigned int nb);
+	void reduction(Symbole* symbole);
 	
 private:
 	int options;
@@ -25,6 +25,7 @@ private:
 	TableDesSymboles tableSymboles;
 	Lexer* lexer;
 	
+	bool isTerminal(const Symbole* s) const;
 	void transformation();
 	void analyseStatique();
 	void execution();
