@@ -12,10 +12,15 @@ E5::~E5()
 
 valeurRetour E5::transition(AutomateLutin* automate, Symbole * s)
 {
+	valeurRetour retour;
 	switch (*s){
-        case PointVirgule :
+        case POINT_VIRGULE :
             automate->decalage(s, new E6);
+            retour = RECONNU;
             break;
+		default :
+			retour = NON_RECONNU;
+			break;
     }
-	return NON_RECONNU;
+	return retour;
 }

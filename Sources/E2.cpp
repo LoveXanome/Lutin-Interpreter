@@ -12,7 +12,7 @@ E2::~E2()
 
 valeurRetour E2::transition(AutomateLutin* automate, Symbole * s)
 {
-	valeurRetour transition retour = NON_RECONNU;
+	valeurRetour retour;
 	switch (*s){
         case ECRIRE :
             automate->decalage(s, new E24);
@@ -26,6 +26,9 @@ valeurRetour E2::transition(AutomateLutin* automate, Symbole * s)
             automate->decalage(s, new E3);
             retour = RECONNU;
             break;
+		default :
+			retour = NON_RECONNU;
+			break;
     }
 	return retour;
 }
