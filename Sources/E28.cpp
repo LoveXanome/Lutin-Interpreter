@@ -17,10 +17,10 @@ valeurRetour E28::transition(AutomateLutin* automate, Symbole* s)
 	{
 		case IDENTIFIANT:
 			automate->decalage(s, new E29, true);
-			break;
+			return RECONNU;
 		case ID:
 			automate->decalage(s, new E30, false);
-			break;
+			return RECONNU;
 	}
 	return NON_RECONNU;
 }

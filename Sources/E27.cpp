@@ -11,7 +11,7 @@ E27::~E27()
 {
 }
 
-bool E27::transition(AutomateLutin* automate, Symbole* s)
+valeurRetour E27::transition(AutomateLutin* automate, Symbole* s)
 {
 	switch (*s)
 	{
@@ -24,7 +24,8 @@ bool E27::transition(AutomateLutin* automate, Symbole* s)
 			automate->popSymbole();
 			
 			automate->reduction(new SymboleDefaut(D), 2);
+			return REDUIT;
 			break;
 	}
-	return false;
+	return NON_RECONNU;
 }

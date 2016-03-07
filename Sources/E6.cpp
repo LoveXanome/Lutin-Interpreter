@@ -1,5 +1,9 @@
 #include "E6.hpp"
 
+#include "SymboleDefaut.hpp"
+#include "InstructionLecture.hpp"
+#include "Identifiant.hpp"
+
 E6::E6() : Etat()
 {
 	
@@ -12,27 +16,18 @@ E6::~E6()
 
 valeurRetour E6::transition(AutomateLutin* automate, Symbole * s)
 {
-	valeurRetour retour;
-	switch (*s){
-		case IDENTIFIANT:
-            automate->reduction(new E2, 2);
-            retour = REDUIT;
-            break;
-		case ECRIRE: 
-            automate->reduction(new E2, 2);
-            retour = REDUIT;
-            break;
-		case LIRE: 
-            automate->reduction(new E2, 2);
-            retour = REDUIT;
-            break;
-		case DOLLAR: 
-            automate->reduction(new E2, 2);
-            retour = RECONNU;
-            break;
-		default :
-			retour = NON_RECONNU;
-			break;
+	switch (*s)
+	{
+        case IDENTIFIANT:
+        case ECRIRE:
+        case LIRE:
+			automate->popSymbole();
+			Identifiant* i = (Identifiant*) automate->popSymbole();
+			automate->popSymbole();
+			
+			automate->addInstructionToProgram(new InstructionLecture(i->getIdentifiant()));
+            automate->reduction(new SymboleDefaut(I2), 3);
+            return REDUIT;
     }
 	return retour;
 }

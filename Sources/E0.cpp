@@ -19,9 +19,9 @@ valeurRetour E0::transition(AutomateLutin* automate, Symbole* s)
 	{
 		case VAR:
 		case CONST:
-		// TODO autres cases
         case D:
             automate->decalage(s, new E1, false);
+            return RECONNU;
             break;
     }
 	return NON_RECONNU;

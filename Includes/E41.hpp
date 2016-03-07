@@ -8,7 +8,7 @@ class E41 : public Etat
 public:
 	E41();
 	virtual ~E41();
-	valeurRetour E41::transition(AutomateLutin* automate, Symbole * s);
+	valeurRetour transition(AutomateLutin* automate, Symbole * s);
 };
 
 #endif //E41_HPP

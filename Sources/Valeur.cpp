@@ -11,3 +11,8 @@ Valeur::~Valeur()
 {
 
 }
+
+double Valeur::getValeur() const
+{
+	return valeur;
+}

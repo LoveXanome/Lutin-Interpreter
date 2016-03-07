@@ -8,11 +8,10 @@ class AutomateLutin;
 #include "AutomateLutin.hpp"
 #include "Symbole.hpp"
 
+typedef enum {ACCEPTE, RECONNU, NON_RECONNU, REDUIT} valeurRetour;
+
 class Etat
-{
-protected :
-	typedef enum {ACCEPTE, RECONNU, NON_RECONNU, REDUIT} valeurRetour;	
-	
+{	
 public:
 	Etat();
 	virtual ~Etat();

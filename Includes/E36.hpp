@@ -8,7 +8,7 @@ class E36 : public Etat
 public:
 	E36();
 	virtual ~E36();
-	valeurRetour E36::transition(AutomateLutin* automate, Symbole * s);
+	valeurRetour transition(AutomateLutin* automate, Symbole * s);
 };
 
 #endif //E36_HPP

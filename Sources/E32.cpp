@@ -11,13 +11,13 @@ E32::~E32()
 {
 }
 
-bool E32::transition(AutomateLutin* automate, Symbole* s)
+valeurRetour E32::transition(AutomateLutin* automate, Symbole* s)
 {
 	switch (*s)
 	{
 		case IDENTIFIANT:
 			automate->decalage(s, new E33, true);
-			break;
+			return RECONNU;
 	}
-	return false;
+	return NON_RECONNU;
 }

@@ -8,7 +8,7 @@ class E27 : public Etat
 public:
 	E27();
 	virtual ~E27();
-	bool transition(AutomateLutin* automate, Symbole* s);
+	valeurRetour transition(AutomateLutin* automate, Symbole* s);
 };
 
 #endif // E27_HPP
