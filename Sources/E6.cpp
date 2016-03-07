@@ -12,27 +12,20 @@ E6::~E6()
 
 valeurRetour E6::transition(AutomateLutin* automate, Symbole * s)
 {
-	valeurRetour retour;
-	switch (*s){
-		case IDENTIFIANT:
-            automate->reduction(new E2, 2);
-            retour = REDUIT;
-            break;
-		case ECRIRE: 
-            automate->reduction(new E2, 2);
-            retour = REDUIT;
-            break;
-		case LIRE: 
-            automate->reduction(new E2, 2);
-            retour = REDUIT;
-            break;
-		case DOLLAR: 
-            automate->reduction(new E2, 2);
-            retour = RECONNU;
-            break;
-		default :
-			retour = NON_RECONNU;
-			break;
+	valeurRetour retour = ERREUR_INIT;
+	if((*s == IDENTIFIANT) OR (*s == ECRIRE) OR (*s == LIRE) OR (*s == DOLLAR))
+	{
+		automate->popSymbole(); //pv
+		Identifiant i = (Identifiant *) automate -> popSymbole(); //id
+		automate->popSymbole();//lire
+		
+		automate->addInstructionToProgram(new InstructionLecture(i->getIdentifiant()));
+		automate->reduction(new SymboleDefaut(I2),3);
+		retour = REDUIT;
+	}
+	else
+	{
+		retour = SUIVANT_NON_VALIDE;
     }
 	return retour;
 }

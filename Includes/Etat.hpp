@@ -11,7 +11,7 @@ class AutomateLutin;
 class Etat
 {
 protected :
-	typedef enum {ACCEPTE, RECONNU, NON_RECONNU, REDUIT} valeurRetour;	
+	typedef enum {ACCEPTE, RECONNU, NON_RECONNU, REDUIT, SUIVANT_NON_VALIDE, ERREUR_INIT} valeurRetour;	
 	
 public:
 	Etat();
