@@ -14,9 +14,12 @@ valeurRetour E37::transition(AutomateLutin* automate, Symbole * s)
 {
 	switch (*s)
 	{
-		// A modifier
-        case VALEUR:
-			automate->decalage(s, new E37);
-			break;        
+		case IDENTIFIANT:
+        	automate->popSymbole();
+            automate->popSymbole();
+            automate->popSymbole();
+            automate->reduction(new SymboleDefaut(EQ),3);
+            break;             
     }
 	return NON_RECONNU;
+}
