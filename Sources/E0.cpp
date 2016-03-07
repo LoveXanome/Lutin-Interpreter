@@ -1,6 +1,7 @@
 #include "E0.hpp"
 
 #include "SymboleEnum.hpp"
+#include "E1.hpp"
 
 E0::E0() : Etat()
 {

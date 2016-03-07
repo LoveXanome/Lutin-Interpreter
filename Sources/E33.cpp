@@ -1,6 +1,9 @@
 #include "E33.hpp"
 
 #include "SymboleEnum.hpp"
+#include "Identifiant.hpp"
+#include "SymboleDefaut.hpp"
+#include "DeclarationVariable.hpp"
 
 E33::E33() : Etat()
 {

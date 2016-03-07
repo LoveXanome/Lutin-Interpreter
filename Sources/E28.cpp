@@ -1,5 +1,8 @@
 #include "E28.hpp"
 
+#include "E29.hpp"
+#include "E30.hpp"
+
 E28::E28() : Etat()
 {
 }

@@ -1,6 +1,7 @@
 #include "E27.hpp"
 
 #include "SymboleEnum.hpp"
+#include "SymboleDefaut.hpp"
 
 E27::E27() : Etat()
 {

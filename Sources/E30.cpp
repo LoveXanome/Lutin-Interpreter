@@ -1,6 +1,8 @@
 #include "E30.hpp"
 
 #include "SymboleEnum.hpp"
+#include "E31.hpp"
+#include "E32.hpp"
 
 E30::E30() : Etat()
 {

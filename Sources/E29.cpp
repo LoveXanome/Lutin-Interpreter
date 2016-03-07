@@ -2,6 +2,7 @@
 
 #include "DeclarationVariable.hpp"
 #include "Identifiant.hpp"
+#include "SymboleDefaut.hpp"
 
 E29::E29() : Etat()
 {

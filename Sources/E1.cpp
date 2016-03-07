@@ -1,5 +1,8 @@
 #include "E1.hpp"
 
+#include "E27.hpp"
+#include "E28.hpp"
+
 E1::E1() : Etat()
 {
 	
