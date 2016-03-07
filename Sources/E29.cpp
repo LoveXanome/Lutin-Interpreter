@@ -11,12 +11,12 @@ E29::~E29()
 {
 }
 
-bool E29::transition(AutomateLutin* automate, Symbole* s)
+valeurRetour E29::transition(AutomateLutin* automate, Symbole* s)
 {
 	Identifiant* i = (Identifiant*) s;
 	
 	automate->reduction(new DeclarationVariable(i->getIdentifiant(), ID), 1);
 	
-	return false;
+	return NON_RECONNU;
 }
 

@@ -10,21 +10,21 @@ E8::~E8()
 	
 }
 
-bool E8::transition(AutomateLutin& automate, Symbole * s)
+valeurRetour E8::transition(AutomateLutin* automate, Symbole * s)
 {
 	switch (*s){
         case Identifiant :
-            automate.decalage(s, new E11);
+            automate->decalage(s, new E11);
             break;
         case Valeur :
-            automate.decalage(s, new E12);
+            automate->decalage(s, new E12);
             break;
         case ParentheseOuvrante :
-            automate.decalage(s, new E13);
+            automate->decalage(s, new E13);
             break;
         case EXP :
-            automate.decalage(s, new E9);
+            automate->decalage(s, new E9);
             break;
     }
-	return false;
+	return NON_RECONNU;
 }

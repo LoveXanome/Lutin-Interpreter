@@ -10,12 +10,12 @@ E4::~E4()
 	
 }
 
-bool E4::transition(AutomateLutin& automate, Symbole * s)
+valeurRetour E4::transition(AutomateLutin* automate, Symbole * s)
 {
 	switch (*s){
         case Identifiant :
-            automate.decalage(s, new E5);
+            automate->decalage(s, new E5);
             break;
     }
-	return false;
+	return NON_RECONNU;
 }

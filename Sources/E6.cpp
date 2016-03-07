@@ -10,12 +10,12 @@ E6::~E6()
 	
 }
 
-bool E6::transition(AutomateLutin& automate, Symbole * s)
+valeurRetour E6::transition(AutomateLutin* automate, Symbole * s)
 {
 	switch (*s){
         case default :
-            automate.reduction(new E2, 2);
+            automate->reduction(new E2, 2);
             break;
     }
-	return false;
+	return NON_RECONNU;
 }

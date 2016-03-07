@@ -10,12 +10,12 @@ E7::~E7()
 	
 }
 
-bool E7::transition(AutomateLutin& automate, Symbole * s)
+valeurRetour E7::transition(AutomateLutin* automate, Symbole * s)
 {
 	switch (*s){
         case Affectation :
-            automate.decalage(s, new E8);
+            automate->decalage(s, new E8);
             break;
     }
-	return false;
+	return NON_RECONNU;
 }

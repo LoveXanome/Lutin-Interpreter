@@ -10,12 +10,12 @@ E5::~E5()
 	
 }
 
-bool E5::transition(AutomateLutin& automate, Symbole * s)
+valeurRetour E5::transition(AutomateLutin* automate, Symbole * s)
 {
 	switch (*s){
         case PointVirgule :
-            automate.decalage(s, new E6);
+            automate->decalage(s, new E6);
             break;
     }
-	return false;
+	return NON_RECONNU;
 }

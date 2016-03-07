@@ -10,12 +10,12 @@ E1::~E1()
 	
 }
 
-bool E1::transition(AutomateLutin* automate, Symbole * s)
+valeurRetour E1::transition(AutomateLutin* automate, Symbole * s)
 {
 	switch (*s)
 	{
         case CONST:
-            //automate.decalage(s, new E34);
+            //automate->decalage(s, new E34);
             break;
         case VAR:
 			automate->decalage(s, new E28);
@@ -31,5 +31,5 @@ bool E1::transition(AutomateLutin* automate, Symbole * s)
             break;
         
     }
-	return false;
+	return NON_RECONNU;
 }

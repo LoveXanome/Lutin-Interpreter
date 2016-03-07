@@ -13,9 +13,9 @@ E31::~E31()
 	
 }
 
-bool E31::transition(AutomateLutin* automate, Symbole* s)
+valeurRetour E31::transition(AutomateLutin* automate, Symbole* s)
 {
 	automate->reduction(new DeclarationVariable(..., D2, 3));
 	
-	return false;
+	return NON_RECONNU;
 }

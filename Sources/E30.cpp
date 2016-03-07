@@ -12,7 +12,7 @@ E30::~E30()
 	
 }
 
-bool E30::transition(AutomateLutin* automate, Symbole* s)
+valeurRetour E30::transition(AutomateLutin* automate, Symbole* s)
 {
 	switch (*s)
 	{
@@ -23,5 +23,5 @@ bool E30::transition(AutomateLutin* automate, Symbole* s)
 			automate->decalage(s, new E32);
 			break;
     }
-	return false;
+	return NON_RECONNU;
 }

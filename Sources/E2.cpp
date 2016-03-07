@@ -10,21 +10,18 @@ E2::~E2()
 	
 }
 
-bool E2::transition(AutomateLutin& automate, Symbole * s)
+valeurRetour E2::transition(AutomateLutin* automate, Symbole * s)
 {
 	switch (*s){
-        case Ecrire :
-            automate.decalage(s, new E24);
+        case ECRIRE :
+            automate->decalage(s, new E24);
             break;
-        case I2 :
-            automate.decalage(s, new E3);
+        case LIRE :
+            automate->decalage(s, new E4);
             break;
-        case Lire :
-            automate.decalage(s, new E4);
-            break;
-        case Identifiant :
-            automate.decalage(s, new E3);
+        case IDENTIFIANT :
+            automate->decalage(s, new E3);
             break;
     }
-	return false;
+	return NON_RECONNU;
 }
