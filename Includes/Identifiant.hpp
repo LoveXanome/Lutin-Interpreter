@@ -9,6 +9,7 @@ class Identifiant : public Expression
 public:
 	Identifiant(const std::string& identifiant);
 	virtual ~Identifiant();
+	std::string getIdentifiant() const;
 	
 private:
 	std::string identifiant;

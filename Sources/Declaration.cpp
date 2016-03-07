@@ -1,11 +1,14 @@
 #include "Declaration.hpp"
 
-#include "SymboleEnum.hpp"
 
-Declaration::Declaration() : Symbole(D)
+Declaration::Declaration(const std::string& identifiant) : Declaration(identifiant, D)
 {
-	
 }
+
+Declaration::Declaration(const std::string& identifiant, const SymboleEnum& enumRepresentation) : Symbole(enumRepresentation), identifiant(identifiant)
+{
+}
+
 
 Declaration::~Declaration()
 {
