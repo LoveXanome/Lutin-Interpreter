@@ -10,6 +10,8 @@ class Programme : public Symbole
 public:
 	Programme();
 	virtual ~Programme();
+	void addDeclaration(Declaration* d);
+	void addInstruction(Instruction* i);
 
 private:
 	ListeDeclarations declarations;

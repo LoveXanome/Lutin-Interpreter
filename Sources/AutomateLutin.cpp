@@ -53,26 +53,40 @@ void AutomateLutin::lecture()
 		affichage();
 }
 
-void AutomateLutin::decalage(Symbole* symbole, Etat* etat)
+void AutomateLutin::decalage(Symbole* symbole, Etat* etat, bool readNext)
 {	
 	symboles.push(symbole);
 	etats.push(etat);
 	
-	if (isTerminal(symbole))
+	if (readNext)
 		symbole = lexer->getNext();
 	
 	etat->transition(this, symbole);
 }
 
-void AutomateLutin::reduction(Symbole* symbole)
+void AutomateLutin::reduction(Symbole* symbole, const unsigned int nbEtats)
 {
+	for (unsigned int i = 0; i < nbEtats; ++i)
+		etats.pop();
+		
 	etats.top()->transition(this, symbole);
 }
 
-
-bool AutomateLutin::isTerminal(const Symbole* s) const
+Symbole* AutomateLutin::popSymbole()
 {
-	return dynamic_cast<SymboleTerminal>(*s) || dynamic_cast<Identifiant>(*s) || dynamic_cast<Valeur>(*s);
+	Symbole* s = symboles.top();
+	symboles.pop();
+	return s;
+}
+
+void AutomateLutin::addDeclarationToProgram(Declaration* d)
+{
+	programme.addDeclaration(d);
+}
+
+void AutomateLutin::addInstructionToProgram(Instruction* i)
+{
+	programme.addInstruction(i);
 }
 
 void AutomateLutin::transformation()

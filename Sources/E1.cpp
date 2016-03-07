@@ -18,7 +18,7 @@ valeurRetour E1::transition(AutomateLutin* automate, Symbole * s)
             //automate->decalage(s, new E34);
             break;
         case VAR:
-			automate->decalage(s, new E28);
+			automate->decalage(s, new E28, true);
 			break;
 		case IDENTIFIANT:
 		case ECRIRE:

@@ -13,10 +13,17 @@ E29::~E29()
 
 valeurRetour E29::transition(AutomateLutin* automate, Symbole* s)
 {
-	Identifiant* i = (Identifiant*) s;
-	
-	automate->reduction(new DeclarationVariable(i->getIdentifiant(), ID), 1);
-	
+	switch (*s)
+	{
+		case POINT_VIRGULE:
+		case VIRGULE:
+			Identifiant* i = (Identifiant*) automate->popSymbole();
+			automate->addDeclarationToProgram(new DeclarationVariable(i->getIdentifiant()));
+			
+			automate->reduction(new SymboleDefaut(ID), 1);
+			return REDUIT;
+	}
+
 	return NON_RECONNU;
 }
 
