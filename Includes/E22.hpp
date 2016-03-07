@@ -8,7 +8,7 @@ class E22 : public Etat
 public:
 	E22();
 	virtual ~E22();
-	valeurRetour(AutomateLutin* automate, Symbole* s);
+	valeurRetour transition(AutomateLutin* automate, Symbole* s);
 };
 
 #endif //E22_HPP

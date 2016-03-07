@@ -8,7 +8,7 @@ class E19 : public Etat
 public:
 	E19();
 	virtual ~E19();
-	valeurRetour(AutomateLutin* automate, Symbole* s);
+	valeurRetour transition(AutomateLutin* automate, Symbole* s);
 };
 
 #endif //E19_HPP

@@ -8,7 +8,7 @@ class E3 : public Etat
 public:
 	E3();
 	virtual ~E3();
-	valeurRetour(AutomateLutin* automate, Symbole* s);
+	valeurRetour transition(AutomateLutin* automate, Symbole* s);
 };
 
 #endif //E3_HPP

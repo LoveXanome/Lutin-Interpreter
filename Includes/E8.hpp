@@ -8,7 +8,7 @@ class E8 : public Etat
 public:
 	E8();
 	virtual ~E8();
-	valeurRetour(AutomateLutin* automate, Symbole* s);
+	valeurRetour transition(AutomateLutin* automate, Symbole* s);
 };
 
 #endif //E8_HPP
