@@ -12,7 +12,7 @@ E25::~E25()
 	
 }
 
-valeurRetour E25::transition(AutomateLutin* automate, Symbole * s)
+Etat::valeurRetour E25::transition(AutomateLutin* automate, Symbole * s)
 {
     valeurRetour retour = NON_RECONNU;
 

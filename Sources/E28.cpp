@@ -11,7 +11,7 @@ E28::~E28()
 {
 }
 
-valeurRetour E28::transition(AutomateLutin* automate, Symbole* s)
+Etat::valeurRetour E28::transition(AutomateLutin* automate, Symbole* s)
 {
 	switch(*s)
 	{

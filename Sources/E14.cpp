@@ -10,7 +10,7 @@ E14::~E14()
 	
 }
 
-valeurRetour E14::transition(AutomateLutin* automate, Symbole * s)
+Etat::valeurRetour E14::transition(AutomateLutin* automate, Symbole * s)
 {
 	switch (*s){
         case ParentheseFermante :

@@ -11,7 +11,7 @@ E32::~E32()
 {
 }
 
-valeurRetour E32::transition(AutomateLutin* automate, Symbole* s)
+Etat::valeurRetour E32::transition(AutomateLutin* automate, Symbole* s)
 {
 	switch (*s)
 	{

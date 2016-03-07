@@ -26,7 +26,7 @@ std::vector<Symbole*> SymbolFabric::makeSymbolsFromLine(std::string& line)
 		Symbole* symb = createCorrespondingSymbol(firstMatchingRegex, line);
 		symboles.push_back(symb);
 		
-		line = std::regex_replace(line, std::regex(firstMatchingRegex), "");
+		//line = std::regex_replace(line, std::regex(firstMatchingRegex), "");
 	}
 	
 	return symboles;

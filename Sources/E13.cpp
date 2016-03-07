@@ -10,7 +10,7 @@ E13::~E13()
 	
 }
 
-valeurRetour E13::transition(AutomateLutin* automate, Symbole * s)
+Etat::valeurRetour E13::transition(AutomateLutin* automate, Symbole * s)
 {
 	switch (*s){
         case Identifiant :

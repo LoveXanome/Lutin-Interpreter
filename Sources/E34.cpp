@@ -13,7 +13,7 @@ E34::~E34()
 	
 }
 
-valeurRetour E34::transition(AutomateLutin* automate, Symbole * s)
+Etat::valeurRetour E34::transition(AutomateLutin* automate, Symbole * s)
 {
 	switch (*s)
 	{

@@ -12,7 +12,7 @@ E29::~E29()
 {
 }
 
-valeurRetour E29::transition(AutomateLutin* automate, Symbole* s)
+Etat::valeurRetour E29::transition(AutomateLutin* automate, Symbole* s)
 {
 	switch (*s)
 	{

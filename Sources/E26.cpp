@@ -12,7 +12,7 @@ E26::~E26()
 	
 }
 
-valeurRetour E26::transition(AutomateLutin* automate, Symbole * s)
+Etat::valeurRetour E26::transition(AutomateLutin* automate, Symbole * s)
 {
     valeurRetour retour = ERREUR_INIT;
 

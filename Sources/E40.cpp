@@ -12,7 +12,7 @@ E40::~E40()
 	
 }
 
-valeurRetour E40::transition(AutomateLutin* automate, Symbole * s)
+Etat::valeurRetour E40::transition(AutomateLutin* automate, Symbole * s)
 {
 	switch (*s)
 	{

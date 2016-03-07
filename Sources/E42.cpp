@@ -12,7 +12,7 @@ E42::~E42()
 	
 }
 
-valeurRetour E42::transition(AutomateLutin* automate, Symbole * s)
+Etat::valeurRetour E42::transition(AutomateLutin* automate, Symbole * s)
 {
 	switch (*s)
 	{

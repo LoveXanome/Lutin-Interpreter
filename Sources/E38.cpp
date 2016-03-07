@@ -13,7 +13,7 @@ E38::~E38()
 	
 }
 
-valeurRetour E38::transition(AutomateLutin* automate, Symbole * s)
+Etat::valeurRetour E38::transition(AutomateLutin* automate, Symbole * s)
 {
 	switch (*s)
 	{

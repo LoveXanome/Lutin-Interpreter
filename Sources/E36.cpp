@@ -12,7 +12,7 @@ E36::~E36()
 	
 }
 
-valeurRetour E36::transition(AutomateLutin* automate, Symbole * s)
+Etat::valeurRetour E36::transition(AutomateLutin* automate, Symbole * s)
 {
 	switch (*s)
 	{

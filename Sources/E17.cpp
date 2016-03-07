@@ -10,7 +10,7 @@ E17::~E17()
 	
 }
 
-valeurRetour E17::transition(AutomateLutin* automate, Symbole * s)
+Etat::valeurRetour E17::transition(AutomateLutin* automate, Symbole * s)
 {
 	switch (*s){
         case Multiplier :

@@ -13,7 +13,7 @@ E0::~E0()
 	
 }
 
-valeurRetour E0::transition(AutomateLutin* automate, Symbole* s)
+Etat::valeurRetour E0::transition(AutomateLutin* automate, Symbole* s)
 {
 	switch (*s)
 	{
