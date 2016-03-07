@@ -22,7 +22,6 @@ public:
 	Symbole* popSymbole();
 	void addDeclarationToProgram(Declaration* d);
 	void addInstructionToProgram(Instruction* i);
-	void 
 	
 private:
 	int options;
