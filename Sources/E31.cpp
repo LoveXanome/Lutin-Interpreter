@@ -16,8 +16,11 @@ valeurRetour E31::transition(AutomateLutin* automate, Symbole* s)
 {
 	switch (*s)
 	{
+		case IDENTIFIANT:
+		case ECRIRE:
+		case LIRE:
 		case VAR:
-		case CONST: // TODO ??? suivant de D2 => null
+		case CONST:
 			automate->popSymbole();
 			automate->popSymbole();
 			automate->popSymbole();

@@ -14,7 +14,6 @@ bool E27::transition(AutomateLutin* automate, Symbole* s)
 {
 	switch (*s)
 	{
-		// TODO suivant de D
 		case IDENTIFIANT:
 		case ECRIRE:
 		case LIRE:
