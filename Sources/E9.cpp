@@ -10,24 +10,24 @@ E9::~E9()
 	
 }
 
-bool E9::transition(AutomateLutin& automate, Symbole * s)
+valeurRetour E9::transition(AutomateLutin* automate, Symbole * s)
 {
 	switch (*s){
         case PointVirgule :
-            automate.decalage(s, new E10);
+            automate->decalage(s, new E10);
             break;
         case Multiplier :
-            automate.decalage(s, new E16);
+            automate->decalage(s, new E16);
             break;
         case Diviser :
-            automate.decalage(s, new E18);
+            automate->decalage(s, new E18);
             break;
         case Plus :
-            automate.decalage(s, new E20);
+            automate->decalage(s, new E20);
             break;
         case Moins :
-            automate.decalage(s, new E22);
+            automate->decalage(s, new E22);
             break;
     }
-	return false;
+	return NON_RECONNU;
 }

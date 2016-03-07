@@ -1,6 +1,6 @@
 #include "DeclarationVariable.hpp"
 
-DeclarationVariable::DeclarationVariable() : Declaration()
+DeclarationVariable::DeclarationVariable(const std::string& identifiant) : Declaration(identifiant)
 {
 	
 }

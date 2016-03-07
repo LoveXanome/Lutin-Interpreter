@@ -6,7 +6,7 @@
 class DeclarationConstante : public Declaration 
 {
 public:
-	DeclarationConstante();
+	DeclarationConstante(const std::string& identifiant, const double& valeur);
 	virtual ~DeclarationConstante();
 	
 private:

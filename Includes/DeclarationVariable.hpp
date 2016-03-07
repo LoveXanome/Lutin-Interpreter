@@ -2,11 +2,12 @@
 #define DECLARATION_VARIABLE_HPP
 
 #include "Declaration.hpp"
+#include <string>
 
 class DeclarationVariable : public Declaration
 {
 public:
-	DeclarationVariable();
+	DeclarationVariable(const std::string& identifiant);
 	virtual ~DeclarationVariable();
 };
 

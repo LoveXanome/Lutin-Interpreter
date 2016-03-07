@@ -1,5 +1,10 @@
 #include "E1.hpp"
 
+#include "E2.hpp"
+#include "E27.hpp"
+#include "E28.hpp"
+#include "E34.hpp"
+
 E1::E1() : Etat()
 {
 	
@@ -10,18 +15,29 @@ E1::~E1()
 	
 }
 
-bool E1::transition(AutomateLutin& automate, Symbole * s)
+valeurRetour E1::transition(AutomateLutin* automate, Symbole * s)
 {
-	switch (*s){
-        case Const :
-            automate.decalage(s, new E34);
+	valeurRetour retour = RECONNU;
+	switch (*s)
+	{
+        case CONST:
+            automate->decalage(s, new E34, true);
             break;
-        case I :
-            automate.decalage(s, new E2);
+        case VAR:
+			automate->decalage(s, new E28, true);
+			break;
+		case IDENTIFIANT:
+		case ECRIRE:
+		case LIRE:
+        case I:
+            automate->decalage(s, new E2, false);
             break;
-        case D2 :
-            automate.decalage(s, new E27);
+        case D2:
+            automate->decalage(s, new E27, false);
             break;
+        default:
+			retour = NON_RECONNU;
+			break;
     }
-	return false;
+	return retour;
 }

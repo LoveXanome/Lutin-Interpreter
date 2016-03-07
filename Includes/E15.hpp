@@ -8,7 +8,7 @@ class E15 : public Etat
 public:
 	E15();
 	virtual ~E15();
-	bool transition(AutomateLutin& automate, Symbole* s);
+	valeurRetour transition(AutomateLutin* automate, Symbole* s);
 };
 
 #endif //E15_HPP

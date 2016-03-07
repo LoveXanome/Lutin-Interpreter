@@ -4,6 +4,9 @@
 #include "Programme.hpp"
 #include "E0.hpp"
 #include "LutinArgs.hpp"
+#include "Identifiant.hpp"
+#include "Valeur.hpp"
+#include "SymboleTerminal.hpp"
 
 AutomateLutin::AutomateLutin(const std::string& fileName, const int options)
 {
@@ -34,8 +37,8 @@ AutomateLutin::~AutomateLutin()
 
 void AutomateLutin::lecture()
 {
-	/*Symbole* nextSymbole = lexer->getNext();
-	etats.top()->transition(this, nextSymbole);*/
+	Symbole* firstSymbole = lexer->getNext();
+	etats.top()->transition(this, firstSymbole);
 	
 	if (options & TRANSFORMATION)
 		transformation();
@@ -50,23 +53,41 @@ void AutomateLutin::lecture()
 		affichage();
 }
 
-void AutomateLutin::decalage(Symbole* symbole, Etat* etat)
-{
+void AutomateLutin::decalage(Symbole* symbole, Etat* etat, bool readNext)
+{	
 	symboles.push(symbole);
 	etats.push(etat);
 	
-	Symbole* nextSymbole = lexer->getNext();
-	etat->transition(this, nextSymbole);
+	if (readNext)
+		symbole = lexer->getNext();
+	
+	etat->transition(this, symbole);
 }
 
-void AutomateLutin::reduction(Etat* etat, const unsigned int nb)
+void AutomateLutin::reduction(Symbole* symbole, const unsigned int nbEtats)
 {
-	// ???
-	etats.push(etat);
-	for (unsigned int i = 0; i < nb; ++i)
+	for (unsigned int i = 0; i < nbEtats; ++i)
 		etats.pop();
+		
+	etats.top()->transition(this, symbole);
 }
 
+Symbole* AutomateLutin::popSymbole()
+{
+	Symbole* s = symboles.top();
+	symboles.pop();
+	return s;
+}
+
+void AutomateLutin::addDeclarationToProgram(Declaration* d)
+{
+	programme.addDeclaration(d);
+}
+
+void AutomateLutin::addInstructionToProgram(Instruction* i)
+{
+	programme.addInstruction(i);
+}
 
 void AutomateLutin::transformation()
 {

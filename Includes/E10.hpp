@@ -8,7 +8,7 @@ class E10 : public Etat
 public:
 	E10();
 	virtual ~E10();
-	bool transition(AutomateLutin& automate, Symbole* s);
+	valeurRetour transition(AutomateLutin* automate, Symbole* s);
 };
 
 #endif //E10_HPP

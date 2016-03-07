@@ -9,12 +9,16 @@ class AutomateLutin;
 #include "Symbole.hpp"
 
 class Etat
+
 {
+protected :
+	typedef enum {ACCEPTE, RECONNU, NON_RECONNU, REDUIT, SUIVANT_NON_VALIDE, ERREUR_INIT} valeurRetour;	
+
 public:
 	Etat();
 	virtual ~Etat();
 	void print() const;
-	virtual bool transition(AutomateLutin* automate, Symbole* s) = 0;
+	virtual valeurRetour transition(AutomateLutin* automate, Symbole* s) = 0;
 };
 
 #endif // ETAT_HPP
