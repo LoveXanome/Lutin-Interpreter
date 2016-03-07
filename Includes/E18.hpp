@@ -8,7 +8,7 @@ class E18 : public Etat
 public:
 	E18();
 	virtual ~E18();
-	bool transition(AutomateLutin& automate, Symbole* s);
+	valeurRetour(AutomateLutin* automate, Symbole* s);
 };
 
 #endif //E18_HPP

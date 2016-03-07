@@ -8,7 +8,7 @@ class E13 : public Etat
 public:
 	E13();
 	virtual ~E13();
-	bool transition(AutomateLutin& automate, Symbole* s);
+	valeurRetour(AutomateLutin* automate, Symbole* s);
 };
 
 #endif //E13_HPP

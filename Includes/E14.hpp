@@ -8,7 +8,7 @@ class E14 : public Etat
 public:
 	E14();
 	virtual ~E14();
-	bool transition(AutomateLutin& automate, Symbole* s);
+	valeurRetour(AutomateLutin* automate, Symbole* s);
 };
 
 #endif //E14_HPP
