@@ -14,23 +14,23 @@ E6::~E6()
 	
 }
 
-Etat::valeurRetour E6::transition(AutomateLutin* automate, Symbole * s)
+valeurRetour E6::transition(AutomateLutin* automate, Symbole* s)
 {
-	valeurRetour retour = ERREUR_INIT;
-
-	if( (*s == IDENTIFIANT) || (*s == ECRIRE) || (*s == LIRE) || (*s == DOLLAR) )
+	valeurRetour retour = SUIVANT_NON_VALIDE;
+	switch (*s)
 	{
-		automate->popSymbole(); //pv
-		Identifiant* i = (Identifiant*) automate->popSymbole(); //id
-		automate->popSymbole();//lire
-		
-		automate->addInstructionToProgram(new InstructionLecture(i->getIdentifiant()));
-		automate->reduction(new SymboleDefaut(I2),3);
-		retour = REDUIT;
+		case IDENTIFIANT:
+		case ECRIRE:
+		case LIRE:
+		case DOLLAR:
+			automate->popSymbole();
+			Identifiant* i = (Identifiant*) automate->popSymbole();
+			automate->popSymbole();
+			
+			automate->addInstructionToProgram(new InstructionLecture(i->getIdentifiant()));
+			automate->reduction(new SymboleDefaut(I2), 3);
+			retour = REDUIT;
+			break;
 	}
-	else
-	{
-		retour = SUIVANT_NON_VALIDE;
-    }
 	return retour;
 }
