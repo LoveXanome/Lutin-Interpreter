@@ -8,7 +8,7 @@ class E28 : public Etat
 public:
 	E28();
 	virtual ~E28();
-	bool transition(AutomateLutin* automate, Symbole* s);
+	valeurRetour(AutomateLutin* automate, Symbole* s);
 };
 
 #endif // E28_HPP
