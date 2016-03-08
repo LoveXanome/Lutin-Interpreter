@@ -9,7 +9,7 @@ LineLexer::~LineLexer()
 {
 }
 
-symbole_ptr LineLexer::getNext()
+Symbole* LineLexer::getNext()
 {
 	// TODO : read jusqu'à un espace, pv, +, -, *, /, (, ), = , :=, (...?)
 	std::string nextSym;
@@ -27,7 +27,7 @@ symbole_ptr LineLexer::getNext()
 	return 0;
 }
 
-symbole_ptr LineLexer::readNext() const
+Symbole* LineLexer::readNext() const
 {
 	return 0;
 }

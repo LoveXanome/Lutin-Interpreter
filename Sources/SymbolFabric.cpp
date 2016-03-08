@@ -7,7 +7,6 @@
 #include "Identifiant.hpp"
 #include "Valeur.hpp"
 #include "StringHelper.hpp"
-#include "AutomateLutin.hpp"
 
 SymbolFabric::SymbolFabric()
 {
@@ -17,15 +16,15 @@ SymbolFabric::~SymbolFabric()
 {
 }
 
-std::vector<symbole_ptr> SymbolFabric::makeSymbolsFromLine(std::string& line)
+std::vector<Symbole*> SymbolFabric::makeSymbolsFromLine(std::string& line)
 {
-	std::vector<symbole_ptr> symboles;
+	std::vector<Symbole*> symboles;
 	
 	while (!StringHelper::isOnlyWhitespaces(line))
 	{
 		std::string firstMatchingRegex = RegexHelper::findFirstMatchingRegex(line);
 		
-		symbole_ptr symb = createCorrespondingSymbol(firstMatchingRegex, line);
+		Symbole* symb = createCorrespondingSymbol(firstMatchingRegex, line);
 		symboles.push_back(symb);
 		
 		line = std::regex_replace(line, std::regex(firstMatchingRegex), "");
@@ -34,14 +33,14 @@ std::vector<symbole_ptr> SymbolFabric::makeSymbolsFromLine(std::string& line)
 	return symboles;
 }
 
-symbole_ptr SymbolFabric::createCorrespondingSymbol(const std::string& regStr, const std::string& str)
+Symbole* SymbolFabric::createCorrespondingSymbol(const std::string& regStr, const std::string& str)
 {
 	if (RegexHelper::isIdentifiantRegex(regStr))
 	{
 		std::regex reg(regStr);
 		std::smatch m;
 		std::regex_search(str, m, reg);
-		return std::make_shared<Symbole>(Identifiant(m[0]));
+		return new Identifiant(m[0]);
 	}
 	
 	if (RegexHelper::isValeurRegex(regStr))
@@ -49,7 +48,7 @@ symbole_ptr SymbolFabric::createCorrespondingSymbol(const std::string& regStr, c
 		std::regex reg(regStr);
 		std::smatch m;
 		std::regex_search(str, m, reg);
-		return std::make_shared<Symbole>(Valeur(std::stod(m[0])));
+		return new Valeur(std::stod(m[0]));
 	}
 	
 	return RegexHelper::makeSymboleTerminal(regStr);

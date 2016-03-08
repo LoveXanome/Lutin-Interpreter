@@ -12,8 +12,8 @@ public:
 	Lexer(const std::string& fileName);
 	virtual ~Lexer();
 	
-	virtual symbole_ptr getNext() = 0;
-	virtual symbole_ptr readNext() const = 0;
+	virtual Symbole* getNext() = 0;
+	virtual Symbole* readNext() const = 0;
 	
 protected:
 	std::ifstream* fileStream;

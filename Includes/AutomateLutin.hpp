@@ -7,12 +7,10 @@ class Lexer;
 #include <string>
 #include <stack>
 #include <unordered_map>
-#include <memory>
 #include "Declaration.hpp"
 #include "Symbole.hpp"
 
 typedef std::unordered_map<std::string, Declaration> TableDesSymboles;
-typedef std::shared_ptr<Symbole> symbole_ptr;
 
 
 #include "Etat.hpp"
@@ -36,7 +34,7 @@ public:
 private:
 	int options;
 	std::stack<Etat*> etats;
-	std::stack<symbole_ptr> symboles;
+	std::stack<Symbole*> symboles;
 	TableDesSymboles tableSymboles;
 	Lexer* lexer;
 	Programme programme;

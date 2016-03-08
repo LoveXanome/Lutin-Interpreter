@@ -9,8 +9,8 @@ public:
 	LineLexer(const std::string& fileName);
 	virtual ~LineLexer();
 	
-	symbole_ptr getNext();
-	symbole_ptr readNext() const;
+	Symbole* getNext();
+	Symbole* readNext() const;
 };
 
 #endif // LINE_LEXER_HPP

@@ -31,7 +31,7 @@ AutomateLutin::~AutomateLutin()
 		delete e;
 	}
 	
-	/*std::set<Symbole*> uniqueSymboles;
+	std::set<Symbole*> uniqueSymboles;
 	while (!symboles.empty())
 	{
 		Symbole* s = symboles.top();
@@ -40,7 +40,7 @@ AutomateLutin::~AutomateLutin()
 	}
 	
 	for (Symbole* s : uniqueSymboles)
-		delete s;*/
+		delete s;
 	
 	delete lexer;
 	logger.debug("End destruction");
@@ -50,8 +50,8 @@ void AutomateLutin::lecture()
 {
 	logger.debug("Debut lecture");
 	
-	symbole_ptr firstSymbole = lexer->getNext();
-	valeurRetour retour = etats.top()->transition(this, &(*firstSymbole));
+	Symbole* firstSymbole = lexer->getNext();
+	valeurRetour retour = etats.top()->transition(this, firstSymbole);
 	
 	if (retour == NON_RECONNU)
 		logger.debug("Non reconnu");
@@ -75,11 +75,11 @@ valeurRetour AutomateLutin::decalage(Symbole* symbole, Etat* etat, bool readNext
 {	
 	logger.debug(StringHelper::format("Decalage vers etat %s (symbole %s) (read next : %d)", etat->toString().c_str(), symbole->toString().c_str(), readNext));
 	
-	symboles.push(std::make_shared<Symbole>(*symbole));
+	symboles.push(symbole);
 	etats.push(etat);
 	
 	if (readNext)
-		symbole = &(*(lexer->getNext()));
+		symbole = lexer->getNext();
 	
 	return etat->transition(this, symbole);
 }
@@ -94,9 +94,9 @@ valeurRetour AutomateLutin::reduction(Symbole* symbole, const unsigned int nbEta
 
 Symbole* AutomateLutin::popSymbole()
 {
-	symbole_ptr s = symboles.top();
+	Symbole* s = symboles.top();
 	symboles.pop();
-	return &(*s);
+	return s;
 }
 
 void AutomateLutin::addDeclarationToProgram(Declaration* d)

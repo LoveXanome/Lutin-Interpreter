@@ -69,51 +69,51 @@ bool RegexHelper::isValeurRegex(const std::string& regStr)
 	return regStr == VALEUR_REGEX_STR;
 }
 
-symbole_ptr RegexHelper::makeSymboleTerminal(const std::string& regStr)
+Symbole* RegexHelper::makeSymboleTerminal(const std::string& regStr)
 {
 	// TODO switch ?
 	
 	if (regStr == VAR_REGEX_STR)
-		return std::make_shared<Symbole>(SymboleTerminal(VAR));
+		return new SymboleTerminal(VAR);
 		
 	if (regStr == CONST_REGEX_STR)
-		return std::make_shared<Symbole>(SymboleTerminal(CONST));
+		return new SymboleTerminal(CONST);
 	
 	if (regStr == AFFECTATION_REGEX_STR)
-		return std::make_shared<Symbole>(SymboleTerminal(AFFECTATION));
+		return new SymboleTerminal(AFFECTATION);
 		
 	if (regStr == ECRIRE_REGEX_STR)
-		return std::make_shared<Symbole>(SymboleTerminal(ECRIRE));
+		return new SymboleTerminal(ECRIRE);
 		
 	if (regStr == LIRE_REGEX_STR)
-		return std::make_shared<Symbole>(SymboleTerminal(LIRE));
+		return new SymboleTerminal(LIRE);
 		
 	if (regStr == POINT_VIRGULE_REGEX_STR)
-		return std::make_shared<Symbole>(SymboleTerminal(POINT_VIRGULE));
+		return new SymboleTerminal(POINT_VIRGULE);
 		
 	if (regStr == EGAL_REGEX_STR)
-		return std::make_shared<Symbole>(SymboleTerminal(EGAL));
+		return new SymboleTerminal(EGAL);
 		
 	if (regStr == PLUS_REGEX_STR)
-		return std::make_shared<Symbole>(SymboleTerminal(PLUS));
+		return new SymboleTerminal(PLUS);
 		
 	if (regStr == MOINS_REGEX_STR)
-		return std::make_shared<Symbole>(SymboleTerminal(MOINS));
+		return new SymboleTerminal(MOINS);
 		
 	if (regStr == MULTIPLIER_REGEX_STR)
-		return std::make_shared<Symbole>(SymboleTerminal(MULTIPLIER));
+		return new SymboleTerminal(MULTIPLIER);
 		
 	if (regStr == DIVISER_REGEX_STR)
-		return std::make_shared<Symbole>(SymboleTerminal(DIVISER));
+		return new SymboleTerminal(DIVISER);
 		
 	if (regStr == PARENTHESE_OUVRANTE_REGEX_STR)
-		return std::make_shared<Symbole>(SymboleTerminal(PARENTHESE_OUVRANTE));
+		return new SymboleTerminal(PARENTHESE_OUVRANTE);
 		
 	if (regStr == PARENTHESE_FERMANTE_REGEX_STR)
-		return std::make_shared<Symbole>(SymboleTerminal(PARENTHESE_FERMANTE));
+		return new SymboleTerminal(PARENTHESE_FERMANTE);
 		
 	if (regStr == VIRGULE_REGEX_STR)
-		return std::make_shared<Symbole>(SymboleTerminal(VIRGULE));
+		return new SymboleTerminal(VIRGULE);
 		
 		
 	throw std::runtime_error(StringHelper::format("No terminal symbol could have been created with regex '%s'", regStr.c_str()));
