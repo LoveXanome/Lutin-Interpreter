@@ -4,7 +4,7 @@
 #include "InstructionLecture.hpp"
 #include "Identifiant.hpp"
 
-E6::E6() : Etat()
+E6::E6() : Etat(6)
 {
 	
 }

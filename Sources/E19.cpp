@@ -1,6 +1,6 @@
 #include "E19.hpp"
 
-E19::E19() : Etat()
+E19::E19() : Etat(19)
 {
 	
 }

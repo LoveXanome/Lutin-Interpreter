@@ -2,7 +2,7 @@
 
 #include "SymboleDefaut.hpp"
 
-E3::E3() : Etat()
+E3::E3() : Etat(3)
 {
 	
 }

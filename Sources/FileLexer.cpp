@@ -1,7 +1,10 @@
 #include "FileLexer.hpp"
 
 #include "SymbolFabric.hpp"
+#include "StringHelper.hpp"
 	
+const Logger FileLexer::logger("FileLexer");
+
 FileLexer::FileLexer(const std::string& fileName) : Lexer(fileName), currentIdx(0)
 {
 	// Read the whole file and create a list of all symbols
@@ -26,7 +29,9 @@ Symbole* FileLexer::getNext()
 	if (isLastSymbol())
 		return 0;
 		
-	return symboles[currentIdx++];
+	Symbole* nextSymbole = symboles[currentIdx++];
+	logger.debug(StringHelper::format("Get next %s", nextSymbole->toString().c_str()));
+	return nextSymbole;
 }
 
 Symbole* FileLexer::readNext() const

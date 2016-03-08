@@ -2,7 +2,7 @@
 
 #include "E41.hpp"
 
-E40::E40() : Etat()
+E40::E40() : Etat(40)
 {
 	
 }

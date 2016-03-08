@@ -5,7 +5,7 @@
 #include "SymboleDefaut.hpp"
 #include "DeclarationVariable.hpp"
 
-E33::E33() : Etat()
+E33::E33() : Etat(33)
 {
 }
 

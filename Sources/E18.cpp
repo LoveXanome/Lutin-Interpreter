@@ -1,6 +1,6 @@
 #include "E18.hpp"
 
-E18::E18() : Etat()
+E18::E18() : Etat(18)
 {
 	
 }

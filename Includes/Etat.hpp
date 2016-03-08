@@ -5,6 +5,7 @@
 
 class AutomateLutin;
 
+#include <string>
 #include "AutomateLutin.hpp"
 #include "Symbole.hpp"
 
@@ -13,10 +14,13 @@ typedef enum {ACCEPTE, RECONNU, NON_RECONNU, REDUIT, SUIVANT_NON_VALIDE, ERREUR_
 class Etat
 {
 public:
-	Etat();
+	Etat(const unsigned int& number);
 	virtual ~Etat();
-	void print() const;
+	std::string toString() const;
 	virtual valeurRetour transition(AutomateLutin* automate, Symbole* s) = 0;
+	
+private:
+	int number;
 };
 
 #endif // ETAT_HPP

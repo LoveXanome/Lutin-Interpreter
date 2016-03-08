@@ -3,7 +3,7 @@
 #include "E29.hpp"
 #include "E30.hpp"
 
-E28::E28() : Etat()
+E28::E28() : Etat(28)
 {
 }
 

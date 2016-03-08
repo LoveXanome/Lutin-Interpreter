@@ -4,12 +4,14 @@
 #include <vector>
 #include <string>
 #include "Symbole.hpp"
+#include "SymboleEnum.hpp"
 
 class SymbolFabric
 {
 public:
 	virtual ~SymbolFabric();
 	static std::vector<Symbole*> makeSymbolsFromLine(std::string& line);
+	static std::string makeSymbolNameFromNumber(const SymboleEnum enumRepresentation);
 	
 private:
 	SymbolFabric();

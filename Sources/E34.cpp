@@ -3,7 +3,7 @@
 #include "E35.hpp"
 #include "E38.hpp"
 
-E34::E34() : Etat()
+E34::E34() : Etat(34)
 {
 	
 }

@@ -2,7 +2,7 @@
 
 #include "SymboleEnum.hpp"
 
-E26::E26() : Etat()
+E26::E26() : Etat(26)
 {
 	
 }

@@ -2,7 +2,7 @@
 
 #include "E37.hpp"
 
-E36::E36() : Etat()
+E36::E36() : Etat(36)
 {
 	
 }

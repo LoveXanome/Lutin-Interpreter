@@ -5,7 +5,7 @@
 #include "Identifiant.hpp"
 #include "DeclarationConstante.hpp"
 
-E43::E43() : Etat()
+E43::E43() : Etat(43)
 {
 	
 }

@@ -4,7 +4,7 @@
 #include "E31.hpp"
 #include "E32.hpp"
 
-E30::E30() : Etat()
+E30::E30() : Etat(30)
 {
 	
 }

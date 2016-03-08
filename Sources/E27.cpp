@@ -3,7 +3,7 @@
 #include "SymboleEnum.hpp"
 #include "SymboleDefaut.hpp"
 
-E27::E27() : Etat()
+E27::E27() : Etat(27)
 {
 }
 

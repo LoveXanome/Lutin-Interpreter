@@ -34,3 +34,6 @@ Objects/
 
 # Test results
 *.csv
+
+# IntelliJ CLion
+.idea/

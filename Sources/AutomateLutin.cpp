@@ -1,5 +1,6 @@
 #include "AutomateLutin.hpp"
 
+#include "StringHelper.hpp"
 #include "FileLexer.hpp"
 #include "Programme.hpp"
 #include "E0.hpp"
@@ -7,6 +8,8 @@
 #include "Identifiant.hpp"
 #include "Valeur.hpp"
 #include "SymboleTerminal.hpp"
+
+const Logger AutomateLutin::logger("AutomateLutin");
 
 AutomateLutin::AutomateLutin(const std::string& fileName, const int options)
 {
@@ -37,8 +40,12 @@ AutomateLutin::~AutomateLutin()
 
 void AutomateLutin::lecture()
 {
+	
 	Symbole* firstSymbole = lexer->getNext();
-	etats.top()->transition(this, firstSymbole);
+	valeurRetour retour = etats.top()->transition(this, firstSymbole);
+	
+	if (retour == NON_RECONNU)
+		logger.debug("Non reconnu");
 	
 	if (options & TRANSFORMATION)
 		transformation();
@@ -55,6 +62,8 @@ void AutomateLutin::lecture()
 
 void AutomateLutin::decalage(Symbole* symbole, Etat* etat, bool readNext)
 {	
+	logger.debug(StringHelper::format("Decalage vers etat %s (symbole %s) (read next : %d)", etat->toString().c_str(), symbole->toString().c_str(), readNext));
+	
 	symboles.push(symbole);
 	etats.push(etat);
 	

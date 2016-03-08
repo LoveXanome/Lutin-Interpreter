@@ -3,7 +3,7 @@
 #include "SymboleEnum.hpp"
 #include "E33.hpp"
 
-E32::E32() : Etat()
+E32::E32() : Etat(32)
 {
 }
 

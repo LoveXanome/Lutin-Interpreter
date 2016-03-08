@@ -1,6 +1,6 @@
 #include "E22.hpp"
 
-E22::E22() : Etat()
+E22::E22() : Etat(22)
 {
 	
 }

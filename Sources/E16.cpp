@@ -1,6 +1,6 @@
 #include "E16.hpp"
 
-E16::E16() : Etat()
+E16::E16() : Etat(16)
 {
 	
 }

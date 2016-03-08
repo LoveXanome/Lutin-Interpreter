@@ -1,6 +1,6 @@
 #include "E8.hpp"
 
-E8::E8() : Etat()
+E8::E8() : Etat(8)
 {
 	
 }

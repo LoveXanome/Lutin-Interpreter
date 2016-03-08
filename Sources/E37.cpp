@@ -5,7 +5,7 @@
 #include "Identifiant.hpp"
 #include "Valeur.hpp"
 
-E37::E37() : Etat()
+E37::E37() : Etat(37)
 {
 	
 }

@@ -2,7 +2,7 @@
 
 #include "E6.hpp"
 
-E5::E5() : Etat()
+E5::E5() : Etat(5)
 {
 	
 }

@@ -4,7 +4,7 @@
 #include "E4.hpp"
 #include "E3.hpp"
 
-E2::E2() : Etat()
+E2::E2() : Etat(2)
 {
 	
 }

@@ -2,6 +2,7 @@
 #define FILE_LEXER_HPP
 
 #include "Lexer.hpp"
+#include "Logger.hpp"
 #include <vector>
 
 class FileLexer : public Lexer
@@ -16,6 +17,8 @@ public:
 private:
 	std::vector<Symbole*> symboles;
 	unsigned int currentIdx;
+	
+	static const Logger logger;
 	
 	bool isLastSymbol() const;
 };

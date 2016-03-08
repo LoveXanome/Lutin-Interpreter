@@ -1,6 +1,6 @@
 #include "E13.hpp"
 
-E13::E13() : Etat()
+E13::E13() : Etat(13)
 {
 	
 }

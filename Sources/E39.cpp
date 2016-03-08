@@ -2,7 +2,7 @@
 
 #include "SymboleDefaut.hpp"
 
-E39::E39() : Etat()
+E39::E39() : Etat(39)
 {
 	
 }

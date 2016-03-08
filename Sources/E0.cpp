@@ -3,7 +3,7 @@
 #include "SymboleEnum.hpp"
 #include "E1.hpp"
 
-E0::E0() : Etat()
+E0::E0() : Etat(0)
 {
 	
 }

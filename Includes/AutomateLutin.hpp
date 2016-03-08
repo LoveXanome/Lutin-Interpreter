@@ -11,6 +11,7 @@ class Etat;
 #include "Lexer.hpp"
 #include "Declaration.hpp"
 #include "Programme.hpp"
+#include "Logger.hpp"
 
 typedef std::unordered_map<std::string, Declaration> TableDesSymboles;
 
@@ -33,6 +34,8 @@ private:
 	TableDesSymboles tableSymboles;
 	Lexer* lexer;
 	Programme programme;
+	
+	static const Logger logger;
 	
 	void transformation();
 	void analyseStatique();

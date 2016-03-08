@@ -5,7 +5,7 @@
 #include "E28.hpp"
 #include "E34.hpp"
 
-E1::E1() : Etat()
+E1::E1() : Etat(1)
 {
 	
 }
