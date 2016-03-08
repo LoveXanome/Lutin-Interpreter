@@ -68,7 +68,7 @@ void AutomateLutin::lecture()
 	if (options & AFFICHAGE)
 		affichage();
 		
-	logger.debug("Fin lecture");
+	logger.debug(StringHelper::format("Fin lecture (valeur retour : %d)", retour));
 }
 
 valeurRetour AutomateLutin::decalage(Symbole* symbole, Etat* etat, bool readNext)
