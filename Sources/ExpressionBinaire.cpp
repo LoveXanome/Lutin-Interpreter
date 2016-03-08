@@ -1,8 +1,9 @@
 #include "ExpressionBinaire.hpp"
 
-ExpressionBinaire::ExpressionBinaire() : Expression(EXP)
+ExpressionBinaire::ExpressionBinaire( Expression membreG , Expression membreD )
 {
-
+	membreGauche = membreG;
+	membreDroite = membreD;
 }
 
 ExpressionBinaire::ExpressionBinaire(const SymboleEnum& enumRepresentation) : Expression(enumRepresentation)

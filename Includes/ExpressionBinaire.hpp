@@ -7,7 +7,7 @@
 class ExpressionBinaire : public Expression
 {
 public:
-	ExpressionBinaire();
+	ExpressionBinaire( Expression membreG , Expression membreD );
 	ExpressionBinaire(const SymboleEnum& enumRepresentation);
 	virtual ~ExpressionBinaire();
 	
