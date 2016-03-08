@@ -8,8 +8,8 @@ class AutomateLutin;
 #include <string>
 #include "AutomateLutin.hpp"
 #include "Symbole.hpp"
+#include "valeurRetour.hpp"
 
-typedef enum {ACCEPTE, RECONNU, NON_RECONNU, REDUIT, SUIVANT_NON_VALIDE, ERREUR_INIT} valeurRetour;	
 
 class Etat
 {
@@ -21,6 +21,8 @@ public:
 	
 private:
 	int number;
+	
+	static const Logger logger;
 };
 
 #endif // ETAT_HPP

@@ -1,0 +1,14 @@
+#ifndef VALEUR_RETOUR_HPP
+#define VALEUR_RETOUR_HPP
+
+enum valeurRetour
+{
+	ACCEPTE,
+	RECONNU,
+	NON_RECONNU,
+	REDUIT,
+	SUIVANT_NON_VALIDE,
+	ERREUR_INI
+};
+
+#endif // VALEUR_RETOUR_HPP

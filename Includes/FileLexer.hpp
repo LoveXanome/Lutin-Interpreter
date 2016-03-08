@@ -11,11 +11,11 @@ public:
 	FileLexer(const std::string& fileName);
 	virtual ~FileLexer();
 	
-	Symbole* getNext();
-	Symbole* readNext() const;
+	symbole_ptr getNext();
+	symbole_ptr readNext() const;
 
 private:
-	std::vector<Symbole*> symboles;
+	std::vector<symbole_ptr> symboles;
 	unsigned int currentIdx;
 	
 	static const Logger logger;
