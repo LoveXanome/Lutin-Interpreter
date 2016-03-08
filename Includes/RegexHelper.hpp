@@ -3,6 +3,7 @@
 
 #include <string>
 #include "Symbole.hpp"
+#include "AutomateLutin.hpp"
 
 class RegexHelper
 {
@@ -12,7 +13,7 @@ public:
 	static std::string findFirstMatchingRegex(const std::string& str);
 	static bool isIdentifiantRegex(const std::string& regStr);
 	static bool isValeurRegex(const std::string& regStr);
-	static Symbole* makeSymboleTerminal(const std::string& regStr);
+	static symbole_ptr makeSymboleTerminal(const std::string& regStr);
 	
 private:
 	RegexHelper();

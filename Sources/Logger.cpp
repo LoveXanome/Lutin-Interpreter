@@ -1,7 +1,8 @@
 #include "Logger.hpp"
 
-#define DEBUG
 #include <iostream>
+
+#define DEBUG
 
 Logger::Logger(const std::string& className) : className(className)
 {

@@ -2,18 +2,24 @@
 #define AUTOMATE_LUTIN_HPP
 
 class Etat;
+class Lexer;
 
 #include <string>
 #include <stack>
 #include <unordered_map>
+#include <memory>
 #include "Declaration.hpp"
-#include "Etat.hpp"
-#include "Lexer.hpp"
-#include "Declaration.hpp"
-#include "Programme.hpp"
-#include "Logger.hpp"
+#include "Symbole.hpp"
 
 typedef std::unordered_map<std::string, Declaration> TableDesSymboles;
+typedef std::shared_ptr<Symbole> symbole_ptr;
+
+
+#include "Etat.hpp"
+#include "valeurRetour.hpp"
+#include "Lexer.hpp"
+#include "Programme.hpp"
+#include "Logger.hpp"
 
 class AutomateLutin
 {
@@ -21,8 +27,8 @@ public:
 	AutomateLutin(const std::string& fileName, const int options);
 	virtual ~AutomateLutin();
 	void lecture();
-	void decalage(Symbole* symbole, Etat* etat, bool readNext);
-	void reduction(Symbole* symbole, const unsigned int nbEtats);
+	valeurRetour decalage(Symbole* symbole, Etat* etat, bool readNext);
+	valeurRetour reduction(Symbole* symbole, const unsigned int nbEtats);
 	Symbole* popSymbole();
 	void addDeclarationToProgram(Declaration* d);
 	void addInstructionToProgram(Instruction* i);
@@ -30,7 +36,7 @@ public:
 private:
 	int options;
 	std::stack<Etat*> etats;
-	std::stack<Symbole*> symboles;
+	std::stack<symbole_ptr> symboles;
 	TableDesSymboles tableSymboles;
 	Lexer* lexer;
 	Programme programme;

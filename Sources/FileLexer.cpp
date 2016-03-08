@@ -11,7 +11,7 @@ FileLexer::FileLexer(const std::string& fileName) : Lexer(fileName), currentIdx(
 	std::string line;
 	while (getline(*fileStream, line))
 	{
-		std::vector<Symbole*> symbs = SymbolFabric::makeSymbolsFromLine(line);
+		std::vector<symbole_ptr> symbs = SymbolFabric::makeSymbolsFromLine(line);
 		
 		for (unsigned int i = 0; i < symbs.size(); ++i)
 			symboles.push_back(symbs[i]);
@@ -20,21 +20,22 @@ FileLexer::FileLexer(const std::string& fileName) : Lexer(fileName), currentIdx(
 
 FileLexer::~FileLexer()
 {
-	for (auto it = symboles.begin(); it != symboles.end(); ++it)
-		delete *it;
+	/*for (auto it = symboles.begin(); it != symboles.end(); ++it)
+		delete (*it);*/
 }
 	
-Symbole* FileLexer::getNext()
+symbole_ptr FileLexer::getNext()
 {
 	if (isLastSymbol())
 		return 0;
 		
-	Symbole* nextSymbole = symboles[currentIdx++];
+	symbole_ptr nextSymbole = symboles[currentIdx++];
 	logger.debug(StringHelper::format("Get next %s", nextSymbole->toString().c_str()));
+	
 	return nextSymbole;
 }
 
-Symbole* FileLexer::readNext() const
+symbole_ptr FileLexer::readNext() const
 {
 	if (isLastSymbol())
 		return 0;

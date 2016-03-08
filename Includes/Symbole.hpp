@@ -3,6 +3,7 @@
 
 #include "SymboleEnum.hpp"
 #include <string>
+#include "Logger.hpp"
 
 class Symbole
 {
@@ -14,6 +15,8 @@ public:
 	
 protected:
 	SymboleEnum enumRepresentation;
+	
+	static const Logger logger;
 };
 
 #endif // SYMBOLE_HPP

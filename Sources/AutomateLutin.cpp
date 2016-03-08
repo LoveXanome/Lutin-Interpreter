@@ -8,6 +8,7 @@
 #include "Identifiant.hpp"
 #include "Valeur.hpp"
 #include "SymboleTerminal.hpp"
+#include <set>
 
 const Logger AutomateLutin::logger("AutomateLutin");
 
@@ -15,7 +16,6 @@ AutomateLutin::AutomateLutin(const std::string& fileName, const int options)
 {
 	lexer = new FileLexer(fileName);
 	
-	symboles.push(new Programme);
 	etats.push(new E0);
 	
 	this->options = options;
@@ -23,26 +23,35 @@ AutomateLutin::AutomateLutin(const std::string& fileName, const int options)
 
 AutomateLutin::~AutomateLutin()
 {
+	logger.debug(StringHelper::format("Start destruction (%d etats & %d symboles)", etats.size(), symboles.size()));
 	while (!etats.empty())
 	{
-		delete etats.top();
+		Etat* e = etats.top();
 		etats.pop();
+		delete e;
 	}
 	
+	/*std::set<Symbole*> uniqueSymboles;
 	while (!symboles.empty())
 	{
-		delete symboles.top();
+		Symbole* s = symboles.top();
 		symboles.pop();
+		uniqueSymboles.insert(s);
 	}
 	
+	for (Symbole* s : uniqueSymboles)
+		delete s;*/
+	
 	delete lexer;
+	logger.debug("End destruction");
 }
 
 void AutomateLutin::lecture()
 {
+	logger.debug("Debut lecture");
 	
-	Symbole* firstSymbole = lexer->getNext();
-	valeurRetour retour = etats.top()->transition(this, firstSymbole);
+	symbole_ptr firstSymbole = lexer->getNext();
+	valeurRetour retour = etats.top()->transition(this, &(*firstSymbole));
 	
 	if (retour == NON_RECONNU)
 		logger.debug("Non reconnu");
@@ -58,34 +67,36 @@ void AutomateLutin::lecture()
 	
 	if (options & AFFICHAGE)
 		affichage();
+		
+	logger.debug("Fin lecture");
 }
 
-void AutomateLutin::decalage(Symbole* symbole, Etat* etat, bool readNext)
+valeurRetour AutomateLutin::decalage(Symbole* symbole, Etat* etat, bool readNext)
 {	
 	logger.debug(StringHelper::format("Decalage vers etat %s (symbole %s) (read next : %d)", etat->toString().c_str(), symbole->toString().c_str(), readNext));
 	
-	symboles.push(symbole);
+	symboles.push(std::make_shared<Symbole>(*symbole));
 	etats.push(etat);
 	
 	if (readNext)
-		symbole = lexer->getNext();
+		symbole = &(*(lexer->getNext()));
 	
-	etat->transition(this, symbole);
+	return etat->transition(this, symbole);
 }
 
-void AutomateLutin::reduction(Symbole* symbole, const unsigned int nbEtats)
+valeurRetour AutomateLutin::reduction(Symbole* symbole, const unsigned int nbEtats)
 {
 	for (unsigned int i = 0; i < nbEtats; ++i)
 		etats.pop();
 		
-	etats.top()->transition(this, symbole);
+	return etats.top()->transition(this, symbole);
 }
 
 Symbole* AutomateLutin::popSymbole()
 {
-	Symbole* s = symboles.top();
+	symbole_ptr s = symboles.top();
 	symboles.pop();
-	return s;
+	return &(*s);
 }
 
 void AutomateLutin::addDeclarationToProgram(Declaration* d)
