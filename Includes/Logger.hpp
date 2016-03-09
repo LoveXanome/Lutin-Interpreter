@@ -2,6 +2,7 @@
 #define LOGGER_HPP
 
 #include <string>
+#include <list>
 
 class Logger
 {
@@ -13,7 +14,9 @@ public:
 private:
 	std::string className;
 	
+	static const std::list<std::string> IGNORED_CLASSES;
 	void printClassName() const;
+	bool isIgnored() const;
 };
 
 #endif // LOGGER_HPP
