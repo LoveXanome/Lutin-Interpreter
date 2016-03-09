@@ -1,10 +1,14 @@
 #include "RegexHelper.hpp"
 
-#include <regex>
+#include <regex.h>
 #include <stdexcept>
 #include "SymboleEnum.hpp"
 #include "SymboleTerminal.hpp"
 #include "StringHelper.hpp"
+
+const Logger RegexHelper::logger("RegexHelper");
+
+// TODO : the code of the regex.h needs to be refactored : duplicated four times
 
 RegexHelper::RegexHelper()
 {
@@ -47,91 +51,170 @@ std::string RegexHelper::findFirstMatchingRegex(const std::string& str)
 
 void RegexHelper::ifFirstRegexReplace(const std::string& str, const std::string& regStr, unsigned int* firstPosition, std::string* firstRegexStr)
 {
-	std::smatch match;
-	std::regex reg(regStr);
-	if (regex_search(str, match, reg))
+	logger.debug(StringHelper::format("Searching '%s' in '%s'", regStr.c_str(), str.c_str()));
+	
+	regex_t regex;
+	if (regcomp(&regex, regStr.c_str(), REG_EXTENDED))
+		throw std::runtime_error(StringHelper::format("'%s' could not be compiled into a regex", regStr.c_str()));
+	
+	size_t nmatch = regex.re_nsub;
+	regmatch_t* pmatch = new regmatch_t[nmatch]; // checking if correctly allocated is sooooo mainstream!
+	
+	if (regexec(&regex, str.c_str(), nmatch, pmatch, 0) == 0)
 	{
-		if (match.position() < *firstPosition)
+		if (((unsigned int) pmatch[0].rm_so) < *firstPosition)
 		{
-			*firstPosition = match.position();
+			logger.debug("Is the new left-most matching pattern!");
+			*firstPosition = pmatch[0].rm_so;
 			*firstRegexStr = regStr;
 		}
 	}
+	
+	delete [] pmatch;
+	regfree(&regex);
 }
 
-bool RegexHelper::isIdentifiantRegex(const std::string& regStr)
+std::string RegexHelper::erase_regex(const std::string& str, const std::string& regStr)
 {
-	return regStr == IDENTIFIANT_REGEX_STR;
+	regex_t regex;
+	if (regcomp(&regex, regStr.c_str(), REG_EXTENDED))
+		throw std::runtime_error(StringHelper::format("'%s' could not be compiled into a regex", regStr.c_str()));
+		
+	size_t nmatch = regex.re_nsub;
+	regmatch_t* pmatch = new regmatch_t[nmatch]; // no checking again lol
+	
+	std::string newStr(str);
+	if (regexec(&regex, str.c_str(), nmatch, pmatch, 0) == 0)
+	{
+		newStr.erase(newStr.begin() + pmatch[0].rm_so, newStr.begin() + pmatch[0].rm_eo);
+		logger.debug(StringHelper::format("Removing regex '%s' from '%s' => '%s'", regStr.c_str(), str.c_str(), newStr.c_str()));
+	}
+	
+	delete [] pmatch;
+	regfree(&regex);
+	
+	return newStr;
 }
 
-bool RegexHelper::isValeurRegex(const std::string& regStr)
+std::string RegexHelper::getIdentifiantRegex(const std::string& regStr, const std::string& str)
 {
-	return regStr == VALEUR_REGEX_STR;
+	if (regStr != IDENTIFIANT_REGEX_STR)
+		return std::string();
+		
+	regex_t regex;
+	if (regcomp(&regex, regStr.c_str(), REG_EXTENDED))
+		throw std::runtime_error(StringHelper::format("'%s' could not be compiled into a regex", regStr.c_str()));
+		
+	size_t nmatch = regex.re_nsub;
+	regmatch_t* pmatch = new regmatch_t[nmatch]; // no checking again lol
+	
+	std::string newStr;
+	if (regexec(&regex, str.c_str(), nmatch, pmatch, 0) == 0)
+	{
+		size_t length = pmatch[0].rm_eo - pmatch[0].rm_so;
+		newStr = str.substr(pmatch[0].rm_so, length);
+		logger.debug(StringHelper::format("Extracted identifiant '%s'", newStr.c_str()));
+	}
+	
+	delete [] pmatch;
+	regfree(&regex);
+	
+	return newStr;
+}
+
+std::string RegexHelper::getValeurRegex(const std::string& regStr, const std::string& str)
+{
+	if (regStr != VALEUR_REGEX_STR)
+		return std::string();
+		
+	regex_t regex;
+	if (regcomp(&regex, regStr.c_str(), REG_EXTENDED))
+		throw std::runtime_error(StringHelper::format("'%s' could not be compiled into a regex", regStr.c_str()));
+		
+	size_t nmatch = regex.re_nsub;
+	regmatch_t* pmatch = new regmatch_t[nmatch]; // no checking again lol
+	
+	std::string newStr;
+	if (regexec(&regex, str.c_str(), nmatch, pmatch, 0) == 0)
+	{
+		size_t length = pmatch[0].rm_eo - pmatch[0].rm_so;
+		newStr = str.substr(pmatch[0].rm_so, length);
+		logger.debug(StringHelper::format("Extracted valeur '%s'", newStr.c_str()));
+	}
+	
+	delete [] pmatch;
+	regfree(&regex);
+	
+	return newStr;
 }
 
 Symbole* RegexHelper::makeSymboleTerminal(const std::string& regStr)
 {
 	// TODO switch ?
+	SymboleEnum enumVal = NONE;
 	
 	if (regStr == VAR_REGEX_STR)
-		return new SymboleTerminal(VAR);
+		enumVal = VAR;
 		
 	if (regStr == CONST_REGEX_STR)
-		return new SymboleTerminal(CONST);
+		enumVal = CONST;
 	
 	if (regStr == AFFECTATION_REGEX_STR)
-		return new SymboleTerminal(AFFECTATION);
+		enumVal = AFFECTATION;
 		
 	if (regStr == ECRIRE_REGEX_STR)
-		return new SymboleTerminal(ECRIRE);
+		enumVal = ECRIRE;
 		
 	if (regStr == LIRE_REGEX_STR)
-		return new SymboleTerminal(LIRE);
+		enumVal = LIRE;
 		
 	if (regStr == POINT_VIRGULE_REGEX_STR)
-		return new SymboleTerminal(POINT_VIRGULE);
+		enumVal = POINT_VIRGULE;
 		
 	if (regStr == EGAL_REGEX_STR)
-		return new SymboleTerminal(EGAL);
+		enumVal = EGAL;
 		
 	if (regStr == PLUS_REGEX_STR)
-		return new SymboleTerminal(PLUS);
+		enumVal = PLUS;
 		
 	if (regStr == MOINS_REGEX_STR)
-		return new SymboleTerminal(MOINS);
+		enumVal = MOINS;
 		
 	if (regStr == MULTIPLIER_REGEX_STR)
-		return new SymboleTerminal(MULTIPLIER);
+		enumVal = MULTIPLIER;
 		
 	if (regStr == DIVISER_REGEX_STR)
-		return new SymboleTerminal(DIVISER);
+		enumVal = DIVISER;
 		
 	if (regStr == PARENTHESE_OUVRANTE_REGEX_STR)
-		return new SymboleTerminal(PARENTHESE_OUVRANTE);
+		enumVal = PARENTHESE_OUVRANTE;
 		
 	if (regStr == PARENTHESE_FERMANTE_REGEX_STR)
-		return new SymboleTerminal(PARENTHESE_FERMANTE);
+		enumVal = PARENTHESE_FERMANTE;
 		
 	if (regStr == VIRGULE_REGEX_STR)
-		return new SymboleTerminal(VIRGULE);
+		enumVal = VIRGULE;
 		
+	
+	if (enumVal == NONE)
+		throw std::runtime_error(StringHelper::format("No terminal symbol could have been created with regex '%s'", regStr.c_str()));
 		
-	throw std::runtime_error(StringHelper::format("No terminal symbol could have been created with regex '%s'", regStr.c_str()));
+	return new SymboleTerminal(enumVal);
 }
 
-const std::string RegexHelper::IDENTIFIANT_REGEX_STR = "[a-zA-Z][a-zA-Z0-9]*";
-const std::string RegexHelper::VALEUR_REGEX_STR = "[0-9]+";
-const std::string RegexHelper::VAR_REGEX_STR = "var";
-const std::string RegexHelper::CONST_REGEX_STR = "const";
-const std::string RegexHelper::AFFECTATION_REGEX_STR = ":=";
-const std::string RegexHelper::ECRIRE_REGEX_STR = "ecrire";
-const std::string RegexHelper::LIRE_REGEX_STR = "lire";
-const std::string RegexHelper::POINT_VIRGULE_REGEX_STR = ";";
-const std::string RegexHelper::EGAL_REGEX_STR = "=";
-const std::string RegexHelper::PLUS_REGEX_STR = "\\+";
-const std::string RegexHelper::MOINS_REGEX_STR = "\\-";
-const std::string RegexHelper::MULTIPLIER_REGEX_STR = "\\*";
-const std::string RegexHelper::DIVISER_REGEX_STR = "\\/";
-const std::string RegexHelper::PARENTHESE_OUVRANTE_REGEX_STR = "\\(";
-const std::string RegexHelper::PARENTHESE_FERMANTE_REGEX_STR = "\\)";
-const std::string RegexHelper::VIRGULE_REGEX_STR = ",";
+const std::string RegexHelper::IDENTIFIANT_REGEX_STR = "([a-zA-Z][a-zA-Z0-9]*)";
+const std::string RegexHelper::VALEUR_REGEX_STR = "([0-9]+)";
+const std::string RegexHelper::VAR_REGEX_STR = "(var)";
+const std::string RegexHelper::CONST_REGEX_STR = "(const)";
+const std::string RegexHelper::AFFECTATION_REGEX_STR = "(:=)";
+const std::string RegexHelper::ECRIRE_REGEX_STR = "(ecrire)";
+const std::string RegexHelper::LIRE_REGEX_STR = "(lire)";
+const std::string RegexHelper::POINT_VIRGULE_REGEX_STR = "(;)";
+const std::string RegexHelper::EGAL_REGEX_STR = "(=)";
+const std::string RegexHelper::PLUS_REGEX_STR = "(\\+)";
+const std::string RegexHelper::MOINS_REGEX_STR = "(\\-)";
+const std::string RegexHelper::MULTIPLIER_REGEX_STR = "(\\*)";
+const std::string RegexHelper::DIVISER_REGEX_STR = "(\\/)";
+const std::string RegexHelper::PARENTHESE_OUVRANTE_REGEX_STR = "(\\()";
+const std::string RegexHelper::PARENTHESE_FERMANTE_REGEX_STR = "(\\))";
+const std::string RegexHelper::VIRGULE_REGEX_STR = "(,)";

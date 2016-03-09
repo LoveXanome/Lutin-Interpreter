@@ -22,7 +22,6 @@ valeurRetour E0::transition(AutomateLutin* automate, Symbole* s)
         case D:
             automate->decalage(s, new E1, false);
             return RECONNU;
-            break;
     }
 	return NON_RECONNU;
 }

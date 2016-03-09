@@ -28,7 +28,10 @@ enum SymboleEnum
 	EQ,
 	I,
 	I2,
-	EXP
+	EXP,
+	
+	UNKNOWN,
+	NONE
 };
 
 #endif // SYMBOLE_ENUM_HPP

@@ -15,6 +15,8 @@ public:
 	
 private:
 	SymbolFabric();
+	static const Logger logger;
+	
 	static Symbole* createCorrespondingSymbol(const std::string& regStr, const std::string& str);
 };
 

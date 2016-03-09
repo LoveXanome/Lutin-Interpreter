@@ -9,6 +9,8 @@
 #include "Valeur.hpp"
 #include "SymboleTerminal.hpp"
 #include <set>
+#include <iostream>
+#include "SymbolFabric.hpp"
 
 const Logger AutomateLutin::logger("AutomateLutin");
 
@@ -81,7 +83,18 @@ valeurRetour AutomateLutin::decalage(Symbole* symbole, Etat* etat, bool readNext
 	if (readNext)
 		symbole = lexer->getNext();
 	
-	return etat->transition(this, symbole);
+	valeurRetour ret = etat->transition(this, symbole);
+	
+	if (ret == NON_RECONNU)
+	{
+		std::cerr << "Unexpected symbol " << symbole->toString() << ". Expected : ";
+		/*std::vector<SymboleEnum> expectedEnum = etat->getExpectedSymbols();
+		for (SymboleEnum currentEnum : expectedEnum)
+			std::cerr << SymbolFabric::makeSymbolNameFromNumber(currentEnum) << " ";*/
+		std::cerr << std::endl;
+	}
+	
+	return ret;
 }
 
 valeurRetour AutomateLutin::reduction(Symbole* symbole, const unsigned int nbEtats)

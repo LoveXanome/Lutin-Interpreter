@@ -1,12 +1,12 @@
 #include "SymbolFabric.hpp"
 
 #include "RegexHelper.hpp"
-
-#include <regex>
 #include <stdexcept>
 #include "Identifiant.hpp"
 #include "Valeur.hpp"
 #include "StringHelper.hpp"
+
+const Logger SymbolFabric::logger("SymbolFabric");
 
 SymbolFabric::SymbolFabric()
 {
@@ -19,37 +19,34 @@ SymbolFabric::~SymbolFabric()
 std::vector<Symbole*> SymbolFabric::makeSymbolsFromLine(std::string& line)
 {
 	std::vector<Symbole*> symboles;
+	logger.debug(StringHelper::format("Making symbols from '%s'", line.c_str()));
 	
 	while (!StringHelper::isOnlyWhitespaces(line))
 	{
 		std::string firstMatchingRegex = RegexHelper::findFirstMatchingRegex(line);
+		logger.debug(StringHelper::format("Found matching regex '%s'", firstMatchingRegex.c_str()));
 		
 		Symbole* symb = createCorrespondingSymbol(firstMatchingRegex, line);
 		symboles.push_back(symb);
 		
-		line = std::regex_replace(line, std::regex(firstMatchingRegex), "");
+		line = RegexHelper::erase_regex(line, firstMatchingRegex);
 	}
 	
+	logger.debug(StringHelper::format("%d symbols made", symboles.size()));
 	return symboles;
 }
 
 Symbole* SymbolFabric::createCorrespondingSymbol(const std::string& regStr, const std::string& str)
 {
-	if (RegexHelper::isIdentifiantRegex(regStr))
-	{
-		std::regex reg(regStr);
-		std::smatch m;
-		std::regex_search(str, m, reg);
-		return new Identifiant(m[0]);
-	}
+	std::string matchedContent;
 	
-	if (RegexHelper::isValeurRegex(regStr))
-	{
-		std::regex reg(regStr);
-		std::smatch m;
-		std::regex_search(str, m, reg);
-		return new Valeur(std::stod(m[0]));
-	}
+	matchedContent = RegexHelper::getIdentifiantRegex(regStr, str);
+	if (matchedContent != "")
+		return new Identifiant(matchedContent);
+	
+	matchedContent = RegexHelper::getValeurRegex(regStr, str);
+	if (matchedContent != "")
+		return new Valeur(std::stod(matchedContent));
 	
 	return RegexHelper::makeSymboleTerminal(regStr);
 }

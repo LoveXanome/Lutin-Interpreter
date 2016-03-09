@@ -10,13 +10,16 @@ public:
 	virtual ~RegexHelper();
 	
 	static std::string findFirstMatchingRegex(const std::string& str);
-	static bool isIdentifiantRegex(const std::string& regStr);
-	static bool isValeurRegex(const std::string& regStr);
+	static std::string erase_regex(const std::string& str, const std::string& regStr);
+	static std::string getIdentifiantRegex(const std::string& regStr, const std::string& str);
+	static std::string getValeurRegex(const std::string& regStr, const std::string& str);
 	static Symbole* makeSymboleTerminal(const std::string& regStr);
 	
 private:
 	RegexHelper();
 	static void ifFirstRegexReplace(const std::string& str, const std::string& regStr, unsigned int* firstPosition, std::string* firstRegexStr);
+	
+	static const Logger logger;
 	
 	static const std::string IDENTIFIANT_REGEX_STR;
 	static const std::string VALEUR_REGEX_STR;
