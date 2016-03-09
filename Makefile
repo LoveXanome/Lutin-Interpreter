@@ -37,7 +37,7 @@ main.o: $(MAIN)
 
 lutin: main.o $(OBJ)
 	$(ECHO) "Linking $(EXE)"
-	$(LINKER) $(LINKERFLAGS) -o $(EXE) $(OBJ) $(BUILDDIR)main.o $(INC)
+	$(LINKER) $(LINKERFLAGS) -o $(EXE) $(OBJ) $(BUILDDIR)main.o
 
 builddir:
 	mkdir -p $(BUILDDIR)
