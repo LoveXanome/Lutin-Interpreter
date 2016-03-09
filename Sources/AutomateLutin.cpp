@@ -14,24 +14,16 @@
 
 const Logger AutomateLutin::logger("AutomateLutin");
 
-AutomateLutin::AutomateLutin(const std::string& fileName, const int options)
+AutomateLutin::AutomateLutin(const std::string& fileName, const int options) : options(options), symbolBeforeReduction(0)
 {
 	lexer = new FileLexer(fileName);
 	
 	etats.push(new E0);
-	
-	this->options = options;
 }
 
 AutomateLutin::~AutomateLutin()
 {
-	logger.debug(StringHelper::format("Start destruction (%d etats & %d symboles)", etats.size(), symboles.size()));
-	while (!etats.empty())
-	{
-		Etat* e = etats.top();
-		etats.pop();
-		delete e;
-	}
+	int nbSymboles = symboles.size();
 	
 	std::set<Symbole*> uniqueSymboles;
 	while (!symboles.empty())
@@ -41,8 +33,18 @@ AutomateLutin::~AutomateLutin()
 		uniqueSymboles.insert(s);
 	}
 	
-	for (Symbole* s : uniqueSymboles)
-		delete s;
+	logger.debug(StringHelper::format("Start destruction (%d etats & %d symboles (unique %d))", etats.size(), nbSymboles, uniqueSymboles.size()));
+
+
+	while (!etats.empty())
+	{
+		Etat* e = etats.top();
+		etats.pop();
+		delete e;
+	}
+	
+	/*for (Symbole* s : uniqueSymboles)
+		delete s;*/
 	
 	delete lexer;
 	logger.debug("End destruction");
@@ -78,6 +80,12 @@ valeurRetour AutomateLutin::decalage(Symbole* symbole, Etat* etat, bool readNext
 	logger.debug(StringHelper::format("Decalage vers etat %s (symbole %s) (read next : %d)", etat->toString().c_str(), symbole->toString().c_str(), readNext));
 	
 	symboles.push(symbole);
+	if (symbolBeforeReduction != 0)
+	{
+		symbole = symbolBeforeReduction;
+		symboles.push(symbole);
+		symbolBeforeReduction = 0;
+	}
 	etats.push(etat);
 	
 	if (readNext)
@@ -87,22 +95,38 @@ valeurRetour AutomateLutin::decalage(Symbole* symbole, Etat* etat, bool readNext
 	
 	if (ret == NON_RECONNU)
 	{
-		std::cerr << "Unexpected symbol " << symbole->toString() << ". Expected : ";
+		std::cerr << "Unexpected symbol " << symbole->toString() << " Expected : ";
 		/*std::vector<SymboleEnum> expectedEnum = etat->getExpectedSymbols();
 		for (SymboleEnum currentEnum : expectedEnum)
-			std::cerr << SymbolFabric::makeSymbolNameFromNumber(currentEnum) << " ";*/
+			std::cerr << SymbolFabric::makeSymbolNameFromNumber(currentEnum) << ", ";*/
 		std::cerr << std::endl;
 	}
 	
 	return ret;
 }
 
-valeurRetour AutomateLutin::reduction(Symbole* symbole, const unsigned int nbEtats)
+valeurRetour AutomateLutin::reduction(Symbole* symbole, const unsigned int nbEtats, Symbole* previousSymbol)
 {
 	for (unsigned int i = 0; i < nbEtats; ++i)
 		etats.pop();
-		
-	return etats.top()->transition(this, symbole);
+	
+	logger.debug(StringHelper::format("Reduction de %d etats. Appel de %s (symbole %s)", nbEtats, etats.top()->toString().c_str(), symbole->toString().c_str()));
+	
+	symbolBeforeReduction = previousSymbol;
+	
+	Etat* etat = etats.top();
+	valeurRetour ret = etat->transition(this, symbole);
+	
+	if (ret == NON_RECONNU)
+	{
+		std::cerr << "Unexpected symbol " << symbole->toString() << " Expected : ";
+		/*std::vector<SymboleEnum> expectedEnum = etat->getExpectedSymbols();
+		for (SymboleEnum currentEnum : expectedEnum)
+			std::cerr << SymbolFabric::makeSymbolNameFromNumber(currentEnum) << ", ";*/
+		std::cerr << std::endl;
+	}
+	
+	return ret;
 }
 
 Symbole* AutomateLutin::popSymbole()

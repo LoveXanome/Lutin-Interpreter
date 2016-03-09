@@ -22,10 +22,8 @@ valeurRetour E27::transition(AutomateLutin* automate, Symbole* s)
 		case CONST:
 			automate->popSymbole();
 			automate->popSymbole();
-			
-			automate->reduction(new SymboleDefaut(D), 2);
+			automate->reduction(new SymboleDefaut(D), 2, s);
 			return REDUIT;
-			break;
 	}
 	return NON_RECONNU;
 }

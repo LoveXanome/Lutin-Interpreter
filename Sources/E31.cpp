@@ -25,7 +25,7 @@ valeurRetour E31::transition(AutomateLutin* automate, Symbole* s)
 			automate->popSymbole();
 			automate->popSymbole();
 			automate->popSymbole();
-			automate->reduction(new SymboleDefaut(D2), 3);
+			automate->reduction(new SymboleDefaut(D2), 3, s);
 			return REDUIT;
 	}
 	

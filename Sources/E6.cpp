@@ -28,7 +28,7 @@ valeurRetour E6::transition(AutomateLutin* automate, Symbole* s)
 			automate->popSymbole();
 			
 			automate->addInstructionToProgram(new InstructionLecture(i->getIdentifiant()));
-			automate->reduction(new SymboleDefaut(I2), 3);
+			automate->reduction(new SymboleDefaut(I2), 3, s);
 			retour = REDUIT;
 			break;
 	}

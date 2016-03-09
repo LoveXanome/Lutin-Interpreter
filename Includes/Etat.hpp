@@ -5,9 +5,10 @@
 
 class AutomateLutin;
 
-#include <string>
+#include <vector>
 #include "AutomateLutin.hpp"
 #include "Symbole.hpp"
+#include "SymboleEnum.hpp"
 #include "valeurRetour.hpp"
 
 
@@ -18,6 +19,7 @@ public:
 	virtual ~Etat();
 	std::string toString() const;
 	virtual valeurRetour transition(AutomateLutin* automate, Symbole* s) = 0;
+	virtual std::vector<SymboleEnum> getExpectedSymbols() const;
 	
 private:
 	int number;

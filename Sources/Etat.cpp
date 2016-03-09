@@ -16,3 +16,10 @@ std::string Etat::toString() const
 {
 	return std::to_string(number);
 }
+
+std::vector<SymboleEnum> Etat::getExpectedSymbols() const
+{
+	return std::vector<SymboleEnum>({
+		NONE
+	});
+}

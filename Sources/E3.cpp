@@ -18,7 +18,7 @@ valeurRetour E3::transition(AutomateLutin* automate, Symbole * s)
         default :
 			automate->popSymbole();
 			automate->popSymbole();
-            automate->reduction(new SymboleDefaut(I), 2);
+            automate->reduction(new SymboleDefaut(I), 2, s);
             return REDUIT;
     }
 	return NON_RECONNU;

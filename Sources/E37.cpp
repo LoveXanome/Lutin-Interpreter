@@ -26,7 +26,7 @@ valeurRetour E37::transition(AutomateLutin* automate, Symbole * s)
             Identifiant* i = (Identifiant*) automate->popSymbole();
             
             automate->addDeclarationToProgram(new DeclarationConstante(i->getIdentifiant(), v->getValeur()));
-            automate->reduction(new SymboleDefaut(EQ), 3);
+            automate->reduction(new SymboleDefaut(EQ), 3, s);
             return REDUIT;            
     }
 	return NON_RECONNU;

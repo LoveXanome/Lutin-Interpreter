@@ -26,7 +26,7 @@ public:
 	virtual ~AutomateLutin();
 	void lecture();
 	valeurRetour decalage(Symbole* symbole, Etat* etat, bool readNext);
-	valeurRetour reduction(Symbole* symbole, const unsigned int nbEtats);
+	valeurRetour reduction(Symbole* symbole, const unsigned int nbEtats, Symbole* previousSymbol);
 	Symbole* popSymbole();
 	void addDeclarationToProgram(Declaration* d);
 	void addInstructionToProgram(Instruction* i);
@@ -38,6 +38,7 @@ private:
 	TableDesSymboles tableSymboles;
 	Lexer* lexer;
 	Programme programme;
+	Symbole* symbolBeforeReduction;
 	
 	static const Logger logger;
 	

@@ -132,6 +132,14 @@ std::string SymbolFabric::makeSymbolNameFromNumber(const SymboleEnum enumReprese
 		case 24:
 			enumString = "EXP";
 			break;
+		
+		case 25:
+			enumString = "UNKNOWN";
+			break;	
+		case 26:
+			enumString = "NONE";
+			break;
+		
 
 		default:
 			throw std::runtime_error(StringHelper::format("Unknown enum number (%d) for symbol", enumRepresentation));
