@@ -2,14 +2,13 @@
 #define PROGRAMME_HPP
 
 #include <list>
-#include "Symbole.hpp"
 #include "Instruction.hpp"
 #include "Declaration.hpp"
 
 typedef std::list<Instruction*> ListeInstructions;
 typedef std::list<Declaration*> ListeDeclarations;
 
-class Programme : public Symbole
+class Programme
 {
 public:
 	Programme();
