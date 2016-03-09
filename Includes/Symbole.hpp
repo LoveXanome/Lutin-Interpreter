@@ -11,7 +11,7 @@ public:
 	Symbole(const SymboleEnum& enumRepresentation);
 	virtual ~Symbole();
 	inline operator int() const { return enumRepresentation; }
-	std::string toString() const;
+	virtual std::string toString() const;
 	
 protected:
 	SymboleEnum enumRepresentation;

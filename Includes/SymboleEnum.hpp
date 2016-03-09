@@ -19,7 +19,7 @@ enum SymboleEnum
 	AFFECTATION,
 	ECRIRE,
 	LIRE,
-	DOLLAR,
+	FIN,
 
 	E,
 	D,

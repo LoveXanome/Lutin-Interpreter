@@ -4,6 +4,7 @@
 #include <algorithm>
 
 #define DEBUG
+#define WARNING
 //#define CONSTRUCTION_DESTRUCTION
 
 const std::list<std::string> Logger::IGNORED_CLASSES ({
@@ -37,6 +38,13 @@ void Logger::destruction(const std::string& msg) const
 {
 #ifdef CONSTRUCTION_DESTRUCTION
 	printMessage("DESTRUCTION", msg);
+#endif
+}
+
+void Logger::warning(const std::string& msg) const
+{
+#ifdef WARNING
+	printMessage("WARNING", msg);
 #endif
 }
 

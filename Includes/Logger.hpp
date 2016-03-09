@@ -12,6 +12,7 @@ public:
 	void debug(const std::string& msg) const;
 	void construction(const std::string& msg) const;
 	void destruction(const std::string& msg) const;
+	void warning(const std::string& msg) const;
 
 private:
 	std::string className;

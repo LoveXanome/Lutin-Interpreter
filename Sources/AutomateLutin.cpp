@@ -95,11 +95,23 @@ valeurRetour AutomateLutin::decalage(Symbole* symbole, Etat* etat, bool readNext
 	
 	if (ret == NON_RECONNU)
 	{
-		std::cerr << "Unexpected symbol " << symbole->toString() << " Expected : ";
-		/*std::vector<SymboleEnum> expectedEnum = etat->getExpectedSymbols();
-		for (SymboleEnum currentEnum : expectedEnum)
-			std::cerr << SymbolFabric::makeSymbolNameFromNumber(currentEnum) << ", ";*/
-		std::cerr << std::endl;
+		Symbole* nextSymbol = lexer->getNext();
+		valeurRetour ret2;
+		if (nextSymbol != 0)
+		{
+			logger.warning(StringHelper::format("Try skipping unexpected symbol %s", symbole->toString().c_str()));
+			ret2 = etat->transition(this, nextSymbol);
+		}
+		
+		if (ret2 == NON_RECONNU)
+		{
+			std::cerr << "Unexpected symbol " << symbole->toString() << ". Expected: ";
+			/*std::vector<SymboleEnum> expectedEnum = etat->getExpectedSymbols();
+			for (SymboleEnum currentEnum : expectedEnum)
+				std::cerr << SymbolFabric::makeSymbolNameFromNumber(currentEnum) << ", ";*/
+			std::cerr << std::endl;
+			// throw exception ?
+		}
 	}
 	
 	return ret;
@@ -110,7 +122,7 @@ valeurRetour AutomateLutin::reduction(Symbole* symbole, const unsigned int nbEta
 	for (unsigned int i = 0; i < nbEtats; ++i)
 		etats.pop();
 	
-	logger.debug(StringHelper::format("Reduction de %d etats. Appel de %s (symbole %s)", nbEtats, etats.top()->toString().c_str(), symbole->toString().c_str()));
+	logger.debug(StringHelper::format("Reduction de %d etats. Retour vers %s (symbole %s)", nbEtats, etats.top()->toString().c_str(), symbole->toString().c_str()));
 	
 	symbolBeforeReduction = previousSymbol;
 	

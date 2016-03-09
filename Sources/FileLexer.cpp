@@ -2,6 +2,7 @@
 
 #include "SymbolFabric.hpp"
 #include "StringHelper.hpp"
+#include "SymboleTerminal.hpp"
 
 const Logger FileLexer::logger("FileLexer");
 
@@ -16,6 +17,7 @@ FileLexer::FileLexer(const std::string& fileName) : Lexer(fileName), currentIdx(
 		for (unsigned int i = 0; i < symbs.size(); ++i)
 			symboles.push_back(symbs[i]);
 	}
+	symboles.push_back(new SymboleTerminal(FIN));
 }
 
 FileLexer::~FileLexer()
