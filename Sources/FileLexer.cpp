@@ -20,7 +20,7 @@ FileLexer::FileLexer(const std::string& fileName) : Lexer(fileName), currentIdx(
 
 FileLexer::~FileLexer()
 {
-	logger.debug(StringHelper::format("Deleting %d symboles", symboles.size()));
+	logger.destruction(StringHelper::format("Deleting %d symboles", symboles.size()));
 	for (auto it = symboles.begin(); it != symboles.end(); ++it)
 		delete (*it);
 }

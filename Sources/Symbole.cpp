@@ -7,12 +7,12 @@ const Logger Symbole::logger("Symbole");
 
 Symbole::Symbole(const SymboleEnum& enumRepresentation) : enumRepresentation(enumRepresentation)
 {
-	logger.debug(StringHelper::format("Construction symbole %s", toString().c_str()));
+	logger.construction(StringHelper::format("Symbole %s", toString().c_str()));
 }
 
 Symbole::~Symbole()
 {
-	logger.debug("Destruction symbole");
+	logger.destruction(StringHelper::format("Symbole %s", toString().c_str()));
 }
 
 std::string Symbole::toString() const

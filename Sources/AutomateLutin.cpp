@@ -33,7 +33,7 @@ AutomateLutin::~AutomateLutin()
 		uniqueSymboles.insert(s);
 	}
 	
-	logger.debug(StringHelper::format("Start destruction (%d etats & %d symboles (unique %d))", etats.size(), nbSymboles, uniqueSymboles.size()));
+	logger.destruction(StringHelper::format("Start destruction (%d etats & %d symboles (unique %d))", etats.size(), nbSymboles, uniqueSymboles.size()));
 
 
 	while (!etats.empty())
@@ -47,7 +47,7 @@ AutomateLutin::~AutomateLutin()
 		delete s;*/
 	
 	delete lexer;
-	logger.debug("End destruction");
+	logger.destruction("End destruction");
 }
 
 void AutomateLutin::lecture()
