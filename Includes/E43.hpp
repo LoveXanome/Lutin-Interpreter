@@ -9,6 +9,7 @@ public:
 	E43();
 	virtual ~E43();
 	valeurRetour transition(AutomateLutin* automate, Symbole * s);
+	virtual std::vector<SymboleEnum> getExpectedSymbols() const;
 };
 
 #endif //E43_HPP

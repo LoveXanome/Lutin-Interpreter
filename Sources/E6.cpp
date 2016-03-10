@@ -34,3 +34,10 @@ valeurRetour E6::transition(AutomateLutin* automate, Symbole* s)
 	}
 	return retour;
 }
+
+std::vector<SymboleEnum> E6::getExpectedSymbols() const
+{
+	return std::vector<SymboleEnum>({
+		IDENTIFIANT, ECRIRE, LIRE, DOLLAR
+	});
+}

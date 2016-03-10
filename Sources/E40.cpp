@@ -22,3 +22,10 @@ valeurRetour E40::transition(AutomateLutin* automate, Symbole * s)
     }
 	return NON_RECONNU;
 }
+
+std::vector<SymboleEnum> E40::getExpectedSymbols() const
+{
+	return std::vector<SymboleEnum>({
+		IDENTIFIANT
+	});
+}

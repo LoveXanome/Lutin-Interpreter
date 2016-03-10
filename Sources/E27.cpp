@@ -27,3 +27,10 @@ valeurRetour E27::transition(AutomateLutin* automate, Symbole* s)
 	}
 	return NON_RECONNU;
 }
+
+std::vector<SymboleEnum> E27::getExpectedSymbols() const
+{
+	return std::vector<SymboleEnum>({
+		IDENTIFIANT, ECRIRE, LIRE, VAR, CONST
+	});
+}

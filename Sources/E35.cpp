@@ -22,3 +22,11 @@ valeurRetour E35::transition(AutomateLutin* automate, Symbole * s)
     }
 	return NON_RECONNU;
 }
+
+std::vector<SymboleEnum> E35::getExpectedSymbols() const
+{
+	return std::vector<SymboleEnum>({
+		EGAL
+	});
+}
+

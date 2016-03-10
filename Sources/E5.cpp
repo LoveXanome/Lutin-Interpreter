@@ -26,3 +26,10 @@ valeurRetour E5::transition(AutomateLutin* automate, Symbole * s)
     }
 	return retour;
 }
+
+std::vector<SymboleEnum> E5::getExpectedSymbols() const
+{
+	return std::vector<SymboleEnum>({
+		POINT_VIRGULE
+	});
+}

@@ -22,3 +22,10 @@ valeurRetour E41::transition(AutomateLutin* automate, Symbole * s)
     }
 	return NON_RECONNU;
 }
+
+std::vector<SymboleEnum> E41::getExpectedSymbols() const
+{
+	return std::vector<SymboleEnum>({
+		EGAL
+	});
+}

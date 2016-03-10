@@ -22,3 +22,10 @@ valeurRetour E36::transition(AutomateLutin* automate, Symbole * s)
     }
 	return NON_RECONNU;
 }
+
+std::vector<SymboleEnum> E36::getExpectedSymbols() const
+{
+	return std::vector<SymboleEnum>({
+		VALEUR
+	});
+}

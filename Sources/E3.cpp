@@ -23,3 +23,10 @@ valeurRetour E3::transition(AutomateLutin* automate, Symbole * s)
     }
 	return NON_RECONNU;
 }
+
+std::vector<SymboleEnum> E3::getExpectedSymbols() const
+{
+	return std::vector<SymboleEnum>({
+		NULL
+	});
+}

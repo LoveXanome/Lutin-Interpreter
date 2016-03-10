@@ -29,3 +29,10 @@ valeurRetour E39::transition(AutomateLutin* automate, Symbole * s)
     }
 	return NON_RECONNU;
 }
+
+std::vector<SymboleEnum> E39::getExpectedSymbols() const
+{
+	return std::vector<SymboleEnum>({
+		CONST, VAR, IDENTIFIANT, LIRE, ECRIRE
+	});
+}

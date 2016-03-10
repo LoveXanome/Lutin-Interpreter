@@ -31,3 +31,10 @@ valeurRetour E37::transition(AutomateLutin* automate, Symbole * s)
     }
 	return NON_RECONNU;
 }
+
+std::vector<SymboleEnum> E37::getExpectedSymbols() const
+{
+	return std::vector<SymboleEnum>({
+		POINT_VIRGULE, VIRGULE
+	});
+}

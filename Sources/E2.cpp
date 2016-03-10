@@ -36,3 +36,10 @@ valeurRetour E2::transition(AutomateLutin* automate, Symbole * s)
     }
 	return retour;
 }
+
+std::vector<SymboleEnum> E2::getExpectedSymbols() const
+{
+	return std::vector<SymboleEnum>({
+		ECRIRE, LIRE, IDENTIFIANT
+	});
+}
