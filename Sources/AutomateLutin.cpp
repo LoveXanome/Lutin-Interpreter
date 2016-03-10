@@ -8,9 +8,10 @@
 #include "Identifiant.hpp"
 #include "Valeur.hpp"
 #include "SymboleTerminal.hpp"
+#include "SymbolFabric.hpp"
+
 #include <set>
 #include <iostream>
-#include "SymbolFabric.hpp"
 
 const Logger AutomateLutin::logger("AutomateLutin");
 

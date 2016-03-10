@@ -4,20 +4,20 @@
 class Etat;
 class Lexer;
 
-#include <string>
-#include <stack>
-#include <unordered_map>
 #include "Declaration.hpp"
 #include "Symbole.hpp"
-
-typedef std::unordered_map<std::string, Declaration> TableDesSymboles;
-
-
 #include "Etat.hpp"
 #include "valeurRetour.hpp"
 #include "Lexer.hpp"
 #include "Programme.hpp"
 #include "Logger.hpp"
+
+#include <string>
+#include <stack>
+#include <unordered_map>
+
+typedef std::unordered_map<std::string, Declaration> TableDesSymboles;
+
 
 class AutomateLutin
 {

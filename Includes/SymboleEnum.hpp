@@ -20,6 +20,8 @@ enum SymboleEnum
 	ECRIRE,
 	LIRE,
 	FIN,
+	
+	DOLLAR,
 
 	E,
 	D,
