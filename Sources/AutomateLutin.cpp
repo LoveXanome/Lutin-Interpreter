@@ -12,6 +12,7 @@
 
 #include <set>
 #include <iostream>
+#include <string>
 
 const Logger AutomateLutin::logger("AutomateLutin");
 
@@ -81,6 +82,8 @@ valeurRetour AutomateLutin::decalage(Symbole* symbole, Etat* etat, bool readNext
 	logger.debug(StringHelper::format("Decalage vers etat %s (symbole %s) (read next : %d)", etat->toString().c_str(), symbole->toString().c_str(), readNext));
 	
 	symboles.push(symbole);
+	
+	//Si on vient de faire une réduction, on récupère le symbole qu'on avait avant
 	if (symbolBeforeReduction != 0)
 	{
 		symbole = symbolBeforeReduction;
@@ -89,30 +92,48 @@ valeurRetour AutomateLutin::decalage(Symbole* symbole, Etat* etat, bool readNext
 	}
 	etats.push(etat);
 	
+	//Si on à lut un non terminal, alors on lit le suivant
 	if (readNext)
 		symbole = lexer->getNext();
 	
+	//Récupère la valeurs de retour de la transition
 	valeurRetour ret = etat->transition(this, symbole);
 	
+	//Si on a une erreur, on va essayer de lire le symbole suivant, et si on à une encore une erreur, on dit nique à l'utilisateur
 	if (ret == NON_RECONNU)
 	{
 		Symbole* nextSymbol = lexer->getNext();
 		valeurRetour ret2;
+		
 		if (nextSymbol != 0)
 		{
-			logger.warning(StringHelper::format("Try skipping unexpected symbol %s", symbole->toString().c_str()));
+			std::vector<SymboleEnum> expectedEnum = etat->getExpectedSymbols();
+			std::string errorMessage;
+			
+			for (SymboleEnum currentEnum : expectedEnum)
+			{
+				errorMessage.append(SymbolFabric::makeSymbolNameFromNumber(currentEnum));
+				errorMessage.append(", ");
+			}
+			
+			//Supprime le dernier point virgule
+			errorMessage.resize(errorMessage.size() - 2);
+			
 			ret2 = etat->transition(this, nextSymbol);
+			
+			//Si le nouveaux symbole est à nouveaux pas reconnus
+			if (ret2 == NON_RECONNU)
+			{
+				std::cerr << "Unexpected symbols " << symbole->toString() << " and " << nextSymbol->toString() << ". Expected: ";			
+				std::cerr << errorMessage << std::endl;
+				// throw exception ?
+			}
+			else
+			{
+				std::cerr << "We've encountered an unexpected symbols " << symbole->toString() << " and we were expected: " << errorMessage << " but we've skipped for you " <<std::endl;
+			}
 		}
 		
-		if (ret2 == NON_RECONNU)
-		{
-			std::cerr << "Unexpected symbol " << symbole->toString() << ". Expected: ";
-			/*std::vector<SymboleEnum> expectedEnum = etat->getExpectedSymbols();
-			for (SymboleEnum currentEnum : expectedEnum)
-				std::cerr << SymbolFabric::makeSymbolNameFromNumber(currentEnum) << ", ";*/
-			std::cerr << std::endl;
-			// throw exception ?
-		}
 	}
 	
 	return ret;
@@ -133,9 +154,9 @@ valeurRetour AutomateLutin::reduction(Symbole* symbole, const unsigned int nbEta
 	if (ret == NON_RECONNU)
 	{
 		std::cerr << "Unexpected symbol " << symbole->toString() << " Expected : ";
-		/*std::vector<SymboleEnum> expectedEnum = etat->getExpectedSymbols();
+		std::vector<SymboleEnum> expectedEnum = etat->getExpectedSymbols();
 		for (SymboleEnum currentEnum : expectedEnum)
-			std::cerr << SymbolFabric::makeSymbolNameFromNumber(currentEnum) << ", ";*/
+			std::cerr << SymbolFabric::makeSymbolNameFromNumber(currentEnum) << ", ";
 		std::cerr << std::endl;
 	}
 	
