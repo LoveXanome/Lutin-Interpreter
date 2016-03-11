@@ -2,7 +2,7 @@
 
 #include "SymboleEnum.hpp"
 
-ExpressionMultiplication::ExpressionMultiplication() : ExpressionBinaire(MULTIPLIER)
+ExpressionMultiplication::ExpressionMultiplication(Expression* membreG , Expression* membreD) : ExpressionBinaire(MULTIPLIER, membreGauche, membreDroite)
 {
 
 }
@@ -11,3 +11,9 @@ ExpressionMultiplication::~ExpressionMultiplication()
 {
 
 }
+
+std::string ExpressionMultiplication::toString() const
+{
+	return membreGauche->toString() + "*" + membreDroite->toString();
+}
+

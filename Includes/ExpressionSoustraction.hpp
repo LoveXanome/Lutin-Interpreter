@@ -6,8 +6,9 @@
 class ExpressionSoustraction : public ExpressionBinaire
 {
 public:
-	ExpressionSoustraction();
+	ExpressionSoustraction(Expression* membreG , Expression* membreD);
 	virtual ~ExpressionSoustraction();
+	std::string toString() const;
 };
 
 #endif // EXPRESSION_SOUSTRACTION_HPP
