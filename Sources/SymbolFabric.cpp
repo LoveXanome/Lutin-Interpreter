@@ -27,9 +27,13 @@ std::vector<Symbole*> SymbolFabric::makeSymbolsFromLine(std::string& line)
 		logger.debug(StringHelper::format("Found matching regex '%s'", firstMatchingRegex.c_str()));
 		
 		Symbole* symb = createCorrespondingSymbol(firstMatchingRegex, line);
-		symboles.push_back(symb);
-		
-		line = RegexHelper::erase_regex(line, firstMatchingRegex);
+		if (symb != 0)
+		{
+			symboles.push_back(symb);
+			line = RegexHelper::erase_regex(line, firstMatchingRegex);
+		}
+		else
+			line = "";
 	}
 	
 	logger.debug(StringHelper::format("%d symbols made", symboles.size()));

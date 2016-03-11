@@ -43,7 +43,7 @@ std::string RegexHelper::findFirstMatchingRegex(const std::string& str)
 	ifFirstRegexReplace(str, VIRGULE_REGEX_STR, &firstPosition, &firstRegexStr);
 
 	if (firstPosition == str.size())
-		throw std::runtime_error(StringHelper::format("'%s' could not be interpreted", str.c_str()));
+		logger.warning(StringHelper::format("Ignore unexpected characters in file '%s'", str.c_str()));
 		
 	return firstRegexStr;
 }
@@ -197,7 +197,7 @@ Symbole* RegexHelper::makeSymboleTerminal(const std::string& regStr)
 		
 	
 	if (enumVal == NONE)
-		throw std::runtime_error(StringHelper::format("No terminal symbol could have been created with regex '%s'", regStr.c_str()));
+		return 0;
 		
 	return new SymboleTerminal(enumVal);
 }
