@@ -1,15 +1,17 @@
 #include "Identifiant.hpp"
 
-#include "SymboleEnum.hpp"
-
-Identifiant::Identifiant(const std::string& identifiant) : Expression(IDENTIFIANT), identifiant(identifiant)
+Identifiant::Identifiant(const std::string& identifiant) : Identifiant(identifiant, IDENTIFIANT)
 {
-
 }
+
+
+Identifiant::Identifiant(const std::string& identifiant, const SymboleEnum& enumRepresentation) : Expression(enumRepresentation), identifiant(identifiant)
+{
+}
+
 
 Identifiant::~Identifiant()
 {
-
 }
 
 std::string Identifiant::getIdentifiant() const

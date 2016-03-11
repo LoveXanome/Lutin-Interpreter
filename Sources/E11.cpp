@@ -16,16 +16,17 @@ E11::~E11()
 
 valeurRetour E11::transition(AutomateLutin* automate, Symbole * s)
 {
-	switch (*s){
+	switch (*s)
+	{
 		case MULTIPLIER:
 		case DIVISER:
 		case PLUS:
 		case MOINS:
 		case POINT_VIRGULE:
 			Identifiant* i = (Identifiant*) automate->popSymbole();
-			automate->addInstructionToProgram(new InstructionAffectation(i->getIdentifiant()));
 			
-			automate->reduction(new SymboleDefaut(EXP), 1, s);
+			automate->reduction(new Identifiant(i->getIdentifiant(), EXP), 1, s);
+			delete i;
 			return REDUIT;
     }
 	return NON_RECONNU;

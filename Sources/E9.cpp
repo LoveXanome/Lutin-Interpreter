@@ -20,22 +20,23 @@ E9::~E9()
 
 valeurRetour E9::transition(AutomateLutin* automate, Symbole * s)
 {
-	switch (*s){
-        case POINT_VIRGULE :
+	switch (*s)
+	{
+        case POINT_VIRGULE:
             automate->decalage(s, new E10, true);
             break;
-        case MULTIPLIER :
+        /*case MULTIPLIER:
             automate->decalage(s, new E16, true);
             break;
-        case DIVISER :
+        case DIVISER:
             automate->decalage(s, new E18, true);
             break;
-        case PLUS :
+        case PLUS:
             automate->decalage(s, new E20, true);
             break;
-        case MOINS :
+        case MOINS:
             automate->decalage(s, new E22, true);
-            break;
+            break;*/
     }
 	return NON_RECONNU;
 }

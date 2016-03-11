@@ -110,7 +110,7 @@ std::string SymbolFabric::makeSymbolNameFromNumber(const SymboleEnum enumReprese
 			enumString = "LIRE";
 			break;
 		case 16:
-			enumString = "DOLLAR";
+			enumString = "FIN";
 			break;
 		case 17:
 			enumString = "E";

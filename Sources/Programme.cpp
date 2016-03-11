@@ -9,7 +9,11 @@ Programme::Programme()
 
 Programme::~Programme()
 {
-	
+	for (Declaration* d : declarations)
+		delete d;
+				
+	for (Instruction* i : instructions)
+		delete i;
 }
 
 void Programme::addDeclaration(Declaration* d)

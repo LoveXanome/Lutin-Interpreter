@@ -80,7 +80,7 @@ void AutomateLutin::lecture()
 
 valeurRetour AutomateLutin::decalage(Symbole* symbole, Etat* etat, bool readNext)
 {	
-	logger.debug(StringHelper::format("Decalage vers etat %s (symbole %s) (read next : %d)", etat->toString().c_str(), symbole->toString().c_str(), readNext));
+	logger.debug(StringHelper::format("Decalage vers etat %s (stacked symbole %s) (read next : %d)", etat->toString().c_str(), symbole->toString().c_str(), readNext));
 	
 	symboles.push(symbole);
 	
@@ -88,15 +88,13 @@ valeurRetour AutomateLutin::decalage(Symbole* symbole, Etat* etat, bool readNext
 	if (symbolBeforeReduction != 0)
 	{
 		symbole = symbolBeforeReduction;
-		symboles.push(symbole);
+		logger.debug(StringHelper::format("Coming from reduction : %s", symbole->toString().c_str()));
 		symbolBeforeReduction = 0;
 	}
+	else if (readNext) // Si la transition provient d'un symbole terminal, on lit le suivant du fichier
+		symbole = lexer->getNext();
 	
 	etats.push(etat);
-	
-	// Si la transition provient d'un symbole terminal, on lit le suivant du fichier
-	if (readNext)
-		symbole = lexer->getNext();
 	
 	// Récupère la valeur de retour de la transition
 	valeurRetour ret = etat->transition(this, symbole);

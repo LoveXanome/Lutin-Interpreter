@@ -1,8 +1,11 @@
 #include "Valeur.hpp"
 
-#include "SymboleEnum.hpp"
+Valeur::Valeur(const double& valeur) : Valeur(valeur, VALEUR)
+{
 
-Valeur::Valeur(const double& valeur) : Expression(VALEUR), valeur(valeur)
+}
+
+Valeur::Valeur(const double& valeur, const SymboleEnum& enumRepresentation) : Expression(enumRepresentation), valeur(valeur)
 {
 
 }

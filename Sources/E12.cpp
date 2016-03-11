@@ -22,10 +22,10 @@ valeurRetour E12::transition(AutomateLutin* automate, Symbole * s)
 		case PLUS:
 		case MOINS:
 		case POINT_VIRGULE:
-			Valeur* val= (Valeur*) automate->popSymbole();
-			automate->addInstructionToProgram(new InstructionAffectation(val->getValeur()));
+			Valeur* val = (Valeur*) automate->popSymbole();
 			
-			automate->reduction(new SymboleDefaut(EXP), 1, s);
+			automate->reduction(new Valeur(val->getValeur(), EXP), 1, s);
+			delete val;
 			return REDUIT;
     }
 	return NON_RECONNU;

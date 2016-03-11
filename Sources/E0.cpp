@@ -2,6 +2,7 @@
 
 #include "SymboleEnum.hpp"
 #include "E1.hpp"
+#include "E44.hpp"
 
 E0::E0() : Etat(0)
 {
@@ -22,6 +23,9 @@ valeurRetour E0::transition(AutomateLutin* automate, Symbole* s)
         case D:
             automate->decalage(s, new E1, false);
             return RECONNU;
+		case FIN:
+			automate->decalage(s, new E44, false);
+			return RECONNU;
     }
 	return NON_RECONNU;
 }
