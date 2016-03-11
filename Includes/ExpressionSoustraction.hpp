@@ -7,6 +7,7 @@ class ExpressionSoustraction : public ExpressionBinaire
 {
 public:
 	ExpressionSoustraction();
+	ExpressionSoustraction( Expression membreG , Expression membreD );
 	virtual ~ExpressionSoustraction();
 };
 

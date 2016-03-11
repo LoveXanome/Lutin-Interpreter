@@ -20,11 +20,11 @@ valeurRetour E14::transition(AutomateLutin* automate, Symbole * s)
     valeurRetour retour;
 	switch (*s){
         case PARENTHESE_FERMANTE :
-            automate->decalage(s, new E15, true);
+            //automate->decalage(s, new E15, true);
             retour = RECONNU;
             break;
         case MULTIPLIER :
-            automate->decalage(s, new E16, true);
+            //automate->decalage(s, new E16, true);
             retour = RECONNU;
             break;
         case DIVISER :

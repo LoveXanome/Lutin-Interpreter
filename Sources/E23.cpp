@@ -23,9 +23,9 @@ valeurRetour E23::transition(AutomateLutin* automate, Symbole * s)
 		case PARENTHESE_FERMANTE :
         case PLUS :
         case MOINS :
-			Expression eD = (Expression *) automate->popSymbole(); 
+			Expression* eD = (Expression *) automate->popSymbole(); 
 			automate->popSymbole();
-			Expression eG = (Expression *) automate->popSymbole(); 
+			Expression* eG = (Expression *) automate->popSymbole(); 
 			
 			automate->addInstructionToProgram(new ExpressionSoustraction(eG, eD));
 			automate->reduction(new SymboleDefaut(EXP), 3);

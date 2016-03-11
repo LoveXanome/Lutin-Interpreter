@@ -7,6 +7,7 @@ class ExpressionAddition : public ExpressionBinaire
 {
 public:
 	ExpressionAddition();
+	ExpressionAddition( Expression membreG , Expression membreD );
 	virtual ~ExpressionAddition();
 };
 

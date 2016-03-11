@@ -3,6 +3,9 @@
 #include "ExpressionMultiplication.hpp"
 #include "SymboleDefaut.hpp"
 #include "SymboleDefaut.hpp"
+#include "InstructionAffectation.hpp"
+#include "Expression.hpp"
+
 
 E17::E17() : Etat(17)
 {
@@ -23,15 +26,19 @@ valeurRetour E17::transition(AutomateLutin* automate, Symbole * s)
         case DIVISER :
         case PLUS :
         case MOINS :
-			Expression eD = (Expression *) automate->popSymbole(); 
+		{
+			Expression* eD = (Expression *) automate->popSymbole(); 
 			automate->popSymbole();
-			Expression eG = (Expression *) automate->popSymbole(); 
+			Expression* eG = (Expression *) automate->popSymbole(); 
 			
-			automate->addInstructionToProgram(new ExpressionMultiplication(eG, eD));
+			//instruction affectation mais comment on peut avoir le ID
+			ExpressionMultiplication em = ExpressionMultiplication(*eG, *eD);
+			automate->addInstructionToProgram(new InstructionAffectation("toReplaceInE17", em));
 			
-			automate->reduction(new SymboleDefaut(EXP), 3);
+			automate->reduction(new SymboleDefaut(EXP), 3, s);
             
             retour = REDUIT;
+		}
             break;
         default:
             retour = NON_RECONNU;

@@ -23,7 +23,7 @@ valeurRetour E13::transition(AutomateLutin* automate, Symbole * s)
             retour = RECONNU;
             break;
         case VALEUR:
-            automate->decalage(s, new E12, true);
+            //automate->decalage(s, new E12, true);
             retour = RECONNU;
             break;
         case PARENTHESE_OUVRANTE:

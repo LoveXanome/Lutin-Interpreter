@@ -7,6 +7,11 @@ ExpressionMultiplication::ExpressionMultiplication() : ExpressionBinaire(MULTIPL
 
 }
 
+ExpressionMultiplication::ExpressionMultiplication( Expression membreG , Expression membreD )
+ : ExpressionBinaire(DIVISER, membreG, membreD) 
+{
+}
+
 ExpressionMultiplication::~ExpressionMultiplication()
 {
 

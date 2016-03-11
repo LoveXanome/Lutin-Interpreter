@@ -1,5 +1,4 @@
 #include "E12.hpp"
-#include "E8.hpp"
 
 E12::E12() : Etat(12)
 {
