@@ -12,10 +12,20 @@ E11::~E11()
 
 valeurRetour E11::transition(AutomateLutin* automate, Symbole * s)
 {
+	valeurRetour retour;
 	switch (*s){
-        case default :
-            automate->reduction(new E8, 1);
+		case POINT_VIRGULE :
+        case MULTIPLIER :
+        case DIVISER :
+        case PLUS :
+        case MOINS :
+            //TODO
+
+            retour = REDUIT;
             break;
+		default :
+			retour = NON_RECONNU;
+			break;
     }
-	return NON_RECONNU;
+	return retour;
 }

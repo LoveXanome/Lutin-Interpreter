@@ -13,7 +13,7 @@ E15::~E15()
 valeurRetour E15::transition(AutomateLutin* automate, Symbole * s)
 {
 	switch (*s){
-        case default :
+        default :
             automate->reduction(new E14, 1);
             break;
     }

@@ -8,7 +8,7 @@
 class InstructionAffectation : public Instruction
 {
 public:
-	InstructionAffectation(std::string identifiant);
+	InstructionAffectation(std::string identifiant, Expression exp);
 	virtual ~InstructionAffectation();
 	 
 private:
