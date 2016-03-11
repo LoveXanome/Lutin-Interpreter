@@ -10,6 +10,7 @@ public:
 	Identifiant(const std::string& identifiant);
 	virtual ~Identifiant();
 	std::string getIdentifiant() const;
+	std::string toString() const;
 	
 private:
 	std::string identifiant;

@@ -22,7 +22,7 @@ valeurRetour E6::transition(AutomateLutin* automate, Symbole* s)
 		case IDENTIFIANT:
 		case ECRIRE:
 		case LIRE:
-		case DOLLAR:
+		case FIN:
 			automate->popSymbole();
 			Identifiant* i = (Identifiant*) automate->popSymbole();
 			automate->popSymbole();
@@ -38,6 +38,6 @@ valeurRetour E6::transition(AutomateLutin* automate, Symbole* s)
 std::vector<SymboleEnum> E6::getExpectedSymbols() const
 {
 	return std::vector<SymboleEnum>({
-		IDENTIFIANT, ECRIRE, LIRE, DOLLAR
+		IDENTIFIANT, ECRIRE, LIRE, FIN
 	});
 }

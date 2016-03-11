@@ -16,3 +16,8 @@ double Valeur::getValeur() const
 {
 	return valeur;
 }
+
+std::string Valeur::toString() const
+{
+	return std::to_string(valeur) + " (VALEUR)";
+}

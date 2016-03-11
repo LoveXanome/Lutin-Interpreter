@@ -83,60 +83,56 @@ valeurRetour AutomateLutin::decalage(Symbole* symbole, Etat* etat, bool readNext
 	
 	symboles.push(symbole);
 	
-	//Si on vient de faire une réduction, on récupère le symbole qu'on avait avant
+	// Si on vient de faire une réduction, on récupère le symbole qu'on avait avant
 	if (symbolBeforeReduction != 0)
 	{
 		symbole = symbolBeforeReduction;
 		symboles.push(symbole);
 		symbolBeforeReduction = 0;
 	}
+	
 	etats.push(etat);
 	
-	//Si on à lut un non terminal, alors on lit le suivant
+	// Si la transition provient d'un symbole terminal, on lit le suivant du fichier
 	if (readNext)
 		symbole = lexer->getNext();
 	
-	//Récupère la valeurs de retour de la transition
+	// Récupère la valeur de retour de la transition
 	valeurRetour ret = etat->transition(this, symbole);
 	
-	//Si on a une erreur, on va essayer de lire le symbole suivant, et si on à une encore une erreur, on dit nique à l'utilisateur
+	// Si on a une erreur, on va essayer de lire le symbole suivant, et si on à une encore une erreur => stop
 	if (ret == NON_RECONNU)
-	{
-		Symbole* nextSymbol = lexer->getNext();
-		valeurRetour ret2;
-		
-		if (nextSymbol != 0)
-		{
-			std::vector<SymboleEnum> expectedEnum = etat->getExpectedSymbols();
-			std::string errorMessage;
-			
-			for (SymboleEnum currentEnum : expectedEnum)
-			{
-				errorMessage.append(SymbolFabric::makeSymbolNameFromNumber(currentEnum));
-				errorMessage.append(", ");
-			}
-			
-			//Supprime le dernier point virgule
-			errorMessage.resize(errorMessage.size() - 2);
-			
-			ret2 = etat->transition(this, nextSymbol);
-			
-			//Si le nouveaux symbole est à nouveaux pas reconnus
-			if (ret2 == NON_RECONNU)
-			{
-				std::cerr << "Unexpected symbols " << symbole->toString() << " and " << nextSymbol->toString() << ". Expected: ";			
-				std::cerr << errorMessage << std::endl;
-				// throw exception ?
-			}
-			else
-			{
-				std::cerr << "We've encountered an unexpected symbols " << symbole->toString() << " and we were expected: " << errorMessage << " but we've skipped for you " <<std::endl;
-			}
-		}
-		
-	}
+		handleUnrecognizedSymbol(symbole);
 	
 	return ret;
+}
+
+void AutomateLutin::handleUnrecognizedSymbol(Symbole* errorSymbol)
+{
+	Symbole* nextSymbol = lexer->getNext();
+	valeurRetour ret2;
+	
+	if (nextSymbol != 0) // if not end of file
+	{
+		ret2 = etats.top()->transition(this, nextSymbol);
+		
+		std::vector<SymboleEnum> expectedEnum = etats.top()->getExpectedSymbols();
+		std::string errorMessage;
+		
+		for (SymboleEnum currentEnum : expectedEnum)
+		{
+			errorMessage.append(SymbolFabric::makeSymbolNameFromNumber(currentEnum));
+			errorMessage.append(", ");
+		}
+		// Supprime la derniere virgule
+		errorMessage.resize(errorMessage.size() - 2);
+		
+		// Si le nouveau symbole est à nouveaux pas reconnu
+		if (ret2 == NON_RECONNU)
+			std::cerr << "Unexpected symbols " << errorSymbol->toString() << " and " << nextSymbol->toString() << ". Expected: " << errorMessage << std::endl;
+		else
+			std::cerr << "Warning: Encountered an unexpected symbol " << errorSymbol->toString() << " and expecting: " << errorMessage << " but could continue" << std::endl;
+	}
 }
 
 valeurRetour AutomateLutin::reduction(Symbole* symbole, const unsigned int nbEtats, Symbole* previousSymbol)

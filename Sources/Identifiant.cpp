@@ -16,3 +16,8 @@ std::string Identifiant::getIdentifiant() const
 {
 	return identifiant;
 }
+
+std::string Identifiant::toString() const
+{
+	return identifiant + " (IDENTIFIANT)";
+}

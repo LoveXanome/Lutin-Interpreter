@@ -42,6 +42,7 @@ private:
 	
 	static const Logger logger;
 	
+	void handleUnrecognizedSymbol(Symbole* errorSymbol);
 	void transformation();
 	void analyseStatique();
 	void execution();

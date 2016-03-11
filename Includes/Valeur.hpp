@@ -9,6 +9,7 @@ public:
 	Valeur(const double& valeur);
 	virtual ~Valeur();
 	double getValeur() const;
+	std::string toString() const;
 	
 private:
 	double valeur;
