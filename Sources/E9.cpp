@@ -1,5 +1,13 @@
 #include "E9.hpp"
 
+#include "E10.hpp"
+#include "E16.hpp"
+#include "E18.hpp"
+#include "E20.hpp"
+#include "E22.hpp"
+#include "SymboleEnum.hpp"
+
+
 E9::E9() : Etat(9)
 {
 	
@@ -13,21 +21,28 @@ E9::~E9()
 valeurRetour E9::transition(AutomateLutin* automate, Symbole * s)
 {
 	switch (*s){
-        case PointVirgule :
-            automate->decalage(s, new E10);
+        case POINT_VIRGULE :
+            automate->decalage(s, new E10, true);
             break;
-        case Multiplier :
-            automate->decalage(s, new E16);
+        case MULTIPLIER :
+            automate->decalage(s, new E16, true);
             break;
-        case Diviser :
-            automate->decalage(s, new E18);
+        case DIVISER :
+            automate->decalage(s, new E18, true);
             break;
-        case Plus :
-            automate->decalage(s, new E20);
+        case PLUS :
+            automate->decalage(s, new E20, true);
             break;
-        case Moins :
-            automate->decalage(s, new E22);
+        case MOINS :
+            automate->decalage(s, new E22, true);
             break;
     }
 	return NON_RECONNU;
+}
+
+std::vector<SymboleEnum> E9::getExpectedSymbols() const
+{
+    return std::vector<SymboleEnum>({
+        POINT_VIRGULE, MULTIPLIER, DIVISER, PLUS, MOINS
+    });
 }

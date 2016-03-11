@@ -9,6 +9,7 @@ public:
 	E8();
 	virtual ~E8();
 	valeurRetour transition(AutomateLutin* automate, Symbole* s);
+	std::vector<SymboleEnum> getExpectedSymbols() const;
 };
 
 #endif //E8_HPP

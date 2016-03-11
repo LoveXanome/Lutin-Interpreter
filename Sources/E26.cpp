@@ -1,6 +1,8 @@
 #include "E26.hpp"
 
 #include "SymboleEnum.hpp"
+#include "InstructionLecture.hpp"
+#include "Expression.hpp"
 
 E26::E26() : Etat(26)
 {
