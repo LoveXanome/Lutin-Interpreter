@@ -170,6 +170,11 @@ Symbole* AutomateLutin::popSymbole()
 	return s;
 }
 
+void AutomateLutin::addSymbole(Symbole *symbole)
+{
+	symboles.push(symbole);
+}
+
 void AutomateLutin::addDeclarationToProgram(Declaration* d)
 {
 	programme.addDeclaration(d);
