@@ -16,7 +16,7 @@ class Lexer;
 #include <stack>
 #include <unordered_map>
 
-typedef std::unordered_map<std::string, Declaration> TableDesSymboles;
+typedef std::unordered_map<std::string, Declaration*> TableDesSymboles; // TODO fill table
 
 
 class AutomateLutin

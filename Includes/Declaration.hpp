@@ -12,6 +12,7 @@ public:
 	Declaration(const std::string& identifiant);
 	Declaration(const std::string& identifiant, const SymboleEnum& enumRepresentation);
 	virtual ~Declaration();
+	virtual void print() const = 0;
 
 protected:
 	std::string identifiant;

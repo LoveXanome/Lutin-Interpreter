@@ -13,6 +13,7 @@
 #include <set>
 #include <iostream>
 #include <string>
+#include <stdexcept>
 
 const Logger AutomateLutin::logger("AutomateLutin");
 
@@ -129,7 +130,7 @@ void AutomateLutin::handleUnrecognizedSymbol(Symbole* errorSymbol)
 		
 		// Si le nouveau symbole est à nouveaux pas reconnu
 		if (ret2 == NON_RECONNU)
-			std::cerr << "Unexpected symbols " << errorSymbol->toString() << " and " << nextSymbol->toString() << ". Expected: " << errorMessage << std::endl;
+			throw std::runtime_error(StringHelper::format("Unexpected symbols %s (and then %s). Expected: %s", errorSymbol->toString().c_str(), nextSymbol->toString().c_str(), errorMessage.c_str()));
 		else
 			std::cerr << "Warning: Encountered an unexpected symbol " << errorSymbol->toString() << " and expecting: " << errorMessage << " but could continue" << std::endl;
 	}
@@ -193,5 +194,5 @@ void AutomateLutin::execution()
 
 void AutomateLutin::affichage()
 {
-	// TODO (version plus tard)
+	programme.print();
 }

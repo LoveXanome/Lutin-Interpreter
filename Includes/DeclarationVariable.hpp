@@ -9,6 +9,7 @@ class DeclarationVariable : public Declaration
 public:
 	DeclarationVariable(const std::string& identifiant);
 	virtual ~DeclarationVariable();
+	void print() const;
 };
 
 #endif // DECLARATION_VARIABLE_HPP

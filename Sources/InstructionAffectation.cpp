@@ -1,24 +1,19 @@
 #include "InstructionAffectation.hpp"
 
-InstructionAffectation::InstructionAffectation(std::string identifiant)
-	: Instruction(), identifiant(identifiant)
-{
-	
-}
+#include <iostream>
 
-InstructionAffectation::InstructionAffectation(Expression e)
-	: Instruction(), expression(e)
-{
-	
-}
-
-InstructionAffectation::InstructionAffectation(double val)
-	: Instruction(), valeur(val)
+InstructionAffectation::InstructionAffectation(const std::string& identifiant, Expression* e)
+	: Instruction(), identifiant(identifiant), expression(e)
 {
 	
 }
 
 InstructionAffectation::~InstructionAffectation()
 {
-	
+	delete expression;
+}
+
+void InstructionAffectation::print() const
+{
+	std::cout << identifiant << " := " << expression->toString() << ";" << std::endl;
 }

@@ -9,6 +9,7 @@ class InstructionLecture : public Instruction
 public:
 	InstructionLecture(const std::string& identifiant);
 	virtual ~InstructionLecture();
+	void print() const;
 
 private:
 	std::string identifiant;

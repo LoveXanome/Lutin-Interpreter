@@ -8,15 +8,13 @@
 class InstructionAffectation : public Instruction
 {
 public:
-	InstructionAffectation(std::string identifiant);
-	InstructionAffectation(Expression e);
-	InstructionAffectation(double val);
+	InstructionAffectation(const std::string& identifiant, Expression* e);
 	virtual ~InstructionAffectation();
+	void print() const;
 	 
 private:
 	std::string identifiant;
-	Expression expression;
-	double valeur;
+	Expression* expression;
 };
 
 #endif // INSTRUCTION_AFFECTATION_HPP

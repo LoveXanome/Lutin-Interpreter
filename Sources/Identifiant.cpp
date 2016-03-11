@@ -19,5 +19,5 @@ std::string Identifiant::getIdentifiant() const
 
 std::string Identifiant::toString() const
 {
-	return identifiant + " (IDENTIFIANT)";
+	return "'" + identifiant + "' (IDENTIFIANT)";
 }

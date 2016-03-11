@@ -19,5 +19,5 @@ double Valeur::getValeur() const
 
 std::string Valeur::toString() const
 {
-	return std::to_string(valeur) + " (VALEUR)";
+	return "'" + std::to_string(valeur) + "' (VALEUR)";
 }

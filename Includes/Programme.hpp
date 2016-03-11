@@ -15,6 +15,8 @@ public:
 	virtual ~Programme();
 	void addDeclaration(Declaration* d);
 	void addInstruction(Instruction* i);
+	
+	void print() const;
 
 private:
 	ListeDeclarations declarations;
