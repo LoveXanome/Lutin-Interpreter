@@ -1,6 +1,6 @@
 #include "E21.hpp"
-#include "Expression.hpp"
-#include "ExpressionMultiplication.hpp"
+#include "Valeur.hpp"
+#include "ExpressionAddition.hpp"
 #include "SymboleDefaut.hpp"
 #include "E16.hpp"
 #include "E18.hpp"
@@ -24,13 +24,21 @@ valeurRetour E21::transition(AutomateLutin* automate, Symbole * s)
         case PLUS :
         case MOINS :
         case POINT_VIRGULE :
-			Expression* eD = (Expression *) automate->popSymbole(); 
-			automate->popSymbole();
-			Expression* eG = (Expression *) automate->popSymbole(); 
-			
-			automate->addInstructionToProgram(new ExpressionAddition(eG, eD));
-			automate->reduction(new SymboleDefaut(EXP), 3);
+		{
+            automate->popSymbole(); 
+            Valeur* eD = (Valeur *) automate->popSymbole(); 
             
+            automate->popSymbole();
+
+            automate->popSymbole(); 
+            Valeur* eG = (Valeur *) automate->popSymbole(); 
+            
+            Symbole* addition = new ExpressionAddition(eG, eD);
+
+            automate->addSymbole(addition);
+            automate->reduction(new SymboleDefaut(EXP), 3, s);
+            
+        }	
             retour = REDUIT;
             break;
 		case MULTIPLIER :

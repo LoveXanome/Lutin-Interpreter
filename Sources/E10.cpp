@@ -18,17 +18,18 @@ valeurRetour E10::transition(AutomateLutin* automate, Symbole * s)
 {
 	valeurRetour retour;
 	switch (*s){
+        case FIN :
         case ECRIRE :
         case LIRE :
         case IDENTIFIANT :
         case I2 :
 		{
 			automate->popSymbole();
+			automate->popSymbole();
 			Expression* e = (Expression*) automate->popSymbole();
 			automate->popSymbole();
 			Identifiant* i = (Identifiant*) automate->popSymbole();
-			
-			//TODO à revoir, peut être 
+				
 			automate->addInstructionToProgram(new InstructionAffectation(i->getIdentifiant(), e));
 
 			automate->reduction(new SymboleDefaut(I2), 4, s);

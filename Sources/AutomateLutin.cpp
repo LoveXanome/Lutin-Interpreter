@@ -58,7 +58,6 @@ void AutomateLutin::lecture()
 	logger.debug("Debut lecture");
 	
 	Symbole* firstSymbole = lexer->getNext();
-	logger.debug("lue : " + firstSymbole->toString());
 
 	valeurRetour retour = etats.top()->transition(this, firstSymbole);
 	
@@ -80,11 +79,12 @@ void AutomateLutin::lecture()
 	logger.debug(StringHelper::format("Fin lecture (valeur retour : %d)", retour));
 }
 
-valeurRetour AutomateLutin::decalage(Symbole* symbole, Etat* etat, bool readNext)
+valeurRetour AutomateLutin::decalage(Symbole* symbole, Etat* etat, bool readNext, bool addSymbole)
 {	
 	logger.debug(StringHelper::format("Decalage vers etat %s (stacked symbole %s) (read next : %d)", etat->toString().c_str(), symbole->toString().c_str(), readNext));
 	
-	symboles.push(symbole);
+	if(addSymbole)
+		symboles.push(symbole);
 	
 	// Si on vient de faire une réduction, on récupère le symbole qu'on avait avant
 	if (symbolBeforeReduction != 0)
@@ -136,7 +136,7 @@ void AutomateLutin::handleUnrecognizedSymbol(Symbole* errorSymbol)
 	}
 }
 
-valeurRetour AutomateLutin::reduction(Symbole* symbole, const unsigned int nbEtats, Symbole* previousSymbol)
+valeurRetour AutomateLutin::reduction(Symbole* symbole, const unsigned int nbEtats, Symbole* previousSymbol, bool addSymbole)
 {
 	for (unsigned int i = 0; i < nbEtats; ++i)
 		etats.pop();
@@ -167,7 +167,7 @@ Symbole* AutomateLutin::popSymbole()
 	return s;
 }
 
-void AutomateLutin::addSymbole(Symbole *symbole)
+void AutomateLutin::addSymbole(Symbole* symbole)
 {
 	symboles.push(symbole);
 }
