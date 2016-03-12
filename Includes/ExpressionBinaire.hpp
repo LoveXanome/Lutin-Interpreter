@@ -7,7 +7,9 @@
 class ExpressionBinaire : public Expression
 {
 public:
-	ExpressionBinaire(const SymboleEnum& enumRepresentation, Expression* membreG , Expression* membreD);
+	ExpressionBinaire( Expression* membreG , Expression* membreD );
+	ExpressionBinaire(const SymboleEnum& enumRepresentation);
+	ExpressionBinaire(const SymboleEnum& enumRepresentation, Expression* membreG , Expression* membreD );
 	virtual ~ExpressionBinaire();
 	virtual std::string toString() const = 0;
 	

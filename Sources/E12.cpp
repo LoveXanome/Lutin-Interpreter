@@ -1,4 +1,7 @@
 #include "E12.hpp"
+#include "Expression.hpp"
+#include "SymboleDefaut.hpp"
+#include "SymboleEnum.hpp"
 
 #include "InstructionAffectation.hpp"
 #include "SymboleDefaut.hpp"
@@ -16,19 +19,25 @@ E12::~E12()
 
 valeurRetour E12::transition(AutomateLutin* automate, Symbole * s)
 {
+	valeurRetour retour;
 	switch (*s){
-      case MULTIPLIER:
-		case DIVISER:
-		case PLUS:
-		case MOINS:
-		case POINT_VIRGULE:
-			Valeur* val = (Valeur*) automate->popSymbole();
-			
-			automate->reduction(new Valeur(val->getValeur(), EXP), 1, s);
-			delete val;
-			return REDUIT;
+        case MULTIPLIER :
+        case DIVISER :
+        case PLUS :
+        case MOINS :
+        case POINT_VIRGULE :
+		{
+			//On dépile rien de la pite des symboles, car on à déjà empiler juste avant une valeur
+			automate->reduction(new SymboleDefaut(EXP), 1, s);
+
+			retour = REDUIT;
+			break;
+		}
+		default :
+			retour = NON_RECONNU;
+			break;
     }
-	return NON_RECONNU;
+	return retour;
 }
 
 std::vector<SymboleEnum> E12::getExpectedSymbols() const

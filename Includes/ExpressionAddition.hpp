@@ -6,7 +6,8 @@
 class ExpressionAddition : public ExpressionBinaire
 {
 public:
-	ExpressionAddition(Expression* membreG , Expression* membreD);
+	ExpressionAddition();
+	ExpressionAddition( Expression* membreG , Expression* membreD );
 	virtual ~ExpressionAddition();
 	std::string toString() const;
 };

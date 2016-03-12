@@ -1,5 +1,4 @@
 #include "InstructionAffectation.hpp"
-
 #include <iostream>
 
 InstructionAffectation::InstructionAffectation(const std::string& identifiant, Expression* e)

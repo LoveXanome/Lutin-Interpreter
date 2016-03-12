@@ -58,10 +58,12 @@ void AutomateLutin::lecture()
 	logger.debug("Debut lecture");
 	
 	Symbole* firstSymbole = lexer->getNext();
+	logger.debug("lue : " + firstSymbole->toString());
+
 	valeurRetour retour = etats.top()->transition(this, firstSymbole);
 	
 	if (retour == NON_RECONNU)
-		logger.debug("Non reconnu");
+		logger.debug("Non reconnu, lue : " + firstSymbole->toString());
 	
 	if (options & TRANSFORMATION)
 		transformation();
@@ -163,6 +165,11 @@ Symbole* AutomateLutin::popSymbole()
 	Symbole* s = symboles.top();
 	symboles.pop();
 	return s;
+}
+
+void AutomateLutin::addSymbole(Symbole *symbole)
+{
+	symboles.push(symbole);
 }
 
 void AutomateLutin::addDeclarationToProgram(Declaration* d)

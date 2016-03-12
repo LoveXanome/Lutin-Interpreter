@@ -1,4 +1,5 @@
 #include "E7.hpp"
+#include "E8.hpp"
 
 #include "SymboleEnum.hpp"
 #include "E8.hpp"
@@ -15,12 +16,17 @@ E7::~E7()
 
 valeurRetour E7::transition(AutomateLutin* automate, Symbole * s)
 {
+	valeurRetour retour;
 	switch (*s){
         case AFFECTATION:
             automate->decalage(s, new E8, true);
-            return RECONNU;
+
+            retour = RECONNU;
+            break;
+		default:
+			retour = NON_RECONNU;
     }
-	return NON_RECONNU;
+	return retour;
 }
 
 std::vector<SymboleEnum> E7::getExpectedSymbols() const

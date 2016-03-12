@@ -15,7 +15,10 @@ FileLexer::FileLexer(const std::string& fileName) : Lexer(fileName), currentIdx(
 		std::vector<Symbole*> symbs = SymbolFabric::makeSymbolsFromLine(line);
 		
 		for (unsigned int i = 0; i < symbs.size(); ++i)
+		{
 			symboles.push_back(symbs[i]);
+			logger.debug(symbs[i]->toString() + " ");
+		}	
 	}
 	symboles.push_back(new SymboleTerminal(FIN));
 }

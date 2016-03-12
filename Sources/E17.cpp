@@ -1,4 +1,11 @@
 #include "E17.hpp"
+#include "Expression.hpp"
+#include "ExpressionMultiplication.hpp"
+#include "SymboleDefaut.hpp"
+#include "SymboleDefaut.hpp"
+#include "InstructionAffectation.hpp"
+#include "Expression.hpp"
+
 
 E17::E17() : Etat(17)
 {
@@ -12,39 +19,31 @@ E17::~E17()
 
 valeurRetour E17::transition(AutomateLutin* automate, Symbole * s)
 {
+    valeurRetour retour;
 	switch (*s){
-		case PLUS :
-			Expression e = (Expression *) automate->popSymbole(); //EXP
-			automate->addInstructionToProgram(new ExpressionAddition() );
-			automate->reduction(new SymboleDefaut(EXP), 1);
-            retour = REDUIT;
-            break;
-        case MOINS :
-			Expression e = (Expression *) automate->popSymbole(); //EXP
-			automate->addInstructionToProgram(new ExpressionSoustraction() );
-			automate->reduction(new SymboleDefaut(EXP), 1);
-            retour = REDUIT;
-            break;
+		case PARENTHESE_FERMANTE :
         case MULTIPLIER :
-			Expression e = (Expression *) automate->popSymbole(); //EXP
-			automate->addInstructionToProgram(new ExpressionMultiplication() );
-			automate->reduction(new SymboleDefaut(EXP), 1);
-            retour = REDUIT;
-            break;
         case DIVISER :
-			Expression e = (Expression *) automate->popSymbole(); //EXP
-			automate->addInstructionToProgram(new ExpressionDivision() );
-			automate->reduction(new SymboleDefaut(EXP), 1);
+        case PLUS :
+        case MOINS :
+        case POINT_VIRGULE :
+		{
+			Expression* eD = (Expression *) automate->popSymbole(); 
+			automate->popSymbole();
+			Expression* eG = (Expression *) automate->popSymbole(); 
+			
+			//instruction affectation mais comment on peut avoir le ID
+			ExpressionMultiplication* em = new ExpressionMultiplication(eG, eD);
+			automate->addSymbole(em);
+			
+			automate->reduction(new SymboleDefaut(EXP), 3, s);
+            
             retour = REDUIT;
+		}
             break;
-        case DOLLAR :
-			Expression eD = (Expression *) automate->popSymbole(); //EXP
-            automate->popSymbole(); // / 
-			Expression eG = (Expression *) automate->popSymbole(); //EXP			
-			automate->addInstructionToProgram( new ExpressionBinaire( eG , eD ) );
-			automate->reduction(new SymboleDefaut(EXP), 3);
-            retour = REDUIT;
+        default:
+            retour = NON_RECONNU;
             break;
     }
-	return NON_RECONNU;
+    return retour;
 }
