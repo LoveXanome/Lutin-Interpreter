@@ -5,6 +5,7 @@
 #include "E16.hpp"
 #include "E18.hpp"
 #include "SymboleDefaut.hpp"
+#include "ExpressionReduction.hpp"
 
 E23::E23() : Etat(23)
 {
@@ -24,13 +25,25 @@ valeurRetour E23::transition(AutomateLutin* automate, Symbole * s)
         case PLUS :
         case MOINS :
         case POINT_VIRGULE :
-			Expression* eD = (Expression *) automate->popSymbole(); 
-			automate->popSymbole();
-			Expression* eG = (Expression *) automate->popSymbole(); 
-			
-			automate->addInstructionToProgram(new ExpressionSoustraction(eG, eD));
-			automate->reduction(new SymboleDefaut(EXP), 3);
+		{
+            ExpressionReduction* eR;
+
+            eR = (ExpressionReduction*) automate->popSymbole();
+            Expression* eD = new Expression(*((Expression*)eR->getExpression()));
+            delete eR;
             
+            automate->popSymbole(); //SIGNE -
+
+            eR = (ExpressionReduction*) automate->popSymbole();
+            Expression* eG = new Expression(*((Expression*)eR->getExpression()));
+            delete eR;
+
+            ExpressionSoustraction* soustraction = new ExpressionSoustraction(eG, eD);
+            ExpressionReduction* exp = new ExpressionReduction(EXP, soustraction);
+
+            automate->reduction(exp, 3, s);
+            
+        }
             retour = REDUIT;
             break;
 		case MULTIPLIER :

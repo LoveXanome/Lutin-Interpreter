@@ -40,7 +40,6 @@ AutomateLutin::~AutomateLutin()
 	
 	logger.destruction(StringHelper::format("Start destruction (%d etats & %d symboles (unique %d))", etats.size(), nbSymboles, uniqueSymboles.size()));
 
-
 	while (!etats.empty())
 	{
 		Etat* e = etats.top();
@@ -50,7 +49,7 @@ AutomateLutin::~AutomateLutin()
 	
 	/*for (Symbole* s : uniqueSymboles)
 		delete s;*/
-	
+
 	delete programme;
 	
 	delete lexer;

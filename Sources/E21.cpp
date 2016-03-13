@@ -1,6 +1,7 @@
 #include "E21.hpp"
 #include "Valeur.hpp"
 #include "ExpressionAddition.hpp"
+#include "Expression.hpp"
 #include "SymboleDefaut.hpp"
 #include "E16.hpp"
 #include "E18.hpp"
@@ -26,17 +27,18 @@ valeurRetour E21::transition(AutomateLutin* automate, Symbole * s)
         case MOINS :
         case POINT_VIRGULE :
 		{
-
             ExpressionReduction* eR;
 
             eR = (ExpressionReduction*) automate->popSymbole();
-            Valeur* eD = new Valeur(*((Valeur*)eR->getExpression()));
+            Expression* eD = new Expression(*((Expression*)eR->getExpression()));
+            delete eR;
             
             automate->popSymbole(); //SIGNE +
 
             eR = (ExpressionReduction*) automate->popSymbole();
-            Valeur* eG = new Valeur(*((Valeur*)eR->getExpression()));
-            
+            Expression* eG = new Expression(*((Expression*)eR->getExpression()));
+            delete eR;
+
             ExpressionAddition* addition = new ExpressionAddition(eG, eD);
             ExpressionReduction* exp = new ExpressionReduction(EXP, addition);
 

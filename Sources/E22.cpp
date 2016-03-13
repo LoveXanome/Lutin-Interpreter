@@ -31,7 +31,7 @@ valeurRetour E22::transition(AutomateLutin* automate, Symbole * s)
             retour = RECONNU;
             break;
         case EXP :
-            //automate->decalage(s, new E23, false);
+            automate->decalage(s, new E23, false);
             retour = RECONNU;
             break;
         default:

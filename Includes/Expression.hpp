@@ -12,7 +12,8 @@ public:
 	Expression(const SymboleEnum& enumRepresentation);
 	virtual ~Expression();
 	double eval(std::string variables); // ?
-	virtual std::string toString() const = 0;
+	// TODO à décommenter
+	//virtual std::string toString() const = 0;
 };
 
 #endif // EXPRESSION_HPP
