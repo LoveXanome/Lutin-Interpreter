@@ -38,7 +38,7 @@ private:
 	std::stack<Symbole*> symboles;
 	TableDesSymboles tableSymboles;
 	Lexer* lexer;
-	Programme programme;
+	Programme* programme;
 	Symbole* symbolBeforeReduction;
 	
 	static const Logger logger;

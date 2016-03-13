@@ -22,6 +22,8 @@ AutomateLutin::AutomateLutin(const std::string& fileName, const int options) : o
 	lexer = new FileLexer(fileName);
 	
 	etats.push(new E0);
+
+	programme = new Programme();
 }
 
 AutomateLutin::~AutomateLutin()
@@ -48,6 +50,8 @@ AutomateLutin::~AutomateLutin()
 	
 	/*for (Symbole* s : uniqueSymboles)
 		delete s;*/
+	
+	delete programme;
 	
 	delete lexer;
 	logger.destruction("End destruction");
@@ -173,12 +177,12 @@ void AutomateLutin::addSymbole(Symbole* symbole)
 
 void AutomateLutin::addDeclarationToProgram(Declaration* d)
 {
-	programme.addDeclaration(d);
+	programme->addDeclaration(d);
 }
 
 void AutomateLutin::addInstructionToProgram(Instruction* i)
 {
-	programme.addInstruction(i);
+	programme->addInstruction(i);
 }
 
 void AutomateLutin::transformation()
@@ -198,5 +202,5 @@ void AutomateLutin::execution()
 
 void AutomateLutin::affichage()
 {
-	programme.print();
+	programme->print();
 }

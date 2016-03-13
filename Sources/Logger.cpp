@@ -5,7 +5,7 @@
 
 #define DEBUG
 #define WARNING
-//#define CONSTRUCTION_DESTRUCTION
+#define CONSTRUCTION_DESTRUCTION
 
 const std::list<std::string> Logger::IGNORED_CLASSES ({
 	"RegexHelper",
@@ -54,7 +54,7 @@ void Logger::printMessage(const std::string& msgType, const std::string& msg) co
 	{
 		printClassName();
 		printMessageType(msgType);
-		std::cout << msg << std::endl;
+		std::cout << msg << std::endl << std::flush;
 	}
 }
 

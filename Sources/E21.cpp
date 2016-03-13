@@ -30,15 +30,14 @@ valeurRetour E21::transition(AutomateLutin* automate, Symbole * s)
             ExpressionReduction* eR;
 
             eR = (ExpressionReduction*) automate->popSymbole();
-            Valeur* eD = (Valeur *) eR->getExpression();
+            Valeur* eD = new Valeur(*((Valeur*)eR->getExpression()));
             
             automate->popSymbole(); //SIGNE +
 
             eR = (ExpressionReduction*) automate->popSymbole();
-            Valeur* eG = (Valeur *) eR->getExpression();
+            Valeur* eG = new Valeur(*((Valeur*)eR->getExpression()));
             
-            Expression* addition = new ExpressionAddition(eG, eD);
-
+            ExpressionAddition* addition = new ExpressionAddition(eG, eD);
             ExpressionReduction* exp = new ExpressionReduction(EXP, addition);
 
             automate->reduction(exp, 3, s);

@@ -26,15 +26,17 @@ valeurRetour E10::transition(AutomateLutin* automate, Symbole * s)
         case I2 :
 		{
 			automate->popSymbole(); //POINT_VIRGULE
-			
+
 			ExpressionReduction* eR = (ExpressionReduction*) automate->popSymbole();
 			Expression* e = (Expression*) eR->getExpression();
 
 			automate->popSymbole();//AFFECTATION
 
 			Identifiant* i = (Identifiant*) automate->popSymbole();
-				
-			automate->addInstructionToProgram(new InstructionAffectation(i->getIdentifiant(), e));
+			
+			InstructionAffectation* instruction = new InstructionAffectation(i->getIdentifiant(), e);
+
+			automate->addInstructionToProgram(instruction);
 
 			automate->reduction(new SymboleDefaut(I2), 4, s);
 
