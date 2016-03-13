@@ -10,7 +10,7 @@ STATE_FILES= Etat E0 E1 E2 E3 E4 E5 E6 E7 E8 E9 E10 E11 E12 E13 E14 E16 E17 E18 
 GENERAL_FILES=AutomateLutin Programme Lexer FileLexer LineLexer Symbole CommandLineParser LutinArgsFabric StringHelper SymbolFabric SymboleTerminal RegexHelper SymboleDefaut Logger
 INSTRUCTION_FILES=Instruction InstructionAffectation InstructionEcriture InstructionLecture
 DECLARATION_FILES=Declaration DeclarationConstante DeclarationVariable
-EXPRESSION_FILES=Expression ExpressionBinaire ExpressionAddition ExpressionSoustraction ExpressionMultiplication ExpressionDivision Identifiant Valeur
+EXPRESSION_FILES=Expression ExpressionBinaire ExpressionAddition ExpressionSoustraction ExpressionMultiplication ExpressionDivision Identifiant Valeur ExpressionReduction
 FILES=$(GENERAL_FILES) $(STATE_FILES) $(INSTRUCTION_FILES) $(DECLARATION_FILES) $(EXPRESSION_FILES)
 
 SRC=$(addprefix $(SRCDIR), $(addsuffix .cpp, $(FILES)))

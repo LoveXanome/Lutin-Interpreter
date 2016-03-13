@@ -3,6 +3,7 @@
 #include "Identifiant.hpp"
 #include "InstructionAffectation.hpp"
 #include "SymboleDefaut.hpp"
+#include "ExpressionReduction.hpp"
 
 E10::E10() : Etat(10)
 {
@@ -24,10 +25,13 @@ valeurRetour E10::transition(AutomateLutin* automate, Symbole * s)
         case IDENTIFIANT :
         case I2 :
 		{
-			automate->popSymbole();
-			automate->popSymbole();
-			Expression* e = (Expression*) automate->popSymbole();
-			automate->popSymbole();
+			automate->popSymbole(); //POINT_VIRGULE
+			
+			ExpressionReduction* eR = (ExpressionReduction*) automate->popSymbole();
+			Expression* e = (Expression*) eR->getExpression();
+
+			automate->popSymbole();//AFFECTATION
+
 			Identifiant* i = (Identifiant*) automate->popSymbole();
 				
 			automate->addInstructionToProgram(new InstructionAffectation(i->getIdentifiant(), e));

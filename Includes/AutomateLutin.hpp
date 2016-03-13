@@ -25,8 +25,8 @@ public:
 	AutomateLutin(const std::string& fileName, const int options);
 	virtual ~AutomateLutin();
 	void lecture();
-	valeurRetour decalage(Symbole* symbole, Etat* etat, bool readNext, bool addSymbole = true);
-	valeurRetour reduction(Symbole* symbole, const unsigned int nbEtats, Symbole* previousSymbol, bool addSymbole = true);
+	valeurRetour decalage(Symbole* symbole, Etat* etat, bool readNext);
+	valeurRetour reduction(Symbole* symbole, const unsigned int nbEtats, Symbole* previousSymbol);
 	Symbole* popSymbole();
 	void addSymbole(Symbole *symbole);
 	void addDeclarationToProgram(Declaration* d);

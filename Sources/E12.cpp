@@ -1,5 +1,6 @@
 #include "E12.hpp"
 #include "Expression.hpp"
+#include "ExpressionReduction.hpp"
 #include "SymboleDefaut.hpp"
 #include "SymboleEnum.hpp"
 
@@ -28,7 +29,11 @@ valeurRetour E12::transition(AutomateLutin* automate, Symbole * s)
         case POINT_VIRGULE :
 		{
 			//On dépile rien de la pite des symboles, car on à déjà empiler juste avant une valeur
-			automate->reduction(new SymboleDefaut(EXP), 1, s);
+			Valeur* val = (Valeur*) automate->popSymbole();
+
+			ExpressionReduction* exp = new ExpressionReduction(EXP, val);
+			
+			automate->reduction(exp, 1, s);
 
 			retour = REDUIT;
 			break;
