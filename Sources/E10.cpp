@@ -5,8 +5,6 @@
 #include "SymboleDefaut.hpp"
 #include "ExpressionReduction.hpp"
 
-#include <iostream>
-
 E10::E10() : Etat(10)
 {
 	
@@ -37,8 +35,6 @@ valeurRetour E10::transition(AutomateLutin* automate, Symbole * s)
 			Identifiant* i = (Identifiant*) automate->popSymbole();
 			
 			InstructionAffectation* instruction = new InstructionAffectation(i->getIdentifiant(), e);
-
-			std::cout << "tessssssssssssssssssssssssssssssssssssssssssssssssssssssssssst " << instruction->toString() << std::endl;
 
 			automate->addInstructionToProgram(instruction);
 
