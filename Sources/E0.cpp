@@ -25,7 +25,7 @@ valeurRetour E0::transition(AutomateLutin* automate, Symbole* s)
             return RECONNU;
 		case FIN:
 		case E:
-			//automate->decalage(s, new E44, false);
+			automate->decalage(s, new E44, false);
 			return RECONNU;
     }
 	return NON_RECONNU;

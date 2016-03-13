@@ -2,7 +2,7 @@
 
 #include "SymboleEnum.hpp"
 
-Programme::Programme()
+Programme::Programme() : accepted(false)
 {
 	
 }
@@ -33,4 +33,14 @@ void Programme::print() const
 		
 	for (Instruction* i : instructions)
 		i->print();
+}
+
+bool Programme::isAccepted() const
+{
+	return accepted;
+}
+
+void Programme::accept()
+{
+	accepted = true;
 }

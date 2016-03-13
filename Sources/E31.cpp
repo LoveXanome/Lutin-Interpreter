@@ -22,6 +22,7 @@ valeurRetour E31::transition(AutomateLutin* automate, Symbole* s)
 		case LIRE:
 		case VAR:
 		case CONST:
+		case FIN:
 			automate->popSymbole();
 			automate->popSymbole();
 			automate->popSymbole();
@@ -35,6 +36,6 @@ valeurRetour E31::transition(AutomateLutin* automate, Symbole* s)
 std::vector<SymboleEnum> E31::getExpectedSymbols() const
 {
 	return std::vector<SymboleEnum>({
-		IDENTIFIANT, ECRIRE, LIRE, VAR, CONST
+		IDENTIFIANT, ECRIRE, LIRE, VAR, CONST, FIN
 	});
 }

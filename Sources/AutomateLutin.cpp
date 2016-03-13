@@ -62,10 +62,10 @@ void AutomateLutin::lecture()
 	
 	Symbole* firstSymbole = lexer->getNext();
 
-	valeurRetour retour = etats.top()->transition(this, firstSymbole);
+	etats.top()->transition(this, firstSymbole);
 	
-	if (retour == NON_RECONNU)
-		logger.debug("Non reconnu, lue : " + firstSymbole->toString());
+	if (!programme->isAccepted())
+		std::cerr << "Programme invalide" << std::endl;
 	
 	if (options & TRANSFORMATION)
 		transformation();
@@ -79,11 +79,11 @@ void AutomateLutin::lecture()
 	if (options & AFFICHAGE)
 		affichage();
 		
-	logger.debug(StringHelper::format("Fin lecture (valeur retour : %d)", retour));
+	logger.debug("Fin lecture");
 }
 
 valeurRetour AutomateLutin::decalage(Symbole* symbole, Etat* etat, bool readNext)
-{	
+{
 	logger.debug(StringHelper::format("Decalage vers etat %s (stacked symbole %s) (read next : %d)", etat->toString().c_str(), symbole->toString().c_str(), readNext));
 	
 	symboles.push(symbole);
@@ -103,6 +103,12 @@ valeurRetour AutomateLutin::decalage(Symbole* symbole, Etat* etat, bool readNext
 	// Récupère la valeur de retour de la transition
 	valeurRetour ret = etat->transition(this, symbole);
 	
+	if (ret == ACCEPTE)
+	{
+		programme->accept();
+		logger.debug("Programme accepté !");
+	}
+	
 	// Si on a une erreur, on va essayer de lire le symbole suivant, et si on à une encore une erreur => stop
 	if (ret == NON_RECONNU)
 		handleUnrecognizedSymbol(symbole);
@@ -119,23 +125,33 @@ void AutomateLutin::handleUnrecognizedSymbol(Symbole* errorSymbol)
 	{
 		ret2 = etats.top()->transition(this, nextSymbol);
 		
-		std::vector<SymboleEnum> expectedEnum = etats.top()->getExpectedSymbols();
-		std::string errorMessage;
-		
-		for (SymboleEnum currentEnum : expectedEnum)
-		{
-			errorMessage.append(SymbolFabric::makeSymbolNameFromNumber(currentEnum));
-			errorMessage.append(", ");
-		}
-		// Supprime la derniere virgule
-		errorMessage.resize(errorMessage.size() - 2);
-		
-		// Si le nouveau symbole est à nouveaux pas reconnu
+		// Si le nouveau symbole est à nouveau pas reconnu
 		if (ret2 == NON_RECONNU)
-			throw std::runtime_error(StringHelper::format("Unexpected symbols %s (and then %s). Expected: %s", errorSymbol->toString().c_str(), nextSymbol->toString().c_str(), errorMessage.c_str()));
+			throw std::runtime_error(StringHelper::format("Unexpected symbols %s (and then %s). Expected: %s",
+															errorSymbol->toString().c_str(),
+															nextSymbol->toString().c_str(),
+															getExpectedSymbolsErrorMessage().c_str()));
 		else
-			std::cerr << "Warning: Encountered an unexpected symbol " << errorSymbol->toString() << " and expecting: " << errorMessage << " but could continue" << std::endl;
+			std::cerr << "Warning: Encountered an unexpected symbol " << errorSymbol->toString() << " and expecting: " << getExpectedSymbolsErrorMessage() << " but could continue" << std::endl;
 	}
+	else
+		throw std::runtime_error(StringHelper::format("Unexpected end of file (%s). Expected: %s", symboles.top()->toString().c_str(), getExpectedSymbolsErrorMessage().c_str()));
+}
+
+std::string AutomateLutin::getExpectedSymbolsErrorMessage() const
+{
+	std::vector<SymboleEnum> expectedEnum = etats.top()->getExpectedSymbols();
+	std::string errorMessage;
+		
+	for (SymboleEnum currentEnum : expectedEnum)
+	{
+		errorMessage.append(SymbolFabric::makeSymbolNameFromNumber(currentEnum));
+		errorMessage.append(", ");
+	}
+	// Supprime la derniere virgule
+	errorMessage.resize(errorMessage.size() - 2);
+	
+	return errorMessage;
 }
 
 valeurRetour AutomateLutin::reduction(Symbole* symbole, const unsigned int nbEtats, Symbole* previousSymbol)

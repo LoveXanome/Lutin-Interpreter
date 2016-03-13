@@ -43,6 +43,8 @@ private:
 	static const Logger logger;
 	
 	void handleUnrecognizedSymbol(Symbole* errorSymbol);
+	std::string getExpectedSymbolsErrorMessage() const;
+	
 	void transformation();
 	void analyseStatique();
 	void execution();

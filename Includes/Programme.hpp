@@ -17,10 +17,13 @@ public:
 	void addInstruction(Instruction* i);
 	
 	void print() const;
+	bool isAccepted() const;
+	void accept();
 
 private:
 	ListeDeclarations declarations;
 	ListeInstructions instructions;
+	bool accepted;
 };
 
 #endif // PROGRAMME_HPP
