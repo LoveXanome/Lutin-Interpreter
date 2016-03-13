@@ -10,6 +10,7 @@ public:
 	ExpressionMultiplication(Expression* membreG , Expression* membreD);
 	virtual ~ExpressionMultiplication();
 	std::string toString() const;
+	std::string toPrintString() const;
 };
 
 #endif // EXPRESSION_MULTIPLICATION_HPP

@@ -7,7 +7,6 @@ ExpressionAddition::ExpressionAddition(Expression* membreG , Expression* membreD
 
 }
 
-
 ExpressionAddition::~ExpressionAddition()
 {
 
@@ -16,4 +15,9 @@ ExpressionAddition::~ExpressionAddition()
 std::string ExpressionAddition::toString() const
 {
 	return membreGauche->toString() + " + " + membreDroite->toString();
+}
+
+std::string ExpressionAddition::toPrintString() const
+{
+	return membreGauche->toPrintString() + " + " + membreDroite->toPrintString();
 }

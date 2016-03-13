@@ -16,3 +16,8 @@ std::string ExpressionDivision::toString() const
 {
 	return membreGauche->toString() + "/" + membreDroite->toString();
 }
+
+std::string ExpressionDivision::toPrintString() const
+{
+	return membreGauche->toPrintString() + "/" + membreDroite->toPrintString();
+}

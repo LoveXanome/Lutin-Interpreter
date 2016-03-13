@@ -10,6 +10,7 @@ public:
 	ExpressionDivision( Expression* membreG , Expression* membreD );
 	virtual ~ExpressionDivision();
 	std::string toString() const;
+	std::string toPrintString() const;
 };
 
 #endif // EXPRESSION_DIVISION_HPP

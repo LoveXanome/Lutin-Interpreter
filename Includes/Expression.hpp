@@ -13,7 +13,7 @@ public:
 	virtual ~Expression();
 	double eval(std::string variables); // ?
 	virtual std::string toString() const = 0;
-	virtual std::string toPrintString() const;
+	virtual std::string toPrintString() const = 0;
 };
 
 #endif // EXPRESSION_HPP

@@ -12,6 +12,7 @@ public:
 	ExpressionBinaire(const SymboleEnum& enumRepresentation, Expression* membreG , Expression* membreD );
 	virtual ~ExpressionBinaire();
 	virtual std::string toString() const = 0;
+	virtual std::string toPrintString() const = 0;
 	
 protected:
 	Expression* membreGauche;

@@ -10,6 +10,7 @@ public:
 	ExpressionSoustraction( Expression* membreG , Expression* membreD );
 	virtual ~ExpressionSoustraction();
 	std::string toString() const;
+	std::string toPrintString() const;
 };
 
 #endif // EXPRESSION_SOUSTRACTION_HPP

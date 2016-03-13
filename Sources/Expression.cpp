@@ -21,8 +21,3 @@ double Expression::eval(std::string variables)
 	// TODO impl?
 	return 0;
 }
-
-std::string Expression::toPrintString() const
-{
-	return toString();
-}

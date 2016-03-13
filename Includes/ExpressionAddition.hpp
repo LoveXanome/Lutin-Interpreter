@@ -10,6 +10,7 @@ public:
 	ExpressionAddition( Expression* membreG , Expression* membreD );
 	virtual ~ExpressionAddition();
 	std::string toString() const;
+	std::string toPrintString() const;
 };
 
 #endif // EXPRESSION_ADDITION_HPP
