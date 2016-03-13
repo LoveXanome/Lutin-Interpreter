@@ -17,16 +17,19 @@ E11::~E11()
 valeurRetour E11::transition(AutomateLutin* automate, Symbole * s)
 {
 	valeurRetour retour;
-	switch (*s){
-		case POINT_VIRGULE :
-        case MULTIPLIER :
-        case DIVISER :
-        case PLUS :
-        case MOINS :
+	switch (*s)
+	{
+		case POINT_VIRGULE:
+        case MULTIPLIER:
+        case DIVISER:
+        case PLUS:
+        case MOINS:
+        case PARENTHESE_FERMANTE:
         {
         	Identifiant* i = (Identifiant*) automate->popSymbole();
 			
-			automate->reduction(new Identifiant(i->getIdentifiant(), EXP), 1, s);
+			Identifiant* expIdentifiant = new Identifiant(i->getIdentifiant(), EXP);
+			automate->reduction(expIdentifiant, 1, s);
             retour = REDUIT;
             break;
 		}
@@ -40,6 +43,6 @@ valeurRetour E11::transition(AutomateLutin* automate, Symbole * s)
 std::vector<SymboleEnum> E11::getExpectedSymbols() const
 {
     return std::vector<SymboleEnum>({
-        MULTIPLIER, DIVISER, PLUS, MOINS, POINT_VIRGULE
+        MULTIPLIER, DIVISER, PLUS, MOINS, POINT_VIRGULE, PARENTHESE_FERMANTE
     });
 }
