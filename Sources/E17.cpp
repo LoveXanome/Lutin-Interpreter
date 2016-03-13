@@ -2,7 +2,7 @@
 #include "Expression.hpp"
 #include "ExpressionMultiplication.hpp"
 #include "SymboleDefaut.hpp"
-#include "SymboleDefaut.hpp"
+#include "ExpressionReduction.hpp"
 #include "InstructionAffectation.hpp"
 #include "Expression.hpp"
 
@@ -28,18 +28,24 @@ valeurRetour E17::transition(AutomateLutin* automate, Symbole * s)
         case MOINS :
         case POINT_VIRGULE :
 		{
-			Expression* eD = (Expression *) automate->popSymbole(); 
-			automate->popSymbole();
-			Expression* eG = (Expression *) automate->popSymbole(); 
-			
-			//instruction affectation mais comment on peut avoir le ID
-			ExpressionMultiplication* em = new ExpressionMultiplication(eG, eD);
-			automate->addSymbole(em);
-			
-			automate->reduction(new SymboleDefaut(EXP), 3, s);
+            ExpressionReduction* eR;
+
+            eR = (ExpressionReduction*) automate->popSymbole();
+            Expression* eD = new Expression(*((Expression*)eR->getExpression()));
+            delete eR;
             
-            retour = REDUIT;
-		}
+            automate->popSymbole(); //SIGNE *
+
+            eR = (ExpressionReduction*) automate->popSymbole();
+            Expression* eG = new Expression(*((Expression*)eR->getExpression()));
+            delete eR;
+
+            ExpressionMultiplication* multiplication = new ExpressionMultiplication(eG, eD);
+            ExpressionReduction* exp = new ExpressionReduction(EXP, multiplication);
+
+            automate->reduction(exp, 3, s);
+            
+        }
             break;
         default:
             retour = NON_RECONNU;

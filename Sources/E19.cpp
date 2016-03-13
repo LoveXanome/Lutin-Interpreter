@@ -1,8 +1,8 @@
 #include "E19.hpp"
 #include "Expression.hpp"
-#include "ExpressionMultiplication.hpp"
+#include "ExpressionDivision.hpp"
 #include "SymboleDefaut.hpp"
-#include "SymboleDefaut.hpp"
+#include "ExpressionReduction.hpp"
 
 E19::E19() : Etat(19)
 {
@@ -24,14 +24,25 @@ valeurRetour E19::transition(AutomateLutin* automate, Symbole * s)
         case PLUS :
         case MOINS :
         case POINT_VIRGULE :
-			Expression eD = (Expression *) automate->popSymbole(); 
-			automate->popSymbole();
-			Expression eG = (Expression *) automate->popSymbole(); 
-			
-			automate->addInstructionToProgram(new ExpressionDivision(eG, eD));
-			
-			automate->reduction(new SymboleDefaut(EXP), 3);
+		{
+            ExpressionReduction* eR;
+
+            eR = (ExpressionReduction*) automate->popSymbole();
+            Expression* eD = new Expression(*((Expression*)eR->getExpression()));
+            delete eR;
             
+            automate->popSymbole(); //SIGNE /
+
+            eR = (ExpressionReduction*) automate->popSymbole();
+            Expression* eG = new Expression(*((Expression*)eR->getExpression()));
+            delete eR;
+
+            ExpressionDivision* division = new ExpressionDivision(eG, eD);
+            ExpressionReduction* exp = new ExpressionReduction(EXP, division);
+
+            automate->reduction(exp, 3, s);
+            
+        }
             retour = REDUIT;
             break;
         default:
