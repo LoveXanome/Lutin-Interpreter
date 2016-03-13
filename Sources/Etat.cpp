@@ -4,6 +4,8 @@
 
 const Logger Etat::logger("Etat");
 
+const std::string Etat::ACCEPT_STATE("44");
+
 Etat::Etat(const unsigned int& number) : number(number)
 {
 	logger.construction(StringHelper::format("Etat %d", number));

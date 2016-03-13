@@ -131,7 +131,7 @@ void AutomateLutin::handleUnrecognizedSymbol(Symbole* errorSymbol)
 															errorSymbol->toString().c_str(),
 															nextSymbol->toString().c_str(),
 															getExpectedSymbolsErrorMessage().c_str()));
-		else
+		else if (etats.top()->toString() != Etat::ACCEPT_STATE) // Only show warning if not last state
 			std::cerr << "Warning: Encountered an unexpected symbol " << errorSymbol->toString() << " and expecting: " << getExpectedSymbolsErrorMessage() << " but could continue" << std::endl;
 	}
 	else

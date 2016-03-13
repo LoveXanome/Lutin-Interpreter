@@ -21,6 +21,8 @@ public:
 	virtual valeurRetour transition(AutomateLutin* automate, Symbole* s) = 0;
 	virtual std::vector<SymboleEnum> getExpectedSymbols() const;
 	
+	static const std::string ACCEPT_STATE;
+	
 private:
 	int number;
 	
