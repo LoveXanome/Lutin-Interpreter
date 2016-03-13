@@ -14,10 +14,5 @@ InstructionAffectation::~InstructionAffectation()
 
 void InstructionAffectation::print() const
 {
-	std::cout << identifiant << " := " << expression->toString() << ";" << std::endl;
-}
-
-std::string InstructionAffectation::toString() const
-{
-	return identifiant + " := " + expression->toString() + ";";
+	std::cout << identifiant << " := " << expression->toPrintString() << ";" << std::endl;
 }

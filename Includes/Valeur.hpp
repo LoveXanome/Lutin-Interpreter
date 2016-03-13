@@ -12,6 +12,7 @@ public:
 	virtual ~Valeur();
 	double getValeur() const;
 	std::string toString() const;
+	std::string toPrintString() const;
 	
 private:
 	double valeur;

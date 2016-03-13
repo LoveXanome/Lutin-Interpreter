@@ -26,3 +26,8 @@ std::string Valeur::toString() const
 {
 	return std::to_string(valeur) + "(" + SymbolFabric::makeSymbolNameFromNumber(enumRepresentation) + ")";
 }
+
+std::string Valeur::toPrintString() const
+{
+	return std::to_string(valeur);
+}

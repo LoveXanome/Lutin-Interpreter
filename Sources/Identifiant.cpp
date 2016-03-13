@@ -25,3 +25,8 @@ std::string Identifiant::toString() const
 {
 	return identifiant + "(" + SymbolFabric::makeSymbolNameFromNumber(enumRepresentation) + ")";
 }
+
+std::string Identifiant::toPrintString() const
+{
+	return identifiant;
+}

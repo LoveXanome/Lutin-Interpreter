@@ -13,6 +13,7 @@ public:
 	virtual ~Identifiant();
 	std::string getIdentifiant() const;
 	std::string toString() const;
+	std::string toPrintString() const;
 	
 private:
 	std::string identifiant;
