@@ -118,29 +118,32 @@ valeurRetour AutomateLutin::decalage(Symbole* symbole, Etat* etat, bool readNext
 
 void AutomateLutin::handleUnrecognizedSymbol(Symbole* errorSymbol)
 {
+	Etat* dernierEtat = etats.top();
 	Symbole* nextSymbol = lexer->getNext();
 	valeurRetour ret2;
 	
 	if (nextSymbol != 0) // if not end of file
 	{
-		ret2 = etats.top()->transition(this, nextSymbol);
+		
+		logger.debug(StringHelper::format("Unexpected symbol, try again : state %s with symbol %s", dernierEtat->toString().c_str(), nextSymbol->toString().c_str()));
+		ret2 = dernierEtat->transition(this, nextSymbol);
 		
 		// Si le nouveau symbole est à nouveau pas reconnu
 		if (ret2 == NON_RECONNU)
 			throw std::runtime_error(StringHelper::format("Unexpected symbols %s (and then %s). Expected: %s",
 															errorSymbol->toString().c_str(),
 															nextSymbol->toString().c_str(),
-															getExpectedSymbolsErrorMessage().c_str()));
-		else if (etats.top()->toString() != Etat::ACCEPT_STATE) // Only show warning if not last state
-			std::cerr << "Warning: Encountered an unexpected symbol " << errorSymbol->toString() << " and expecting: " << getExpectedSymbolsErrorMessage() << " but could continue" << std::endl;
+															getExpectedSymbolsErrorMessage(dernierEtat).c_str()));
+		else if (dernierEtat->toString() != Etat::ACCEPT_STATE) // Only show warning if not last state
+				std::cerr << "Warning: Encountered an unexpected symbol " << errorSymbol->toString() << " and expecting: " << getExpectedSymbolsErrorMessage(dernierEtat) << ", but could continue" << std::endl;
 	}
 	else
-		throw std::runtime_error(StringHelper::format("Unexpected end of file (%s). Expected: %s", symboles.top()->toString().c_str(), getExpectedSymbolsErrorMessage().c_str()));
+		throw std::runtime_error(StringHelper::format("Unexpected end of file (%s). Expected: %s", symboles.top()->toString().c_str(), getExpectedSymbolsErrorMessage(dernierEtat).c_str()));
 }
 
-std::string AutomateLutin::getExpectedSymbolsErrorMessage() const
+std::string AutomateLutin::getExpectedSymbolsErrorMessage(const Etat* lastState) const
 {
-	std::vector<SymboleEnum> expectedEnum = etats.top()->getExpectedSymbols();
+	std::vector<SymboleEnum> expectedEnum = lastState->getExpectedSymbols();
 	std::string errorMessage;
 		
 	for (SymboleEnum currentEnum : expectedEnum)
