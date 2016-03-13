@@ -2,7 +2,7 @@
 
 #include "SymboleEnum.hpp"
 
-ExpressionMultiplication::ExpressionMultiplication(Expression* membreG , Expression* membreD) : ExpressionBinaire(MULTIPLIER, membreGauche, membreDroite)
+ExpressionMultiplication::ExpressionMultiplication(Expression* membreG , Expression* membreD) : ExpressionBinaire(MULTIPLIER, membreG, membreD)
 {
 
 }
