@@ -1,4 +1,5 @@
 #include "E14.hpp"
+
 #include "E15.hpp"
 #include "E16.hpp"
 #include "E18.hpp"
@@ -19,12 +20,12 @@ valeurRetour E14::transition(AutomateLutin* automate, Symbole * s)
 {
     valeurRetour retour;
 	switch (*s){
-        case PARENTHESE_FERMANTE :
-            //automate->decalage(s, new E15, true);
+        case PARENTHESE_FERMANTE:
+            automate->decalage(s, new E15, true);
             retour = RECONNU;
             break;
         case MULTIPLIER :
-            //automate->decalage(s, new E16, true);
+            automate->decalage(s, new E16, true);
             retour = RECONNU;
             break;
         case DIVISER :
@@ -43,4 +44,11 @@ valeurRetour E14::transition(AutomateLutin* automate, Symbole * s)
             retour = NON_RECONNU;
     }
     return retour;
+}
+
+std::vector<SymboleEnum> E14::getExpectedSymbols() const
+{
+    return std::vector<SymboleEnum>({
+        PARENTHESE_FERMANTE, MULTIPLIER, DIVISER, PLUS, MOINS
+    });
 }

@@ -1,5 +1,7 @@
 #include "Identifiant.hpp"
 
+#include "SymbolFabric.hpp"
+
 Identifiant::Identifiant(const std::string& identifiant) : Identifiant(identifiant, IDENTIFIANT)
 {
 }
@@ -21,5 +23,5 @@ std::string Identifiant::getIdentifiant() const
 
 std::string Identifiant::toString() const
 {
-	return identifiant;
+	return identifiant + "(" + SymbolFabric::makeSymbolNameFromNumber(enumRepresentation) + ")";
 }

@@ -27,11 +27,9 @@ valeurRetour E11::transition(AutomateLutin* automate, Symbole * s)
         	Identifiant* i = (Identifiant*) automate->popSymbole();
 			
 			automate->reduction(new Identifiant(i->getIdentifiant(), EXP), 1, s);
-			delete i;
-
-        }    
             retour = REDUIT;
             break;
+		}
 		default :
 			retour = NON_RECONNU;
 			break;

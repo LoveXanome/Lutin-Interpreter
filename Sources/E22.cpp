@@ -1,4 +1,5 @@
 #include "E22.hpp"
+
 #include "E8.hpp"
 #include "E11.hpp"
 #include "E12.hpp"
@@ -36,6 +37,14 @@ valeurRetour E22::transition(AutomateLutin* automate, Symbole * s)
             break;
         default:
             retour = NON_RECONNU;
+            break;
     }
     return retour;
+}
+
+std::vector<SymboleEnum> E22::getExpectedSymbols() const
+{
+    return std::vector<SymboleEnum>({
+        IDENTIFIANT, VALEUR, PARENTHESE_OUVRANTE, EXP
+    });
 }

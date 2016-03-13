@@ -1,11 +1,7 @@
 #include "E17.hpp"
+
 #include "Expression.hpp"
 #include "ExpressionMultiplication.hpp"
-#include "SymboleDefaut.hpp"
-#include "ExpressionReduction.hpp"
-#include "InstructionAffectation.hpp"
-#include "Expression.hpp"
-
 
 E17::E17() : Etat(17)
 {
@@ -20,7 +16,8 @@ E17::~E17()
 valeurRetour E17::transition(AutomateLutin* automate, Symbole * s)
 {
     valeurRetour retour;
-	switch (*s){
+	switch (*s)
+	{
 		case PARENTHESE_FERMANTE :
         case MULTIPLIER :
         case DIVISER :
@@ -28,28 +25,27 @@ valeurRetour E17::transition(AutomateLutin* automate, Symbole * s)
         case MOINS :
         case POINT_VIRGULE :
 		{
-            ExpressionReduction* eR;
+            Expression* membreDroite = (Expression*)automate->popSymbole();
+            automate->popSymbole();
+			Expression* membreGauche = (Expression*)automate->popSymbole();
 
-            eR = (ExpressionReduction*) automate->popSymbole();
-            Expression* eD = new Expression(*((Expression*)eR->getExpression()));
-            delete eR;
+            ExpressionMultiplication* expMultiplication = new ExpressionMultiplication(membreGauche, membreDroite);
+
+            automate->reduction(expMultiplication, 3, s);
             
-            automate->popSymbole(); //SIGNE *
-
-            eR = (ExpressionReduction*) automate->popSymbole();
-            Expression* eG = new Expression(*((Expression*)eR->getExpression()));
-            delete eR;
-
-            ExpressionMultiplication* multiplication = new ExpressionMultiplication(eG, eD);
-            ExpressionReduction* exp = new ExpressionReduction(EXP, multiplication);
-
-            automate->reduction(exp, 3, s);
-            
-        }
+            retour = REDUIT;
             break;
+		}
         default:
             retour = NON_RECONNU;
             break;
     }
     return retour;
+}
+
+std::vector<SymboleEnum> E17::getExpectedSymbols() const
+{
+    return std::vector<SymboleEnum>({
+		PARENTHESE_FERMANTE, MULTIPLIER, DIVISER, PLUS, MOINS, POINT_VIRGULE
+    });
 }

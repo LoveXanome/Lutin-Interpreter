@@ -22,5 +22,5 @@ valeurRetour E44::transition(AutomateLutin* automate, Symbole * s)
 
 std::vector<SymboleEnum> E44::getExpectedSymbols() const
 {
-	throw std::runtime_error("E44 does not have expected next symbols. End of program");
+	throw std::runtime_error("E44 does not have expected next symbols. Error, end of program");
 }

@@ -1,6 +1,6 @@
 #include "E2.hpp"
 
-//#include "E24.hpp"
+#include "E24.hpp"
 #include "E4.hpp"
 #include "E3.hpp"
 #include "E7.hpp"
@@ -21,7 +21,7 @@ valeurRetour E2::transition(AutomateLutin* automate, Symbole * s)
 	valeurRetour retour;
 	switch (*s){
         case ECRIRE :
-            //automate->decalage(s, new E24, true);
+            automate->decalage(s, new E24, true);
             retour = RECONNU;
             break;
         case LIRE :

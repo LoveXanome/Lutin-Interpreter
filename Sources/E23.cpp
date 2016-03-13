@@ -1,11 +1,10 @@
 #include "E23.hpp"
+
 #include "Expression.hpp"
 #include "ExpressionSoustraction.hpp"
-#include "SymboleDefaut.hpp"
+
 #include "E16.hpp"
 #include "E18.hpp"
-#include "SymboleDefaut.hpp"
-#include "ExpressionReduction.hpp"
 
 E23::E23() : Etat(23)
 {
@@ -26,26 +25,17 @@ valeurRetour E23::transition(AutomateLutin* automate, Symbole * s)
         case MOINS :
         case POINT_VIRGULE :
 		{
-            ExpressionReduction* eR;
+            Expression* membreDroite = (Expression*)automate->popSymbole();
+            automate->popSymbole();
+			Expression* membreGauche = (Expression*)automate->popSymbole();
 
-            eR = (ExpressionReduction*) automate->popSymbole();
-            Expression* eD = new Expression(*((Expression*)eR->getExpression()));
-            delete eR;
+            ExpressionSoustraction* expSoustraction = new ExpressionSoustraction(membreGauche, membreDroite);
+
+            automate->reduction(expSoustraction, 3, s);
             
-            automate->popSymbole(); //SIGNE -
-
-            eR = (ExpressionReduction*) automate->popSymbole();
-            Expression* eG = new Expression(*((Expression*)eR->getExpression()));
-            delete eR;
-
-            ExpressionSoustraction* soustraction = new ExpressionSoustraction(eG, eD);
-            ExpressionReduction* exp = new ExpressionReduction(EXP, soustraction);
-
-            automate->reduction(exp, 3, s);
-            
-        }
             retour = REDUIT;
             break;
+		}
 		case MULTIPLIER :
             automate->decalage(s, new E16, true);
             retour = RECONNU;
@@ -60,3 +50,11 @@ valeurRetour E23::transition(AutomateLutin* automate, Symbole * s)
     }
     return retour;
 }
+
+std::vector<SymboleEnum> E23::getExpectedSymbols() const
+{
+    return std::vector<SymboleEnum>({
+		PARENTHESE_FERMANTE, MULTIPLIER, DIVISER, PLUS, MOINS, POINT_VIRGULE
+    });
+}
+

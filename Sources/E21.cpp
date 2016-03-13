@@ -1,12 +1,10 @@
 #include "E21.hpp"
-#include "Valeur.hpp"
+
 #include "ExpressionAddition.hpp"
 #include "Expression.hpp"
-#include "SymboleDefaut.hpp"
+
 #include "E16.hpp"
 #include "E18.hpp"
-#include "SymboleDefaut.hpp"
-#include "ExpressionReduction.hpp"
 
 E21::E21() : Etat(21)
 {
@@ -27,26 +25,17 @@ valeurRetour E21::transition(AutomateLutin* automate, Symbole * s)
         case MOINS :
         case POINT_VIRGULE :
 		{
-            ExpressionReduction* eR;
+            Expression* membreDroite = (Expression*)automate->popSymbole();
+            automate->popSymbole();
+			Expression* membreGauche = (Expression*)automate->popSymbole();
 
-            eR = (ExpressionReduction*) automate->popSymbole();
-            Expression* eD = new Expression(*((Expression*)eR->getExpression()));
-            delete eR;
+            ExpressionAddition* expAddition = new ExpressionAddition(membreGauche, membreDroite);
+
+            automate->reduction(expAddition, 3, s);
             
-            automate->popSymbole(); //SIGNE +
-
-            eR = (ExpressionReduction*) automate->popSymbole();
-            Expression* eG = new Expression(*((Expression*)eR->getExpression()));
-            delete eR;
-
-            ExpressionAddition* addition = new ExpressionAddition(eG, eD);
-            ExpressionReduction* exp = new ExpressionReduction(EXP, addition);
-
-            automate->reduction(exp, 3, s);
-            
-        }	
             retour = REDUIT;
             break;
+		}
 		case MULTIPLIER :
             automate->decalage(s, new E16, true);
             retour = RECONNU;
@@ -60,4 +49,11 @@ valeurRetour E21::transition(AutomateLutin* automate, Symbole * s)
             break;
     }
     return retour;
+}
+
+std::vector<SymboleEnum> E21::getExpectedSymbols() const
+{
+    return std::vector<SymboleEnum>({
+		PARENTHESE_FERMANTE, MULTIPLIER, DIVISER, PLUS, MOINS, POINT_VIRGULE
+    });
 }

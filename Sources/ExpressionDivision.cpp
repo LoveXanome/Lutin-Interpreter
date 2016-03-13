@@ -2,7 +2,7 @@
 
 #include "SymboleEnum.hpp"
 
-ExpressionDivision::ExpressionDivision(Expression* membreG , Expression* membreD) : ExpressionBinaire(DIVISER, membreG, membreD)
+ExpressionDivision::ExpressionDivision(Expression* membreG , Expression* membreD) : ExpressionBinaire(membreG, membreD)
 {
 
 }

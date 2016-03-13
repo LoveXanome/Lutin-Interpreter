@@ -1,17 +1,10 @@
 #include "E9.hpp"
-#include "E10.hpp"
-#include "E16.hpp"
-#include "E18.hpp"
-#include "E20.hpp"
-#include "E22.hpp"
 
 #include "E10.hpp"
 #include "E16.hpp"
 #include "E18.hpp"
 #include "E20.hpp"
 #include "E22.hpp"
-#include "SymboleEnum.hpp"
-
 
 E9::E9() : Etat(9)
 {
@@ -26,7 +19,8 @@ E9::~E9()
 valeurRetour E9::transition(AutomateLutin* automate, Symbole * s)
 {
     valeurRetour retour;
-	switch (*s){
+	switch (*s)
+	{
         case POINT_VIRGULE :
             automate->decalage(s, new E10, true);
             retour = RECONNU;
@@ -49,6 +43,7 @@ valeurRetour E9::transition(AutomateLutin* automate, Symbole * s)
             break;
         default:
             retour = NON_RECONNU;
+            break;
     }
 	return retour;
 }

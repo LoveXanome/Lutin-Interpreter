@@ -1,4 +1,5 @@
 #include "E20.hpp"
+
 #include "E8.hpp"
 #include "E11.hpp"
 #include "E12.hpp"
@@ -17,7 +18,8 @@ E20::~E20()
 valeurRetour E20::transition(AutomateLutin* automate, Symbole * s)
 {
     valeurRetour retour;
-    switch (*s){
+    switch (*s)
+    {
         case PARENTHESE_OUVRANTE :
             automate->decalage(s, new E8, true);
             retour = RECONNU;
@@ -36,6 +38,14 @@ valeurRetour E20::transition(AutomateLutin* automate, Symbole * s)
             break;
         default:
             retour = NON_RECONNU;
+            break;
     }
     return retour;
+}
+
+std::vector<SymboleEnum> E20::getExpectedSymbols() const
+{
+    return std::vector<SymboleEnum>({
+        IDENTIFIANT, VALEUR, PARENTHESE_OUVRANTE, EXP
+    });
 }

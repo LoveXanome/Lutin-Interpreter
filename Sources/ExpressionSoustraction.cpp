@@ -2,7 +2,7 @@
 
 #include "SymboleEnum.hpp"
 
-ExpressionSoustraction::ExpressionSoustraction(Expression* membreG , Expression* membreD) : ExpressionBinaire(MOINS, membreG, membreD)
+ExpressionSoustraction::ExpressionSoustraction(Expression* membreG , Expression* membreD) : ExpressionBinaire(membreG, membreD)
 {
 
 }

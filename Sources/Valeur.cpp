@@ -1,5 +1,7 @@
 #include "Valeur.hpp"
 
+#include "SymbolFabric.hpp"
+
 Valeur::Valeur(const double& valeur) : Valeur(valeur, VALEUR)
 {
 
@@ -22,5 +24,5 @@ double Valeur::getValeur() const
 
 std::string Valeur::toString() const
 {
-	return std::to_string(valeur);
+	return std::to_string(valeur) + "(" + SymbolFabric::makeSymbolNameFromNumber(enumRepresentation) + ")";
 }

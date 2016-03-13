@@ -3,7 +3,6 @@
 #include "Identifiant.hpp"
 #include "InstructionAffectation.hpp"
 #include "SymboleDefaut.hpp"
-#include "ExpressionReduction.hpp"
 
 E10::E10() : Etat(10)
 {
@@ -18,32 +17,28 @@ E10::~E10()
 valeurRetour E10::transition(AutomateLutin* automate, Symbole * s)
 {
 	valeurRetour retour;
-	switch (*s){
-        case FIN :
-        case ECRIRE :
-        case LIRE :
-        case IDENTIFIANT :
-        case I2 :
-		{
-			automate->popSymbole(); //POINT_VIRGULE
-
-			ExpressionReduction* eR = (ExpressionReduction*) automate->popSymbole();
-			Expression* e = (Expression*) eR->getExpression();
-
-			automate->popSymbole();//AFFECTATION
-
+	switch (*s)
+	{
+        case ECRIRE:
+        case LIRE:
+        case IDENTIFIANT:
+        case I2:
+        case FIN:
+        {
+			automate->popSymbole();
+			Expression* e = (Expression*) automate->popSymbole();
+			automate->popSymbole();
 			Identifiant* i = (Identifiant*) automate->popSymbole();
 			
-			InstructionAffectation* instruction = new InstructionAffectation(i->getIdentifiant(), e);
-
-			automate->addInstructionToProgram(instruction);
+			InstructionAffectation* instructionAffectation = new InstructionAffectation(i->getIdentifiant(), e);
+			automate->addInstructionToProgram(instructionAffectation);
 
 			automate->reduction(new SymboleDefaut(I2), 4, s);
 
 			retour = REDUIT;
 			break;
 		}
-		default :
+		default:
 			retour = NON_RECONNU;
 			break;
     }
@@ -53,6 +48,6 @@ valeurRetour E10::transition(AutomateLutin* automate, Symbole * s)
 std::vector<SymboleEnum> E10::getExpectedSymbols() const
 {
     return std::vector<SymboleEnum>({
-        IDENTIFIANT, ECRIRE, LIRE
+        IDENTIFIANT, ECRIRE, LIRE, I2, FIN
     });
 }

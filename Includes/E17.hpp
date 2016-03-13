@@ -9,6 +9,7 @@ public:
 	E17();
 	virtual ~E17();
 	valeurRetour transition(AutomateLutin* automate, Symbole* s);
+	std::vector<SymboleEnum> getExpectedSymbols() const;
 };
 
 #endif //E17_HPP
