@@ -1,6 +1,8 @@
 #include "Programme.hpp"
-
 #include "SymboleEnum.hpp"
+#include "StringHelper.hpp"
+
+const Logger Programme::logger("Programme");
 
 Programme::Programme() : accepted(false)
 {
@@ -9,11 +11,17 @@ Programme::Programme() : accepted(false)
 
 Programme::~Programme()
 {
+	logger.destruction(StringHelper::format("Start destruction Programme (%d declaration & %d instructions )", declarations.size(), instructions.size()));
+
 	for (Declaration* d : declarations)
+	{
 		delete d;
+	}
 				
 	for (Instruction* i : instructions)
+	{
 		delete i;
+	}
 }
 
 void Programme::addDeclaration(Declaration* d)
