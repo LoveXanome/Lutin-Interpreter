@@ -29,16 +29,23 @@ void AnalyseStatique::check()
 				if (dynamic_cast<DeclarationVariable*>(it1->second)!=NULL)
 				
 				{
-					//if(it2->second.declaree ==1)
+					//si declarer ok,  affecté ok, utilisé ok
+					if(it2->second.declaree ==1&&it2->second.affectee ==1&&it2->second.utilisee ==1)
+					{
+
+					}
+					
 				}
 				//Constante
 				else if(dynamic_cast<DeclarationConstante*>(it1->second)!=NULL)
 				{
+
 				}
 			}
-			//else 
-			//throw runcout<<"error string tableDesSymboles non present dans tableAnalyseStatique"<<end;	
-					
+			else 
+			{
+				throw std::runtime_error("error string tableDesSymboles non present dans tableAnalyseStatique");					
+			}
 		}
 	}	
 }
