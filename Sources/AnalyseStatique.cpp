@@ -168,6 +168,7 @@ void AnalyseStatique::setEtat(etats* etat, EtatIdentifiant* strucIdentifiant)
 	}
 }
 
+
 void AnalyseStatique::print() const
 {
 	std::cout << "DISPLAY TableDesSymboles :\n";

@@ -243,8 +243,9 @@ void AutomateLutin::analyseStatique()
 
 	analyseStatique.updateTableSymbole();
 	analyseStatique.updateTableStatique();
-	//analyseStatique.check();
 	analyseStatique.print();
+	
+	analyseStatique.check();
 }
 
 void AutomateLutin::execution()
