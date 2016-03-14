@@ -26,6 +26,16 @@ void Programme::addInstruction(Instruction* i)
 	instructions.push_back(i);
 }
 
+ListeInstructions* Programme::getInstructions()
+{
+	return &instructions;
+}
+
+ListeDeclarations* Programme::getDeclarations()
+{
+	return &declarations;
+}
+
 void Programme::print() const
 {
 	for (Declaration* d : declarations)
