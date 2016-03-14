@@ -1,7 +1,7 @@
 #include "AnalyseStatique.hpp"
 #include <iostream>
 
-AnalyseStatique::AnalyseStatique(std::unordered_map<std::string, Declaration*>* tableDesSymboles, std::unordered_map<std::string, EtatIdentifiant>* tableAnalyseStatique) 
+AnalyseStatique::AnalyseStatique(TableDesSymboles* tableDesSymboles, TableAnalyseStatique* tableAnalyseStatique) 
 {
 	this->tableDesSymboles = tableDesSymboles;
 	this->tableAnalyseStatique = tableAnalyseStatique;

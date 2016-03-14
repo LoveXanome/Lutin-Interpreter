@@ -11,7 +11,6 @@
 #include "Logger.hpp"
 #include "StringHelper.hpp"
 
-
 //structure pour analyse statique
 typedef struct etatIdentifiant
 {
@@ -20,10 +19,13 @@ typedef struct etatIdentifiant
     bool utilisee;
 } EtatIdentifiant;
 
+typedef std::unordered_map<std::string, Declaration*> TableDesSymboles; 
+typedef std::unordered_map<std::string, EtatIdentifiant> TableAnalyseStatique;
+
 class AnalyseStatique
 {
 	public:
-		AnalyseStatique(std::unordered_map<std::string, Declaration*>* tableDesSymboles, std::unordered_map<std::string, EtatIdentifiant>* tableAnalyseStatique);
+		AnalyseStatique(TableDesSymboles* tableDesSymboles, TableAnalyseStatique* tableAnalyseStatique);
 		virtual ~AnalyseStatique();
 
 		void updateTableSymbole();
@@ -31,8 +33,8 @@ class AnalyseStatique
 		bool check();
 
 	private:
-		std::unordered_map<std::string, Declaration*>* tableDesSymboles;
-		std::unordered_map<std::string, EtatIdentifiant>* tableAnalyseStatique;
+		TableDesSymboles* tableDesSymboles;
+		TableAnalyseStatique* tableAnalyseStatique;
 		Programme* programme;
 
 		static const Logger logger;
