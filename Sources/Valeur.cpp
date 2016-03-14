@@ -2,6 +2,10 @@
 
 #include "SymbolFabric.hpp"
 
+#include "StringHelper.hpp"
+
+
+
 Valeur::Valeur(const double& valeur) : Valeur(valeur, VALEUR)
 {
 
@@ -29,5 +33,5 @@ std::string Valeur::toString() const
 
 std::string Valeur::toPrintString() const
 {
-	return std::to_string(valeur);
+	return StringHelper::doubleToString(valeur);
 }
