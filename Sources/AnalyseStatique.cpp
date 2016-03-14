@@ -25,26 +25,68 @@ void AnalyseStatique::check()
 		{
 			if (it1->first == it2->first)
 			{
-				//Variable
+				// Variable
 				if (dynamic_cast<DeclarationVariable*>(it1->second)!=NULL)
-				
 				{
-					//si declarer ok,  affecté ok, utilisé ok
-					if(it2->second.declaree ==1&&it2->second.affectee ==1&&it2->second.utilisee ==1)
+					/* non delcaree, non affectee, non utilisee --> pas possible
+					 * non declaree, non affectee, utilisee --> erreur
+					 * non declaree, affectee, non utilisee --> erreur
+					 * non delcaree, affectee, utilisee --> erreur
+					 * declaree, non affectee, non utilisee --> warning
+					 * declaree, non affectee, utilisee --> erreur
+					 * declaree, affectee, non utilisee --> warning
+					 * declaree, affectee, utilisee --> it's all good
+					 */
+					  
+					// Variable non declaree => erreur
+					if(!it2->second.declared)
 					{
+						// TODO : Traitement du non decare, non affecte, non utilise ?
 
+						throw std::runtime_error(StringHelper::format("Error : Undeclared variable %s.",
+													it1->first.c_str())); // already string, don't need toString()
+					}
+
+					// erreur/warning/OK selon "affected" ou "used" d'une variable "declared"
+					else
+					{
+						if(!it2->second.affected && !it2->second.used)
+						{
+							throw std::runtime_error(StringHelper::format("Warning : %s declared but not affected nor used.",
+													it1->first.c_str())); // already string, don't need toString()
+						}
+
+						else if(!it2->second.affected && it2->second.used)
+						{
+							throw std::runtime_error(StringHelper::format("Error : %s declared and used but not affected.",
+													it1->first.c_str())); // already string, don't need toString()
+						}
+
+						else if(it2->second.affected && !it2->second.used)
+						{
+							throw std::runtime_error(StringHelper::format("Warning : %s declared and affected but not used.",
+													it1->first.c_str())); // already string, don't need toString()
+						}
+
+						// Dernier cas : variable "declared", "affected" et "used"
+						else
+						{
+							std::cout << it1->first.c_str() << "OK : declared, affected and used." << std::endl;
+						}
 					}
 					
 				}
-				//Constante
+
+				// Constante
 				else if(dynamic_cast<DeclarationConstante*>(it1->second)!=NULL)
 				{
 
 				}
 			}
+
 			else 
 			{
-				throw std::runtime_error("error string tableDesSymboles non present dans tableAnalyseStatique");					
+				throw std::runtime_error("Error : id (string) of tableDesSymboles does not exist in tableAnalyseStatique.");					
 			}
 		}
 	}	

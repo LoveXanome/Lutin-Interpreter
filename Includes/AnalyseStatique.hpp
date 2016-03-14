@@ -14,17 +14,16 @@
 //structure pour analyse statique
 typedef struct etatIdentifiant
 {
-    bool declaree;
-    bool affectee;
-    bool utilisee;
+	bool declared;
+    bool affected;
+    bool used;
 
     etatIdentifiant(bool declared, bool affected, bool used)
     {
-    	declaree = declared;
-    	affectee = affected;
-    	utilisee = used;
+    	this->declared = declared;
+    	this->affected = affected;
+    	this->used = used;
     }
-
 } EtatIdentifiant;
 
 //	Used for method setEtat
@@ -47,6 +46,8 @@ class AnalyseStatique
 
 		void updateTableStatique();
 
+		// Realise l'analyse statique a l'aide des deux tables en attributs
+		// Pre-requis : tableDesSymboles et tableAnalyseStatique doivent avoir ete MAJ
 		void check();
 
 		//	Check if symbole was already declared
