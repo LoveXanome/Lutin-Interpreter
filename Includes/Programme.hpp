@@ -1,7 +1,11 @@
 #ifndef PROGRAMME_HPP
 #define PROGRAMME_HPP
 
+class Instruction;
+class Declaration;
+
 #include <list>
+#include "AnalyseStatique.hpp"
 #include "Instruction.hpp"
 #include "Declaration.hpp"
 #include "Logger.hpp"
@@ -22,6 +26,7 @@ public:
 	
 	void print() const;
 	void transform() const;
+	void exec(TableDesSymboles& tableDesSymboles) const;
 	bool isAccepted() const;
 	void accept();
 

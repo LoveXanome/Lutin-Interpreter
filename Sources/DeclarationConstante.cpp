@@ -20,8 +20,3 @@ void DeclarationConstante::print() const
 {
 	std::cout << "const " << identifiant << " = " << StringHelper::doubleToString(valeur) << ";" << std::endl;
 }
-
-std::string DeclarationConstante::getType() const
-{
-	return "CONST";
-}

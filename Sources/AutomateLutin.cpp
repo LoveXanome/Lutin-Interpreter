@@ -92,12 +92,12 @@ int AutomateLutin::lecture()
 		return 1;
 	}
 	
-	// TODO Faire analyse statique si exec ou optimisation
+	
+	if (options & ANALYSE_STATIQUE || options & TRANSFORMATION || options & EXECUTION)
+		analyseStatique();
+	
 	if (options & TRANSFORMATION)
 		transformation();
-	
-	if (options & ANALYSE_STATIQUE)
-		analyseStatique();
 	
 	if (options & EXECUTION)
 		execution();
@@ -240,17 +240,12 @@ void AutomateLutin::transformation()
 void AutomateLutin::analyseStatique()
 {
 	AnalyseStatique analyseStatique(&tableSymboles, programme);
-
-	analyseStatique.updateTableSymbole();
-	analyseStatique.updateTableStatique();
-	analyseStatique.print();
-	
-	analyseStatique.check();
+	//analyseStatique.check();
 }
 
 void AutomateLutin::execution()
 {
-	// TODO (version plus tard)
+	programme->exec(tableSymboles);
 }
 
 void AutomateLutin::affichage()

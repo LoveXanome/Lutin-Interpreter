@@ -32,3 +32,8 @@ void InstructionEcriture::transform()
 		setExpression(expressionTampon);
 	}
 }
+
+void InstructionEcriture::exec(TableDesSymboles& tableDesSymboles)
+{
+	
+}

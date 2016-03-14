@@ -1,11 +1,15 @@
+#ifndef ANALYSE_STATIQUE_HPP
+#define ANALYSE_STATIQUE_HPP
 
-#ifndef ANALYSESTATIQUE_HPP
-#define ANALYSESTATIQUE_HPP
+class Programme;
 
 #include "Declaration.hpp"
 
 #include <string>
 #include <unordered_map>
+
+typedef std::unordered_map<std::string, Declaration*> TableDesSymboles; 
+typedef std::pair<std::string, Declaration*> pairSymbole; 
 
 #include "Programme.hpp"
 #include "Logger.hpp"
@@ -45,45 +49,33 @@ enum etats {
 	UTILISEE
 };
 
-typedef std::unordered_map<std::string, Declaration*> TableDesSymboles; 
-typedef std::pair<std::string, Declaration*> pairSymbole; 
-
 typedef std::unordered_map<std::string, EtatIdentifiant> TableAnalyseStatique;
 typedef std::pair<std::string, EtatIdentifiant> pairAnalyse; 
 
 class AnalyseStatique
 {
-	public:
-		AnalyseStatique(TableDesSymboles* tableDesSymboles, Programme* programme);
-		virtual ~AnalyseStatique();
+public:
+	AnalyseStatique(TableDesSymboles* tableDesSymboles, Programme* programme);
+	virtual ~AnalyseStatique();
 
-		void updateTableSymbole();
+	// Realise l'analyse statique a l'aide des deux tables en attributs
+	void check();
 
-		void updateTableStatique();
+private:
+	TableDesSymboles* tableDesSymboles;
+	TableAnalyseStatique tableAnalyseStatique;
+	Programme* programme;
+	
+	void fillTableSymboles();
+	void fillTableStatique();
 
-		// Realise l'analyse statique a l'aide des deux tables en attributs
-		// Pre-requis : tableDesSymboles et tableAnalyseStatique doivent avoir ete MAJ
-		void check();
-
-		//	Check if symbole was already declared
-		void checkSymbole(std::string* key);
-
-		void addSymbole(std::string* key, Declaration* value);
-
-		void addEtatIdentifiant(std::string* key, EtatIdentifiant* strucIdentifiant);
-
-		void setEtat(etats* etat, EtatIdentifiant* strucIdentifiant);
-
-		void print() const;
-
-	private:
-		TableDesSymboles* tableDesSymboles;
-		TableAnalyseStatique tableAnalyseStatique;
-		Programme* programme;
-
-		static const Logger logger;
-
-		
-
+	void addSymboleToTableSymbole(const std::string& key, Declaration* value);
+	bool symbolExists(const std::string& key);
+	void addEtatIdentifiantToTableStatique(const std::string& key, EtatIdentifiant* strucIdentifiant);
+	
+	//	Check if symbole was already declared
+	void setEtat(etats* etat, EtatIdentifiant* strucIdentifiant);
+	
+	static const Logger logger;
 };
-#endif // AUTOMATE_LUTIN_HPP
+#endif // ANALYSE_STATIQUE_HPP

@@ -2,6 +2,7 @@
 #define INSTRUCTION_HPP
 
 #include "Symbole.hpp"
+#include "AnalyseStatique.hpp"
 #include "Logger.hpp"
 
 class Instruction : public Symbole
@@ -11,6 +12,7 @@ public:
 	virtual ~Instruction();
 	virtual void print() const = 0;
 	virtual void transform() = 0;
+	virtual void exec(TableDesSymboles& tableDesSymboles) = 0;
 private:
 	static const Logger logger;
 };

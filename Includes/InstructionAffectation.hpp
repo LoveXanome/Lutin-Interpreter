@@ -12,6 +12,7 @@ public:
 	virtual ~InstructionAffectation();
 	void print() const;
 	void transform();
+	void exec(TableDesSymboles& tableDesSymboles);
 	void setExpression(Expression* e);
 	 
 private:

@@ -44,9 +44,9 @@ std::string StringHelper::doubleToString(const double d)
 {
 	std::string str = std::to_string(d);
     
-    str.erase( str.find_last_not_of('0')+1 , std::string::npos);
+    str.erase(str.find_last_not_of('0')+1 , std::string::npos);
     
-    if( str.back() == '.')
+    if (str.back() == '.')
     {
         str.pop_back();
     }

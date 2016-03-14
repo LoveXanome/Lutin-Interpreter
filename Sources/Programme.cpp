@@ -59,6 +59,12 @@ void Programme::transform() const
 		i->transform();
 }
 
+void Programme::exec(TableDesSymboles& tableDesSymboles) const
+{
+	for (Instruction* i : instructions)
+		i->exec(tableDesSymboles);
+}
+
 bool Programme::isAccepted() const
 {
 	return accepted;

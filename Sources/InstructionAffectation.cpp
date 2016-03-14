@@ -32,3 +32,9 @@ void InstructionAffectation::transform()
 		setExpression(expressionTampon);
 	}
 }
+
+void InstructionAffectation::exec(TableDesSymboles& tableDesSymboles)
+{
+	//double val = expression->eval(tableDesSymboles);
+	
+}

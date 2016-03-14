@@ -1,27 +1,86 @@
 #include "AnalyseStatique.hpp"
+
 #include "DeclarationVariable.hpp"
 #include "DeclarationConstante.hpp"
 
 #include <iostream> 
 #include <string>
 
-
 const Logger AnalyseStatique::logger("AnalyseStatique");	
 
-AnalyseStatique::AnalyseStatique(TableDesSymboles* tableDesSymboles, Programme* programme) 
+AnalyseStatique::AnalyseStatique(TableDesSymboles* tableDesSymboles, Programme* programme) : tableDesSymboles(tableDesSymboles), programme(programme)
 {
-	this->tableDesSymboles = tableDesSymboles;
-	this->programme = programme;
+	logger.construction("Construction");
+	fillTableSymboles();
+	fillTableStatique();
+	logger.construction("End of construction");
 }
 
 AnalyseStatique::~AnalyseStatique() 
 {}
 
+/**
+*	Parcours les declarations
+		Mets a jour la table des symboles
+		& le bool declare de la table analyse statique
+*/
+void AnalyseStatique::fillTableSymboles()
+{
+	logger.debug("Fill table symbole");
+	ListeDeclarations* declarations = programme->getDeclarations();
+	
+	for (Declaration* declaration : *declarations)
+	{
+		logger.debug(StringHelper::format("adding %s to symbols", declaration->getIdentifiant().c_str()));
+		addSymboleToTableSymbole(declaration->getIdentifiant(), declaration);
+
+		/*logger.debug(StringHelper::format("adding %s to 'table statique'", declaration->getIdentifiant().c_str()));
+		//Specify id declared
+		EtatIdentifiant etat(true, false, false); // TODO comme ça marchera pas muhaha
+		addEtatIdentifiantToTableStatique(declaration->getIdentifiant(), &etat); // TODO comme ça ne marchera pas muhahaha */
+		logger.debug(StringHelper::format("%s added !", declaration->getIdentifiant().c_str()));
+	}
+}
+
+void AnalyseStatique::addSymboleToTableSymbole(const std::string& key, Declaration* value)
+{
+	if (symbolExists(key))
+		throw std::runtime_error(StringHelper::format("Identifiant <%s> already used !", key.c_str()));
+	
+	tableDesSymboles->insert(pairSymbole(key, value));
+}
+
+bool AnalyseStatique::symbolExists(const std::string& key)
+{
+	auto search = tableDesSymboles->find(key);
+	return search != tableDesSymboles->end();
+}
+
+void AnalyseStatique::addEtatIdentifiantToTableStatique(const std::string& key, EtatIdentifiant* strucIdentifiant)
+{
+	tableAnalyseStatique.insert(pairAnalyse(key, *strucIdentifiant));
+}
+
+/**
+*	Parcours les instructions
+		Mets a jour les bool affectee & utilisee de la table analyse statique
+*/
+void AnalyseStatique::fillTableStatique()
+{
+	// ListeInstructions* instructions = programme->getInstructions();
+
+	// for (Instruction* instruction : *instructions)
+	// {
+	// 	std::cout << *instruction << std::endl;
+	// }
+}
+
+
 void AnalyseStatique::check()
 {
-	for (auto it1=tableDesSymboles->begin(); it1!=tableDesSymboles->end(); ++it1)
+	for (auto it1 = tableDesSymboles->begin(); it1!=tableDesSymboles->end(); ++it1)
 	{
-		for (auto it2=tableAnalyseStatique.begin(); it2!=tableAnalyseStatique.end(); ++it2)
+		for (auto it2 = tableAnalyseStatique.begin(); it2!=tableAnalyseStatique.end(); ++it2)
 		{
 			if (it1->first == it2->first)
 			{
@@ -33,7 +92,7 @@ void AnalyseStatique::check()
 					 * non declaree, affectee, non utilisee --> erreur
 					 * non delcaree, affectee, utilisee --> erreur
 					 * declaree, non affectee, non utilisee --> warning
-					 * declaree, non affectee, utilisee --> erreur
+					 * declaree, non affectee, utilisee --> erreur (sûr ? pas juste warning, puis ça fera n'importe quoi je dirais)
 					 * declaree, affectee, non utilisee --> warning
 					 * declaree, affectee, utilisee --> it's all good
 					 */
@@ -92,60 +151,6 @@ void AnalyseStatique::check()
 	}	
 }
 
-/**
-*	Parcours les declarations
-		Mets a jour la table des symboles
-		& le bool declare de la table analyse statique
-*/
-void AnalyseStatique::updateTableSymbole()
-{
-	ListeDeclarations* declarations = programme->getDeclarations();
-	
-	for (Declaration* declaration : *declarations)
-	{
-		addSymbole(declaration->getId(), declaration);
-
-		//	Specify id declared
-		EtatIdentifiant etat (true, false, false);
-		addEtatIdentifiant(declaration->getId(), &etat);
-	}
-}
-
-/**
-*	Parcours les instructions
-		Mets a jour les bool affectee & utilisee de la table analyse statique
-*/
-void AnalyseStatique::updateTableStatique()
-{
-	// ListeInstructions* instructions = programme->getInstructions();
-
-	// for (Instruction* instruction : *instructions)
-	// {
-	// 	std::cout << *instruction << std::endl;
-	// }
-}
-
-void AnalyseStatique::checkSymbole(std::string* key)
-{
-	auto search = tableDesSymboles->find(*key);
-	if ( search != tableDesSymboles->end() )
-	{
-		throw std::runtime_error(StringHelper::format("INTERPRETATION ERROR : Identifiant <%s> already used !", key->c_str()));
-	}
-}
-
-void AnalyseStatique::addSymbole(std::string* key, Declaration* value)
-{
-	checkSymbole(key);
-	tableDesSymboles->insert(pairSymbole(*key,value));
-}
-
-
-void AnalyseStatique::addEtatIdentifiant(std::string* key, EtatIdentifiant* strucIdentifiant)
-{
-	tableAnalyseStatique.insert(pairAnalyse(*key, *strucIdentifiant));
-}
-
 void AnalyseStatique::setEtat(etats* etat, EtatIdentifiant* strucIdentifiant)
 {
 	switch(*etat)
@@ -165,21 +170,5 @@ void AnalyseStatique::setEtat(etats* etat, EtatIdentifiant* strucIdentifiant)
 		default :
 			throw std::runtime_error("ERROR : Incorrect call to AnalyseStatique::setEtat !");
 			break;
-	}
-}
-
-
-void AnalyseStatique::print() const
-{
-	std::cout << "DISPLAY TableDesSymboles :\n";
-	for (auto it1=tableDesSymboles->begin(); it1!=tableDesSymboles->end(); ++it1)
-	{
-		std::cout << "id = " << it1->first << " | " << it1->second->getType() << std::endl;
-	}
-		
-	std::cout << "DISPLAY tableAnalyseStatique :\n";
-	for (auto it2=tableAnalyseStatique.begin(); it2!=tableAnalyseStatique.end(); ++it2)
-	{
-		std::cout << "id = " << it2->first << " | " << it2->second.toString() << std::endl;
 	}
 }

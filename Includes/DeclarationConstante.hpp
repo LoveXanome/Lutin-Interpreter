@@ -9,7 +9,6 @@ public:
 	DeclarationConstante(const std::string& identifiant, const double& valeur);
 	virtual ~DeclarationConstante();
 	void print() const;
-	std::string getType() const;
 	
 private:
 	double valeur;

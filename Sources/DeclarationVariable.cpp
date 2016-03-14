@@ -17,7 +17,13 @@ void DeclarationVariable::print() const
 	std::cout << "var " << identifiant << ";" << std::endl;
 }
 
-std::string DeclarationVariable::getType() const
+void DeclarationVariable::setExecValue(const double& value)
 {
-	return "VAR";
+	execValue = value;
 }
+
+double DeclarationVariable::getExecValue() const
+{
+	return execValue;
+}
+	
