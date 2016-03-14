@@ -1,10 +1,7 @@
 #include "E12.hpp"
-#include "Expression.hpp"
-#include "SymboleDefaut.hpp"
-#include "SymboleEnum.hpp"
 
+#include "Expression.hpp"
 #include "InstructionAffectation.hpp"
-#include "SymboleDefaut.hpp"
 #include "Valeur.hpp"
 
 E12::E12() : Etat(12)

@@ -37,3 +37,8 @@ Objects/
 
 # IntelliJ CLion
 .idea/
+
+# Custom test file
+test.lt
+test.txt
+

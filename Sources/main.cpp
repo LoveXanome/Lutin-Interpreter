@@ -15,7 +15,7 @@ int main(int argc, char** argv)
 		int options = cmdLineParser.getOptions();
 		
 		AutomateLutin automate(fileName, options);
-		automate.lecture();
+		return automate.lecture();
 	}
 	catch (const std::exception& ex)
 	{
