@@ -105,7 +105,9 @@ void AnalyseStatique::updateTableSymbole()
 	{
 		addSymbole(declaration->getId(), declaration);
 
-	EtatIdentifiant etat (false, true, false);
+		//	Specify id declared
+		EtatIdentifiant etat (true, false, false);
+		addEtatIdentifiant(declaration->getId(), &etat);
 	}
 }
 
@@ -138,6 +140,7 @@ void AnalyseStatique::addSymbole(std::string* key, Declaration* value)
 	tableDesSymboles->insert(std::pair<std::string, Declaration*>(*key,value));
 }
 
+
 void AnalyseStatique::addEtatIdentifiant(std::string* key, EtatIdentifiant* strucIdentifiant)
 {
 	tableAnalyseStatique.insert(std::pair<std::string, EtatIdentifiant>(*key, *strucIdentifiant));
@@ -148,15 +151,15 @@ void AnalyseStatique::setEtat(etats* etat, EtatIdentifiant* strucIdentifiant)
 	switch(*etat)
 	{
 		case DECLAREE:
-		
+			strucIdentifiant->declared = true;
 			break;
 
 		case AFFECTEE:
-
+			strucIdentifiant->affected = true;
 			break;
 
 		case UTILISEE:
-
+			strucIdentifiant->used = true;
 			break;
 
 		default :
