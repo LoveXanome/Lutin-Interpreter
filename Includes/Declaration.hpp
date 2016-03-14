@@ -5,6 +5,7 @@
 #include <string>
 #include "SymboleEnum.hpp"
 #include "Symbole.hpp"
+#include "Logger.hpp"
 
 class Declaration : public Symbole
 {
@@ -16,6 +17,7 @@ public:
 
 protected:
 	std::string identifiant;
+	static const Logger logger;
 };
 
 #endif // DECLARATION_HPP

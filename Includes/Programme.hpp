@@ -4,6 +4,7 @@
 #include <list>
 #include "Instruction.hpp"
 #include "Declaration.hpp"
+#include "Logger.hpp"
 
 typedef std::list<Instruction*> ListeInstructions;
 typedef std::list<Declaration*> ListeDeclarations;
@@ -15,6 +16,9 @@ public:
 	virtual ~Programme();
 	void addDeclaration(Declaration* d);
 	void addInstruction(Instruction* i);
+
+	ListeInstructions* getInstructions();
+	ListeDeclarations* getDeclarations();
 	
 	void print() const;
 	void transform() const;
@@ -25,6 +29,7 @@ private:
 	ListeDeclarations declarations;
 	ListeInstructions instructions;
 	bool accepted;
+	static const Logger logger;
 };
 
 #endif // PROGRAMME_HPP

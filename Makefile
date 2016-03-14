@@ -18,7 +18,7 @@ MAIN=$(SRCDIR)main.cpp
 
 COMP=@g++
 LINKER=@g++
-COMMONFLAGS=-std=c++11 -g
+COMMONFLAGS=-std=c++11 -g --coverage
 COMPFLAGS=$(COMMONFLAGS) -Wall -Werror
 LINKERFLAGS=$(COMMONFLAGS)
 ECHO=@echo

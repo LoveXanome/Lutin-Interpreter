@@ -9,6 +9,7 @@
 #include "Valeur.hpp"
 #include "SymboleTerminal.hpp"
 #include "SymbolFabric.hpp"
+#include "SymboleDefaut.hpp"
 
 #include <set>
 #include <iostream>
@@ -27,26 +28,29 @@ AutomateLutin::AutomateLutin(const std::string& fileName, const int options) : o
 }
 
 AutomateLutin::~AutomateLutin()
-{
-	//Inutile car les symboles sont supprimer par le FileLexer
-	/*
-	int nbSymboles = symboles.size();
+{		
+	logger.destruction(StringHelper::format("Start destruction AutomateLutin (%d etats )", etats.size()));
 	
-	std::set<Symbole*> uniqueSymboles;
+	//Crée une liste unique de symboles
+	std::vector<Symbole*> symbolesToBeDeleted;
 	while (!symboles.empty())
 	{
 		Symbole* s = symboles.top();
 		symboles.pop();
-		uniqueSymboles.insert(s);
+		//Ajout dans la liste des symboles à supprimer si il est pas déjà dans la liste des symboles lus par le lexer 
+		//(symboles généré au cours de la création des états)
+		if(! ((FileLexer*)lexer)->isInList(s) )
+			symbolesToBeDeleted.push_back(s);
 	}
 
-	for (Symbole* s : uniqueSymboles)
+	logger.destruction("========== Destruction des symboles  ==========");
+	for (Symbole* s : symbolesToBeDeleted)
+	{
 		delete s;
+	}	
 	
-	*/
-
-	logger.destruction(StringHelper::format("Start destruction (%d etats )", etats.size()));
-
+	
+	logger.destruction("========== Destruction des états ==========");
 	while (!etats.empty())
 	{
 		Etat* e = etats.top();
@@ -55,13 +59,26 @@ AutomateLutin::~AutomateLutin()
 	}
 	
 	
+	//Destruction des symboles créer lors des réducions
+	//On ôte de la liste le 'E' généré pour la dernière réduction
+	reductionSymboles.pop();
+	logger.destruction(StringHelper::format("========== Destruction des symboles générées (%d)==========", reductionSymboles.size()));
+	while (!reductionSymboles.empty())
+	{
+		Symbole* s = reductionSymboles.top();
+		reductionSymboles.pop();
+		if(dynamic_cast<SymboleDefaut*>(s) != NULL)
+			delete s;
+	} 
+
 	delete programme;
 	
 	delete lexer;
+
 	logger.destruction("End destruction");
 }
 
-void AutomateLutin::lecture()
+int AutomateLutin::lecture()
 {
 	logger.debug("Debut lecture");
 	
@@ -70,8 +87,12 @@ void AutomateLutin::lecture()
 	etats.top()->transition(this, firstSymbole);
 	
 	if (!programme->isAccepted())
+	{
 		std::cerr << "Programme invalide" << std::endl;
+		return 1;
+	}
 	
+	// TODO Faire analyse statique si exec ou optimisation
 	if (options & TRANSFORMATION)
 		transformation();
 	
@@ -85,6 +106,7 @@ void AutomateLutin::lecture()
 		affichage();
 		
 	logger.debug("Fin lecture");
+	return 0;
 }
 
 valeurRetour AutomateLutin::decalage(Symbole* symbole, Etat* etat, bool readNext)
@@ -174,8 +196,10 @@ valeurRetour AutomateLutin::reduction(Symbole* symbole, const unsigned int nbEta
 	logger.debug(StringHelper::format("Reduction de %d etats. Retour vers %s (symbole %s)", nbEtats, etats.top()->toString().c_str(), symbole->toString().c_str()));
 	
 	symbolBeforeReduction = previousSymbol;
+	reductionSymboles.push(symbole);
 	
-	Etat* etat = etats.top();
+	Etat* etat = etats.top();	
+
 	valeurRetour ret = etat->transition(this, symbole);
 	
 	if (ret == NON_RECONNU)
@@ -186,6 +210,7 @@ valeurRetour AutomateLutin::reduction(Symbole* symbole, const unsigned int nbEta
 			std::cerr << SymbolFabric::makeSymbolNameFromNumber(currentEnum) << ", ";
 		std::cerr << std::endl;
 	}
+
 	
 	return ret;
 }
@@ -214,7 +239,11 @@ void AutomateLutin::transformation()
 
 void AutomateLutin::analyseStatique()
 {
-	// TODO (version plus tard)
+	AnalyseStatique analyseStatique(&tableSymboles, programme);
+
+	analyseStatique.updateTableSymbole();
+	analyseStatique.updateTableStatique();
+	analyseStatique.check();
 }
 
 void AutomateLutin::execution()
