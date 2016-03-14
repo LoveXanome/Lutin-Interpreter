@@ -28,6 +28,8 @@ AutomateLutin::AutomateLutin(const std::string& fileName, const int options) : o
 
 AutomateLutin::~AutomateLutin()
 {
+	//Inutile car les symboles sont supprimer par le FileLexer
+	/*
 	int nbSymboles = symboles.size();
 	
 	std::set<Symbole*> uniqueSymboles;
@@ -37,8 +39,13 @@ AutomateLutin::~AutomateLutin()
 		symboles.pop();
 		uniqueSymboles.insert(s);
 	}
+
+	for (Symbole* s : uniqueSymboles)
+		delete s;
 	
-	logger.destruction(StringHelper::format("Start destruction (%d etats & %d symboles (unique %d))", etats.size(), nbSymboles, uniqueSymboles.size()));
+	*/
+
+	logger.destruction(StringHelper::format("Start destruction (%d etats )", etats.size()));
 
 	while (!etats.empty())
 	{
@@ -47,9 +54,7 @@ AutomateLutin::~AutomateLutin()
 		delete e;
 	}
 	
-	/*for (Symbole* s : uniqueSymboles)
-		delete s;*/
-
+	
 	delete programme;
 	
 	delete lexer;
@@ -160,7 +165,11 @@ std::string AutomateLutin::getExpectedSymbolsErrorMessage(const Etat* lastState)
 valeurRetour AutomateLutin::reduction(Symbole* symbole, const unsigned int nbEtats, Symbole* previousSymbol)
 {
 	for (unsigned int i = 0; i < nbEtats; ++i)
+	{
+		Etat* e = etats.top();
 		etats.pop();
+		delete e;
+	}	
 	
 	logger.debug(StringHelper::format("Reduction de %d etats. Retour vers %s (symbole %s)", nbEtats, etats.top()->toString().c_str(), symbole->toString().c_str()));
 	
