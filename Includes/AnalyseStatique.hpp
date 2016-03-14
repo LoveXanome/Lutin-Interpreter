@@ -18,9 +18,11 @@ typedef struct etatIdentifiant
 class AnalyseStatique
 {
 	public:
-		AnalyseStatique();
+		AnalyseStatique(std::unordered_map<std::string, Declaration*>* tableDesSymboles, std::unordered_map<std::string, EtatIdentifiant>* tableAnalyseStatique);
 		virtual ~AnalyseStatique();
-		bool check(std::unordered_map<std::string, Declaration*> tableDesSymboles, std::unordered_map<std::string, EtatIdentifiant> tableAnalyseStatique);
+		bool check();
 	private:
+		std::unordered_map<std::string, Declaration*>* tableDesSymboles;
+		std::unordered_map<std::string, EtatIdentifiant>* tableAnalyseStatique;
 };
 #endif // AUTOMATE_LUTIN_HPP
