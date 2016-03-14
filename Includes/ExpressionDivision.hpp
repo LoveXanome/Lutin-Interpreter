@@ -11,6 +11,7 @@ public:
 	virtual ~ExpressionDivision();
 	std::string toString() const;
 	std::string toPrintString() const;
+	Expression* toTransform();
 };
 
 #endif // EXPRESSION_DIVISION_HPP

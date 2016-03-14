@@ -30,3 +30,8 @@ std::string Identifiant::toPrintString() const
 {
 	return identifiant;
 }
+
+Expression* Identifiant::toTransform()
+{
+	return this;
+}

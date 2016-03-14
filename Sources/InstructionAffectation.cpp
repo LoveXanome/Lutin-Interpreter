@@ -16,3 +16,19 @@ void InstructionAffectation::print() const
 {
 	std::cout << identifiant << " := " << expression->toPrintString() << ";" << std::endl;
 }
+
+void InstructionAffectation::setExpression(Expression* e)
+{
+	this->expression = e;
+}
+
+void InstructionAffectation::transform()
+{
+	Expression* expressionTampon;
+	expressionTampon = expression->toTransform();
+	if(expression != expressionTampon)
+	{
+		//delete expression;
+		setExpression(expressionTampon);
+	}
+}

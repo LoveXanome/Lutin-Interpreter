@@ -209,7 +209,7 @@ void AutomateLutin::addInstructionToProgram(Instruction* i)
 
 void AutomateLutin::transformation()
 {
-	// TODO (version plus tard)
+	programme->transform();
 }
 
 void AutomateLutin::analyseStatique()

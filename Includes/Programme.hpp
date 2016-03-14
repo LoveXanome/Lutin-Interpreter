@@ -17,6 +17,7 @@ public:
 	void addInstruction(Instruction* i);
 	
 	void print() const;
+	void transform() const;
 	bool isAccepted() const;
 	void accept();
 

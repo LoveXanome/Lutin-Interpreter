@@ -13,6 +13,7 @@ public:
 	double getValeur() const;
 	std::string toString() const;
 	std::string toPrintString() const;
+	Expression* toTransform();
 	
 private:
 	double valeur;

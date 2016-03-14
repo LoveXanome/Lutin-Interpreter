@@ -26,6 +26,11 @@ std::string ExpressionParenthese::toPrintString() const
 	return "(" + membreInt->toPrintString() + ")";
 }
 
+Expression* ExpressionParenthese::toTransform()
+{
+	return membreInt->toTransform();
+}
+
 
 
 ExpressionParenthese::~ExpressionParenthese()

@@ -9,6 +9,7 @@ public:
 	Instruction();
 	virtual ~Instruction();
 	virtual void print() const = 0;
+	virtual void transform() = 0;
 };
 
 #endif // INSTRUCTION_HPP

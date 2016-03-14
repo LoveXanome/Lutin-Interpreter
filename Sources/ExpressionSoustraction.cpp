@@ -2,6 +2,8 @@
 
 #include "SymboleEnum.hpp"
 
+#include "Valeur.hpp"
+
 ExpressionSoustraction::ExpressionSoustraction(Expression* membreG , Expression* membreD) : ExpressionBinaire(membreG, membreD)
 {
 
@@ -20,4 +22,20 @@ std::string ExpressionSoustraction::toString() const
 std::string ExpressionSoustraction::toPrintString() const
 {
 	return membreGauche->toPrintString() + " - " + membreDroite->toPrintString();
+}
+
+Expression* ExpressionSoustraction::toTransform()
+{
+	if(Valeur* val = dynamic_cast<Valeur*>(membreDroite))
+	{
+		if(val->getValeur() == 0)
+		{
+			return membreGauche;
+		}
+	}
+	else
+	{
+		membreDroite->toTransform();
+	}
+	return this;
 }

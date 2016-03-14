@@ -10,6 +10,7 @@ public:
 	InstructionLecture(const std::string& identifiant);
 	virtual ~InstructionLecture();
 	void print() const;
+	void transform();
 
 private:
 	std::string identifiant;

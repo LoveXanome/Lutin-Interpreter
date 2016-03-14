@@ -13,6 +13,7 @@ public:
 	virtual ~ExpressionParenthese();
 	std::string toString() const;
 	std::string toPrintString() const;
+	Expression* toTransform();
 	
 protected:
 	Expression* membreInt;
