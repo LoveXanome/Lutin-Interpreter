@@ -214,7 +214,11 @@ void AutomateLutin::transformation()
 
 void AutomateLutin::analyseStatique()
 {
-	// TODO (version plus tard)
+	AnalyseStatique analyseStatique(&tableSymboles, programme);
+
+	analyseStatique.updateTableSymbole();
+	analyseStatique.updateTableStatique();
+	analyseStatique.check();
 }
 
 void AutomateLutin::execution()

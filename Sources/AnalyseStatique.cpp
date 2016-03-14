@@ -1,19 +1,18 @@
 #include "AnalyseStatique.hpp"
 #include <iostream>
 
-AnalyseStatique::AnalyseStatique(TableDesSymboles* tableDesSymboles, TableAnalyseStatique* tableAnalyseStatique) 
+AnalyseStatique::AnalyseStatique(TableDesSymboles* tableDesSymboles, Programme* programme) 
 {
 	this->tableDesSymboles = tableDesSymboles;
-	this->tableAnalyseStatique = tableAnalyseStatique;
+	this->programme = programme;
 }
 
 AnalyseStatique::~AnalyseStatique() 
 {}
 
-bool AnalyseStatique::check()
+void AnalyseStatique::check()
 {
-	bool programmeValide = false;
-	return programmeValide;
+
 }
 
 const Logger AnalyseStatique::logger("AnalyseStatique");
@@ -25,4 +24,9 @@ void AnalyseStatique::updateTableSymbole()
 	{
 		std::cout << *ins << std::endl;
 	}
+}
+
+void AnalyseStatique::updateTableStatique()
+{
+
 }

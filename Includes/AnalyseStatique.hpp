@@ -25,16 +25,18 @@ typedef std::unordered_map<std::string, EtatIdentifiant> TableAnalyseStatique;
 class AnalyseStatique
 {
 	public:
-		AnalyseStatique(TableDesSymboles* tableDesSymboles, TableAnalyseStatique* tableAnalyseStatique);
+		AnalyseStatique(TableDesSymboles* tableDesSymboles, Programme* programme);
 		virtual ~AnalyseStatique();
 
 		void updateTableSymbole();
 
-		bool check();
+		void updateTableStatique();
+
+		void check();
 
 	private:
 		TableDesSymboles* tableDesSymboles;
-		TableAnalyseStatique* tableAnalyseStatique;
+		TableAnalyseStatique tableAnalyseStatique;
 		Programme* programme;
 
 		static const Logger logger;
