@@ -35,6 +35,7 @@ private:
 	int options;
 	std::stack<Etat*> etats;
 	std::stack<Symbole*> symboles;
+	std::stack<Symbole*> reductionSymboles;
 	TableDesSymboles tableSymboles;
 	Lexer* lexer;
 	Programme* programme;
