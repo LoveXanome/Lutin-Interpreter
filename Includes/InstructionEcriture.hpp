@@ -10,6 +10,8 @@ public:
 	InstructionEcriture(Expression* e);
 	virtual ~InstructionEcriture();
 	void print() const;
+	void transform();
+	void setExpression(Expression* e);
 private:
 	Expression* expression;
 };

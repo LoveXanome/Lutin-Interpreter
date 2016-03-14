@@ -11,6 +11,7 @@ public:
 	virtual ~ExpressionSoustraction();
 	std::string toString() const;
 	std::string toPrintString() const;
+	Expression* toTransform();
 };
 
 #endif // EXPRESSION_SOUSTRACTION_HPP

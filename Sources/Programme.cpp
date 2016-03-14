@@ -53,6 +53,12 @@ void Programme::print() const
 		i->print();
 }
 
+void Programme::transform() const
+{
+	for (Instruction* i : instructions)
+		i->transform();
+}
+
 bool Programme::isAccepted() const
 {
 	return accepted;

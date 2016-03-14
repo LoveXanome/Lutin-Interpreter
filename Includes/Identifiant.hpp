@@ -14,6 +14,7 @@ public:
 	std::string getIdentifiant() const;
 	std::string toString() const;
 	std::string toPrintString() const;
+	Expression* toTransform();
 	
 private:
 	std::string identifiant;

@@ -11,6 +11,8 @@ public:
 	InstructionAffectation(const std::string& identifiant, Expression* e);
 	virtual ~InstructionAffectation();
 	void print() const;
+	void transform();
+	void setExpression(Expression* e);
 	 
 private:
 	std::string identifiant;

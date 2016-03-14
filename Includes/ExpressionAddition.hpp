@@ -11,6 +11,7 @@ public:
 	virtual ~ExpressionAddition();
 	std::string toString() const;
 	std::string toPrintString() const;
+	Expression* toTransform();
 };
 
 #endif // EXPRESSION_ADDITION_HPP

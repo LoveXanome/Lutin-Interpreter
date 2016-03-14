@@ -35,3 +35,8 @@ std::string Valeur::toPrintString() const
 {
 	return StringHelper::doubleToString(valeur);
 }
+
+Expression* Valeur::toTransform()
+{
+	return this;
+}

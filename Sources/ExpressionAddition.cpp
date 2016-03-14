@@ -2,6 +2,8 @@
 
 #include "SymboleEnum.hpp"
 
+#include "Valeur.hpp"
+
 ExpressionAddition::ExpressionAddition(Expression* membreG , Expression* membreD) : ExpressionBinaire(membreG, membreD)
 {
 
@@ -20,4 +22,32 @@ std::string ExpressionAddition::toString() const
 std::string ExpressionAddition::toPrintString() const
 {
 	return membreGauche->toPrintString() + " + " + membreDroite->toPrintString();
+}
+
+Expression* ExpressionAddition::toTransform()
+{
+	if(Valeur* val = dynamic_cast<Valeur*>(membreGauche))
+	{
+		if(val->getValeur() == 0)
+		{
+			return membreDroite;
+		}
+	}
+	else
+	{
+		membreGauche->toTransform();
+	}
+	
+	if(Valeur* val = dynamic_cast<Valeur*>(membreDroite))
+	{
+		if(val->getValeur() == 0)
+		{
+			return membreGauche;
+		}
+	}
+	else
+	{
+		membreDroite->toTransform();
+	}
+	return this;
 }

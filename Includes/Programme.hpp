@@ -21,6 +21,7 @@ public:
 	ListeDeclarations* getDeclarations();
 	
 	void print() const;
+	void transform() const;
 	bool isAccepted() const;
 	void accept();
 
