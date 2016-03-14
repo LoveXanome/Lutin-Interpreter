@@ -14,7 +14,7 @@ public:
 	Declaration(const std::string& identifiant, const SymboleEnum& enumRepresentation);
 	virtual ~Declaration();
 	virtual void print() const = 0;
-	std::string getId() const;
+	std::string* getId();
 	virtual std::string getType() const = 0;
 
 protected:

@@ -20,7 +20,7 @@ Declaration::~Declaration()
 }
 
 
-std::string Declaration::getId() const
+std::string* Declaration::getId()
 {
-	return identifiant;
+	return &identifiant;
 }

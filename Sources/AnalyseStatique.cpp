@@ -62,6 +62,8 @@ void AnalyseStatique::updateTableSymbole()
 	for (Declaration* declaration : *declarations)
 	{
 		addSymbole(declaration->getId(), declaration);
+
+	EtatIdentifiant etat (false, true, false);
 	}
 }
 
@@ -79,24 +81,44 @@ void AnalyseStatique::updateTableStatique()
 	// }
 }
 
-void AnalyseStatique::checkSymbole(std::string key)
+void AnalyseStatique::checkSymbole(std::string* key)
 {
-	auto search = tableDesSymboles->find(key);
+	auto search = tableDesSymboles->find(*key);
 	if ( search != tableDesSymboles->end() )
 	{
-		throw std::runtime_error(StringHelper::format("INTERPRETATION ERROR : Identifiant <%s> already used !", key.c_str()));
+		throw std::runtime_error(StringHelper::format("INTERPRETATION ERROR : Identifiant <%s> already used !", key->c_str()));
 	}
 }
 
-void AnalyseStatique::addSymbole(std::string key, Declaration* value)
+void AnalyseStatique::addSymbole(std::string* key, Declaration* value)
 {
 	checkSymbole(key);
-	tableDesSymboles->insert(std::pair<std::string, Declaration*>(key,value));
+	tableDesSymboles->insert(std::pair<std::string, Declaration*>(*key,value));
 }
 
-void AnalyseStatique::addEtatIdentifiant()
+void AnalyseStatique::addEtatIdentifiant(std::string* key, EtatIdentifiant* strucIdentifiant)
 {
-
+	tableAnalyseStatique.insert(std::pair<std::string, EtatIdentifiant>(*key, *strucIdentifiant));
 }
 
+void AnalyseStatique::setEtat(etats* etat, EtatIdentifiant* strucIdentifiant)
+{
+	switch(*etat)
+	{
+		case DECLAREE:
+		
+			break;
 
+		case AFFECTEE:
+
+			break;
+
+		case UTILISEE:
+
+			break;
+
+		default :
+				throw std::runtime_error("ERROR : Incorrect call to AnalyseStatique::setEtat !");
+			break;
+	}
+}

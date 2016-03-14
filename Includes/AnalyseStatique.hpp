@@ -17,7 +17,22 @@ typedef struct etatIdentifiant
     bool declaree;
     bool affectee;
     bool utilisee;
+
+    etatIdentifiant(bool declared, bool affected, bool used)
+    {
+    	declaree = declared;
+    	affectee = affected;
+    	utilisee = used;
+    }
+
 } EtatIdentifiant;
+
+//	Used for method setEtat
+enum etats {
+	DECLAREE,
+	AFFECTEE,
+	UTILISEE
+};
 
 typedef std::unordered_map<std::string, Declaration*> TableDesSymboles; 
 typedef std::unordered_map<std::string, EtatIdentifiant> TableAnalyseStatique;
@@ -34,12 +49,14 @@ class AnalyseStatique
 
 		void check();
 
-		void addSymbole(std::string key, Declaration* value);
-
-		void addEtatIdentifiant();
-
 		//	Check if symbole was already declared
-		void checkSymbole(std::string key);
+		void checkSymbole(std::string* key);
+
+		void addSymbole(std::string* key, Declaration* value);
+
+		void addEtatIdentifiant(std::string* key, EtatIdentifiant* strucIdentifiant);
+
+		void setEtat(etats* etat, EtatIdentifiant* strucIdentifiant);
 
 	private:
 		TableDesSymboles* tableDesSymboles;
@@ -47,6 +64,8 @@ class AnalyseStatique
 		Programme* programme;
 
 		static const Logger logger;
+
+		
 
 };
 #endif // AUTOMATE_LUTIN_HPP
