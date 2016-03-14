@@ -26,4 +26,3 @@ double DeclarationVariable::getExecValue() const
 {
 	return execValue;
 }
-	

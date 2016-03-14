@@ -11,6 +11,7 @@ public:
 	ExpressionBinaire(const SymboleEnum& enumRepresentation);
 	ExpressionBinaire(const SymboleEnum& enumRepresentation, Expression* membreG , Expression* membreD );
 	virtual ~ExpressionBinaire();
+	virtual double eval(TableDesSymboles& tableDesSymboles) = 0;
 	virtual std::string toString() const = 0;
 	virtual std::string toPrintString() const = 0;
 	virtual Expression* toTransform() = 0;

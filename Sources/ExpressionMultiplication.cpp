@@ -51,3 +51,8 @@ Expression* ExpressionMultiplication::toTransform()
 	}
 	return this;
 }
+
+double ExpressionMultiplication::eval(TableDesSymboles& tableDesSymboles)
+{
+	return membreGauche->eval(tableDesSymboles) * membreDroite->eval(tableDesSymboles);
+}

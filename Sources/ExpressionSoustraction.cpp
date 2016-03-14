@@ -39,3 +39,8 @@ Expression* ExpressionSoustraction::toTransform()
 	}
 	return this;
 }
+
+double ExpressionSoustraction::eval(TableDesSymboles& tableDesSymboles)
+{
+	return membreGauche->eval(tableDesSymboles) / membreDroite->eval(tableDesSymboles);
+}

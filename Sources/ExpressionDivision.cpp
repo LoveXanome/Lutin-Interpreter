@@ -41,3 +41,7 @@ Expression* ExpressionDivision::toTransform()
 	return this;
 }
 
+double ExpressionDivision::eval(TableDesSymboles& tableDesSymboles)
+{
+	return membreGauche->eval(tableDesSymboles) / membreDroite->eval(tableDesSymboles);
+}

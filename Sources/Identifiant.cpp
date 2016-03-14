@@ -1,6 +1,7 @@
 #include "Identifiant.hpp"
 
 #include "SymbolFabric.hpp"
+#include "DeclarationVariable.hpp"
 
 Identifiant::Identifiant(const std::string& identifiant) : Identifiant(identifiant, IDENTIFIANT)
 {
@@ -34,4 +35,10 @@ std::string Identifiant::toPrintString() const
 Expression* Identifiant::toTransform()
 {
 	return this;
+}
+
+double Identifiant::eval(TableDesSymboles& tableDesSymboles)
+{
+	Declaration* d = tableDesSymboles[identifiant];
+	return d->getExecValue();
 }

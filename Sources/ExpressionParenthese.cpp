@@ -16,6 +16,12 @@ ExpressionParenthese::ExpressionParenthese(const SymboleEnum& enumRepresentation
 {
 
 }
+
+ExpressionParenthese::~ExpressionParenthese()
+{
+	delete membreInt;
+}
+
 std::string ExpressionParenthese::toString() const
 {
 	return "(" + membreInt->toString() + ")";
@@ -31,9 +37,7 @@ Expression* ExpressionParenthese::toTransform()
 	return membreInt->toTransform();
 }
 
-
-
-ExpressionParenthese::~ExpressionParenthese()
+double ExpressionParenthese::eval(TableDesSymboles& tableDesSymboles)
 {
-	delete membreInt;
+	return membreInt->eval(tableDesSymboles);
 }

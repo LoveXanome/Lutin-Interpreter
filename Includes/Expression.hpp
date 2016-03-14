@@ -4,6 +4,7 @@
 #include <string>
 #include "Symbole.hpp"
 #include "SymboleEnum.hpp"
+#include "AnalyseStatique.hpp"
 
 class Expression : public Symbole
 {
@@ -11,7 +12,7 @@ public:
 	Expression();
 	Expression(const SymboleEnum& enumRepresentation);
 	virtual ~Expression();
-	double eval(std::string variables); // ?
+	virtual double eval(TableDesSymboles& tableDesSymboles) = 0;
 	virtual std::string toString() const = 0;
 	virtual std::string toPrintString() const = 0;
 	virtual Expression* toTransform() = 0;

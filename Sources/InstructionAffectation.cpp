@@ -1,5 +1,7 @@
 #include "InstructionAffectation.hpp"
+
 #include <iostream>
+#include "DeclarationVariable.hpp"
 
 InstructionAffectation::InstructionAffectation(const std::string& identifiant, Expression* e)
 	: Instruction(), identifiant(identifiant), expression(e)
@@ -35,6 +37,8 @@ void InstructionAffectation::transform()
 
 void InstructionAffectation::exec(TableDesSymboles& tableDesSymboles)
 {
-	//double val = expression->eval(tableDesSymboles);
+	double val = expression->eval(tableDesSymboles);
 	
+	DeclarationVariable* d = (DeclarationVariable*) tableDesSymboles[identifiant];
+	d->setExecValue(val);
 }

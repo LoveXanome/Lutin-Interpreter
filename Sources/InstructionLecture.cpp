@@ -27,6 +27,6 @@ void InstructionLecture::exec(TableDesSymboles& tableDesSymboles)
 	double readValue;
 	std::cin >> readValue;
 	
-	DeclarationVariable* d = (DeclarationVariable*) tableDesSymboles[identifiant];
+	DeclarationVariable* d = (DeclarationVariable*) tableDesSymboles[identifiant]; // should never fail because of static analysis
 	d->setExecValue(readValue);
 }

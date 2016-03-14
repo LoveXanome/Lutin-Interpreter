@@ -40,3 +40,8 @@ Expression* Valeur::toTransform()
 {
 	return this;
 }
+
+double Valeur::eval(TableDesSymboles& tableDesSymboles)
+{
+	return valeur;
+}

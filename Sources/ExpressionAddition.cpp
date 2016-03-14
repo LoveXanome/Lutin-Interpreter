@@ -51,3 +51,8 @@ Expression* ExpressionAddition::toTransform()
 	}
 	return this;
 }
+
+double ExpressionAddition::eval(TableDesSymboles& tableDesSymboles)
+{
+	return membreGauche->eval(tableDesSymboles) + membreDroite->eval(tableDesSymboles);
+}

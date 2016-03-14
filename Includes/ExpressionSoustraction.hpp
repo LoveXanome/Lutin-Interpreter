@@ -9,6 +9,7 @@ public:
 	ExpressionSoustraction();
 	ExpressionSoustraction( Expression* membreG , Expression* membreD );
 	virtual ~ExpressionSoustraction();
+	double eval(TableDesSymboles& tableDesSymboles);
 	std::string toString() const;
 	std::string toPrintString() const;
 	Expression* toTransform();

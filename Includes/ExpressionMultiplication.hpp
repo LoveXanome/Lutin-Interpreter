@@ -9,6 +9,7 @@ public:
 	ExpressionMultiplication();
 	ExpressionMultiplication(Expression* membreG , Expression* membreD);
 	virtual ~ExpressionMultiplication();
+	double eval(TableDesSymboles& tableDesSymboles);
 	std::string toString() const;
 	std::string toPrintString() const;
 	Expression* toTransform();

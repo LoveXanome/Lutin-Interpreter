@@ -15,6 +15,7 @@ public:
 	virtual ~Declaration();
 	virtual void print() const = 0;
 	std::string getIdentifiant() const;
+	virtual double getExecValue() const = 0;
 
 protected:
 	std::string identifiant;

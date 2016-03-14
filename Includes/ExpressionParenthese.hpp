@@ -11,11 +11,12 @@ public:
 	ExpressionParenthese(const SymboleEnum& enumRepresentation);
 	ExpressionParenthese(const SymboleEnum& enumRepresentation, Expression* membre);
 	virtual ~ExpressionParenthese();
+	double eval(TableDesSymboles& tableDesSymboles);
 	std::string toString() const;
 	std::string toPrintString() const;
 	Expression* toTransform();
 	
-protected:
+private:
 	Expression* membreInt;
 };
 
