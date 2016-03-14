@@ -3,9 +3,9 @@
 #include <iostream>
 #include <algorithm>
 
-//#define DEBUG
-//#define WARNING
-#define CONSTRUCTION_DESTRUCTION
+#define DEBUG
+#define WARNING
+//#define CONSTRUCTION_DESTRUCTION
 
 const std::list<std::string> Logger::IGNORED_CLASSES ({
 	"RegexHelper",

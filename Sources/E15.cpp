@@ -2,6 +2,8 @@
 
 #include "Expression.hpp"
 
+#include "ExpressionParenthese.hpp"
+
 E15::E15() : Etat(15)
 {
 	
@@ -25,8 +27,9 @@ valeurRetour E15::transition(AutomateLutin* automate, Symbole * s)
 			automate->popSymbole();
 			Expression* e = (Expression*) automate->popSymbole();
 			automate->popSymbole();
+			ExpressionParenthese* ep = new ExpressionParenthese(e);
 			
-            automate->reduction(e, 3, s);
+            automate->reduction(ep, 3, s);
             break;
     }
 	return NON_RECONNU;

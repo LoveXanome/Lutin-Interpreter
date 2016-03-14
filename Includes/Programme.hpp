@@ -16,6 +16,9 @@ public:
 	virtual ~Programme();
 	void addDeclaration(Declaration* d);
 	void addInstruction(Instruction* i);
+
+	ListeInstructions* getInstructions();
+	ListeDeclarations* getDeclarations();
 	
 	void print() const;
 	bool isAccepted() const;

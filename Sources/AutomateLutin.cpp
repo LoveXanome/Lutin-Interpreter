@@ -78,7 +78,7 @@ AutomateLutin::~AutomateLutin()
 	logger.destruction("End destruction");
 }
 
-void AutomateLutin::lecture()
+int AutomateLutin::lecture()
 {
 	logger.debug("Debut lecture");
 	
@@ -87,8 +87,12 @@ void AutomateLutin::lecture()
 	etats.top()->transition(this, firstSymbole);
 	
 	if (!programme->isAccepted())
+	{
 		std::cerr << "Programme invalide" << std::endl;
+		return 1;
+	}
 	
+	// TODO Faire analyse statique si exec ou optimisation
 	if (options & TRANSFORMATION)
 		transformation();
 	
@@ -102,6 +106,7 @@ void AutomateLutin::lecture()
 		affichage();
 		
 	logger.debug("Fin lecture");
+	return 0;
 }
 
 valeurRetour AutomateLutin::decalage(Symbole* symbole, Etat* etat, bool readNext)
@@ -234,7 +239,11 @@ void AutomateLutin::transformation()
 
 void AutomateLutin::analyseStatique()
 {
-	// TODO (version plus tard)
+	AnalyseStatique analyseStatique(&tableSymboles, programme);
+
+	analyseStatique.updateTableSymbole();
+	analyseStatique.updateTableStatique();
+	analyseStatique.check();
 }
 
 void AutomateLutin::execution()

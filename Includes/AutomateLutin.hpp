@@ -11,12 +11,12 @@ class Lexer;
 #include "Lexer.hpp"
 #include "Programme.hpp"
 #include "Logger.hpp"
+#include "AnalyseStatique.hpp"
 
 #include <string>
 #include <stack>
 #include <unordered_map>
 
-typedef std::unordered_map<std::string, Declaration*> TableDesSymboles; // TODO fill table
 
 
 class AutomateLutin
@@ -24,7 +24,7 @@ class AutomateLutin
 public:
 	AutomateLutin(const std::string& fileName, const int options);
 	virtual ~AutomateLutin();
-	void lecture();
+	int lecture();
 	valeurRetour decalage(Symbole* symbole, Etat* etat, bool readNext);
 	valeurRetour reduction(Symbole* symbole, const unsigned int nbEtats, Symbole* previousSymbol);
 	Symbole* popSymbole();
