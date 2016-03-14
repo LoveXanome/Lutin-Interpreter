@@ -14,7 +14,7 @@
 //structure pour analyse statique
 typedef struct etatIdentifiant
 {
-    bool declaratee;
+    bool declaree;
     bool affectee;
     bool utilisee;
 } EtatIdentifiant;

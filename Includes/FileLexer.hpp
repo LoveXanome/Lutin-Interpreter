@@ -13,6 +13,7 @@ public:
 	
 	Symbole* getNext();
 	Symbole* readNext() const;
+	bool isInList(const Symbole* s) const;
 
 private:
 	std::vector<Symbole*> symboles;
