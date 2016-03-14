@@ -11,12 +11,15 @@ class Lexer;
 #include "Lexer.hpp"
 #include "Programme.hpp"
 #include "Logger.hpp"
+#include "AnalyseStatique.hpp"
 
 #include <string>
 #include <stack>
 #include <unordered_map>
 
 typedef std::unordered_map<std::string, Declaration*> TableDesSymboles; // TODO fill table
+typedef std::unordered_map<std::string, EtatIdentifiant> TableAnalyseStatique;
+
 
 
 class AutomateLutin
