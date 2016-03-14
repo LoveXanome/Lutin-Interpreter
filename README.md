@@ -4,7 +4,7 @@
 
 We use the GNU test coverage `gcov`, with the commands `lcov` and `genhtml`.
 
-The file `Test/coverage.sh` :
+The file `coverage.sh` (in folder Tests/) :
 * Compiles the project, and creates .gcno files in Objects/
 * Sets `GCOV_PREFIX` and `GCOV_PREFIX_STRIPS` a coverage folder in the Objects/.
 * Launches all tests and creates .gcda files
