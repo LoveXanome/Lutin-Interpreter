@@ -14,9 +14,9 @@
 //structure pour analyse statique
 typedef struct etatIdentifiant
 {
-    bool declaree;
-    bool affectee;
-    bool utilisee;
+    bool declared;
+    bool affected;
+    bool used;
 } EtatIdentifiant;
 
 typedef std::unordered_map<std::string, Declaration*> TableDesSymboles; 
@@ -32,6 +32,8 @@ class AnalyseStatique
 
 		void updateTableStatique();
 
+		// Realise l'analyse statique a l'aide des deux tables en attributs
+		// Pre-requis : tableDesSymboles et tableAnalyseStatique doivent avoir ete MAJ
 		void check();
 
 		void addSymbole(std::string key, Declaration* value);
