@@ -39,7 +39,7 @@ class AnalyseStatique
 		void addEtatIdentifiant();
 
 		//	Check if symbole was already declared
-		void checkSymbole();
+		void checkSymbole(std::string key);
 
 	private:
 		TableDesSymboles* tableDesSymboles;

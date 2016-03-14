@@ -16,3 +16,8 @@ void DeclarationVariable::print() const
 {
 	std::cout << "var " << identifiant << ";" << std::endl;
 }
+
+std::string DeclarationVariable::getType() const
+{
+	return "VAR";
+}

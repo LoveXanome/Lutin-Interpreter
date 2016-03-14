@@ -6,7 +6,7 @@
 #include <string>
 
 
-const Logger AnalyseStatique::logger("AnalyseStatique");
+const Logger AnalyseStatique::logger("AnalyseStatique");	
 
 AnalyseStatique::AnalyseStatique(TableDesSymboles* tableDesSymboles, Programme* programme) 
 {
@@ -61,7 +61,9 @@ void AnalyseStatique::updateTableSymbole()
 	
 	for (Declaration* declaration : *declarations)
 	{
-		std::cout << *declaration << std::endl;
+		std::cout << "Key = " << declaration->getId() << " ; ";
+		std::cout << "Type = " << declaration->getType() << std::endl;
+
 	}
 }
 
@@ -79,14 +81,18 @@ void AnalyseStatique::updateTableStatique()
 	}
 }
 
-void AnalyseStatique::checkSymbole()
+void AnalyseStatique::checkSymbole(std::string key)
 {
-
+	auto search = tableDesSymboles->find(key);
+	if ( search != tableDesSymboles->end() )
+	{
+		throw std::runtime_error(StringHelper::format("Compilation error : Identifiant %s already used", &key));
+	}
 }
 
 void AnalyseStatique::addSymbole(std::string key, Declaration* value)
 {
-	checkSymbole();
+	checkSymbole(key);
 	tableDesSymboles->insert(std::pair<std::string, Declaration*>(key,value));
 }
 

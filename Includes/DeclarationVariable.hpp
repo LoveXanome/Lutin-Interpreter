@@ -10,6 +10,7 @@ public:
 	DeclarationVariable(const std::string& identifiant);
 	virtual ~DeclarationVariable();
 	void print() const;
+	std::string getType() const;
 };
 
 #endif // DECLARATION_VARIABLE_HPP

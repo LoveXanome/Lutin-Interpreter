@@ -18,3 +18,9 @@ Declaration::~Declaration()
 {
 	logger.destruction(StringHelper::format("Destruction déclaration %s", SymbolFabric::makeSymbolNameFromNumber(enumRepresentation).c_str()));
 }
+
+
+std::string Declaration::getId() const
+{
+	return identifiant;
+}
