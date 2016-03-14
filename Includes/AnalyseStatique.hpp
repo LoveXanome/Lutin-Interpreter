@@ -24,6 +24,18 @@ typedef struct etatIdentifiant
     	this->affected = affected;
     	this->used = used;
     }
+
+    std::string toString() const
+    {
+    	std::string res ("Declared=");
+    	declared ? res+="true" : res+="false";
+    	res+=" ; Affected=";
+    	affected ? res+="true" : res+="false";
+    	res+=" ; Used=";
+    	used ? res+="true" : res+="false";
+
+    	return res;
+    }
 } EtatIdentifiant;
 
 //	Used for method setEtat
@@ -34,7 +46,10 @@ enum etats {
 };
 
 typedef std::unordered_map<std::string, Declaration*> TableDesSymboles; 
+typedef std::pair<std::string, Declaration*> pairSymbole; 
+
 typedef std::unordered_map<std::string, EtatIdentifiant> TableAnalyseStatique;
+typedef std::pair<std::string, EtatIdentifiant> pairAnalyse; 
 
 class AnalyseStatique
 {
@@ -58,6 +73,8 @@ class AnalyseStatique
 		void addEtatIdentifiant(std::string* key, EtatIdentifiant* strucIdentifiant);
 
 		void setEtat(etats* etat, EtatIdentifiant* strucIdentifiant);
+
+		void print() const;
 
 	private:
 		TableDesSymboles* tableDesSymboles;

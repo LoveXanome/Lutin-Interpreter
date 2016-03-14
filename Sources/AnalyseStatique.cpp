@@ -137,13 +137,13 @@ void AnalyseStatique::checkSymbole(std::string* key)
 void AnalyseStatique::addSymbole(std::string* key, Declaration* value)
 {
 	checkSymbole(key);
-	tableDesSymboles->insert(std::pair<std::string, Declaration*>(*key,value));
+	tableDesSymboles->insert(pairSymbole(*key,value));
 }
 
 
 void AnalyseStatique::addEtatIdentifiant(std::string* key, EtatIdentifiant* strucIdentifiant)
 {
-	tableAnalyseStatique.insert(std::pair<std::string, EtatIdentifiant>(*key, *strucIdentifiant));
+	tableAnalyseStatique.insert(pairAnalyse(*key, *strucIdentifiant));
 }
 
 void AnalyseStatique::setEtat(etats* etat, EtatIdentifiant* strucIdentifiant)
@@ -163,7 +163,22 @@ void AnalyseStatique::setEtat(etats* etat, EtatIdentifiant* strucIdentifiant)
 			break;
 
 		default :
-				throw std::runtime_error("ERROR : Incorrect call to AnalyseStatique::setEtat !");
+			throw std::runtime_error("ERROR : Incorrect call to AnalyseStatique::setEtat !");
 			break;
+	}
+}
+
+void AnalyseStatique::print() const
+{
+	std::cout << "DISPLAY TableDesSymboles :\n";
+	for (auto it1=tableDesSymboles->begin(); it1!=tableDesSymboles->end(); ++it1)
+	{
+		std::cout << "id = " << it1->first << " | " << it1->second->getType() << std::endl;
+	}
+		
+	std::cout << "DISPLAY tableAnalyseStatique :\n";
+	for (auto it2=tableAnalyseStatique.begin(); it2!=tableAnalyseStatique.end(); ++it2)
+	{
+		std::cout << "id = " << it2->first << " | " << it2->second.toString() << std::endl;
 	}
 }
