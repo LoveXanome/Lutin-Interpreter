@@ -61,9 +61,7 @@ void AnalyseStatique::updateTableSymbole()
 	
 	for (Declaration* declaration : *declarations)
 	{
-		std::cout << "Key = " << declaration->getId() << " ; ";
-		std::cout << "Type = " << declaration->getType() << std::endl;
-
+		addSymbole(declaration->getId(), declaration);
 	}
 }
 
@@ -73,12 +71,12 @@ void AnalyseStatique::updateTableSymbole()
 */
 void AnalyseStatique::updateTableStatique()
 {
-	ListeInstructions* instructions = programme->getInstructions();
+	// ListeInstructions* instructions = programme->getInstructions();
 
-	for (Instruction* instruction : *instructions)
-	{
-		std::cout << *instruction << std::endl;
-	}
+	// for (Instruction* instruction : *instructions)
+	// {
+	// 	std::cout << *instruction << std::endl;
+	// }
 }
 
 void AnalyseStatique::checkSymbole(std::string key)
@@ -86,7 +84,7 @@ void AnalyseStatique::checkSymbole(std::string key)
 	auto search = tableDesSymboles->find(key);
 	if ( search != tableDesSymboles->end() )
 	{
-		throw std::runtime_error(StringHelper::format("Compilation error : Identifiant %s already used", &key));
+		throw std::runtime_error(StringHelper::format("INTERPRETATION ERROR : Identifiant <%s> already used !", key.c_str()));
 	}
 }
 
