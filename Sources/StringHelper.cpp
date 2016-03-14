@@ -39,3 +39,17 @@ bool StringHelper::isOnlyWhitespaces(const std::string& str)
 {
 	return std::all_of(str.begin(), str.end(), isspace);
 }
+
+std::string StringHelper::doubleToString(const double d)
+{
+	std::string str = std::to_string(d);
+    
+    str.erase( str.find_last_not_of('0')+1 , std::string::npos);
+    
+    if( str.back() == '.')
+    {
+        str.pop_back();
+    }
+    
+    return  str;
+}

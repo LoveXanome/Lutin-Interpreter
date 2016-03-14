@@ -10,6 +10,7 @@ public:
 	
 	static std::string format(const std::string& fmt_str, ...);
 	static bool isOnlyWhitespaces(const std::string& str);
+	static std::string doubleToString(const double d);
 	
 private:
 	StringHelper();
