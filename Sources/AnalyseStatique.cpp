@@ -1,6 +1,8 @@
 #include "AnalyseStatique.hpp"
 #include <iostream>
 
+const Logger AnalyseStatique::logger("AnalyseStatique");
+
 AnalyseStatique::AnalyseStatique(TableDesSymboles* tableDesSymboles, Programme* programme) 
 {
 	this->tableDesSymboles = tableDesSymboles;
@@ -15,18 +17,50 @@ void AnalyseStatique::check()
 
 }
 
-const Logger AnalyseStatique::logger("AnalyseStatique");
 
+/**
+*	Parcours les declarations
+		Mets a jour la table des symboles
+		& le bool declare de la table analyse statique
+*/
 void AnalyseStatique::updateTableSymbole()
 {
-	ListeInstructions* listIns = programme->getInstructions();
-	for (Instruction* ins : *listIns)
+	ListeDeclarations* declarations = programme->getDeclarations();
+	
+	for (Declaration* declaration : *declarations)
 	{
-		std::cout << *ins << std::endl;
+		std::cout << *declaration << std::endl;
 	}
 }
 
+/**
+*	Parcours les instructions
+		Mets a jour les bool affectee & utilisee de la table analyse statique
+*/
 void AnalyseStatique::updateTableStatique()
+{
+	ListeInstructions* instructions = programme->getInstructions();
+
+	for (Instruction* instruction : *instructions)
+	{
+		std::cout << *instruction << std::endl;
+	}
+}
+
+void AnalyseStatique::checkSymbole()
 {
 
 }
+
+void AnalyseStatique::addSymbole(std::string key, Declaration* value)
+{
+	checkSymbole();
+	tableDesSymboles->insert(std::pair<std::string, Declaration*>(key,value));
+}
+
+void AnalyseStatique::addEtatIdentifiant()
+{
+
+}
+
+

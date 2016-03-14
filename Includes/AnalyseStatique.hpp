@@ -34,6 +34,13 @@ class AnalyseStatique
 
 		void check();
 
+		void addSymbole(std::string key, Declaration* value);
+
+		void addEtatIdentifiant();
+
+		//	Check if symbole was already declared
+		void checkSymbole();
+
 	private:
 		TableDesSymboles* tableDesSymboles;
 		TableAnalyseStatique tableAnalyseStatique;
