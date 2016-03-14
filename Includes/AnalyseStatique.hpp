@@ -7,6 +7,10 @@
 #include <string>
 #include <unordered_map>
 
+#include "Programme.hpp"
+#include "Logger.hpp"
+#include "StringHelper.hpp"
+
 //structure pour analyse statique
 typedef struct etatIdentifiant
 {
@@ -15,12 +19,27 @@ typedef struct etatIdentifiant
     bool utilisee;
 } EtatIdentifiant;
 
+typedef std::unordered_map<std::string, Declaration*> TableDesSymboles; 
+typedef std::unordered_map<std::string, EtatIdentifiant> TableAnalyseStatique;
+
 class AnalyseStatique
 {
 	public:
-		AnalyseStatique();
+		AnalyseStatique(TableDesSymboles* tableDesSymboles, Programme* programme);
 		virtual ~AnalyseStatique();
-		void check(std::unordered_map<std::string, Declaration*> tableDesSymboles, std::unordered_map<std::string, EtatIdentifiant> tableAnalyseStatique);
+
+		void updateTableSymbole();
+
+		void updateTableStatique();
+
+		void check();
+
 	private:
+		TableDesSymboles* tableDesSymboles;
+		TableAnalyseStatique tableAnalyseStatique;
+		Programme* programme;
+
+		static const Logger logger;
+
 };
 #endif // AUTOMATE_LUTIN_HPP

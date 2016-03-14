@@ -6,20 +6,20 @@
 #include <string>
 
 
-AnalyseStatique::AnalyseStatique() 
+const Logger AnalyseStatique::logger("AnalyseStatique");
+
+AnalyseStatique::AnalyseStatique(TableDesSymboles* tableDesSymboles, Programme* programme) 
 {
-		
+	this->tableDesSymboles = tableDesSymboles;
+	this->programme = programme;
 }
 
 AnalyseStatique::~AnalyseStatique() 
-{
-	
-}
+{}
 
-void AnalyseStatique::check(std::unordered_map<std::string, Declaration*> tableDesSymboles, std::unordered_map<std::string, EtatIdentifiant> tableAnalyseStatique)
+void AnalyseStatique::check()
 {
-
-	for (auto it1=tableDesSymboles.begin(); it1!=tableDesSymboles.end(); ++it1)
+	for (auto it1=tableDesSymboles->begin(); it1!=tableDesSymboles->end(); ++it1)
 	{
 		for (auto it2=tableAnalyseStatique.begin(); it2!=tableAnalyseStatique.end(); ++it2)
 		{
@@ -41,4 +41,17 @@ void AnalyseStatique::check(std::unordered_map<std::string, Declaration*> tableD
 					
 		}
 	}	
+}
+void AnalyseStatique::updateTableSymbole()
+{
+	ListeInstructions* listIns = programme->getInstructions();
+	for (Instruction* ins : *listIns)
+	{
+		std::cout << *ins << std::endl;
+	}
+}
+
+void AnalyseStatique::updateTableStatique()
+{
+
 }
