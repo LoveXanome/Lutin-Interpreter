@@ -10,7 +10,7 @@
 //structure pour analyse statique
 typedef struct etatIdentifiant
 {
-    bool declaratee;
+    bool declaree;
     bool affectee;
     bool utilisee;
 } EtatIdentifiant;
@@ -20,7 +20,7 @@ class AnalyseStatique
 	public:
 		AnalyseStatique();
 		virtual ~AnalyseStatique();
-		bool check(std::unordered_map<std::string, Declaration*> tableDesSymboles, std::unordered_map<std::string, EtatIdentifiant> tableAnalyseStatique);
+		void check(std::unordered_map<std::string, Declaration*> tableDesSymboles, std::unordered_map<std::string, EtatIdentifiant> tableAnalyseStatique);
 	private:
 };
 #endif // AUTOMATE_LUTIN_HPP
