@@ -16,11 +16,12 @@ public:
 
 private:
 	std::vector<Symbole*> symboles;
-	unsigned int currentIdx;
+	std::vector<Symbole*>::iterator currentSymbole;
 	
 	static const Logger logger;
 	
 	bool isLastSymbol() const;
+	void begin();
 };
 
 #endif // FILE_LEXER_HPP

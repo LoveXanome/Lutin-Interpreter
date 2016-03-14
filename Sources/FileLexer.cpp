@@ -6,7 +6,7 @@
 
 const Logger FileLexer::logger("FileLexer");
 
-FileLexer::FileLexer(const std::string& fileName) : Lexer(fileName), currentIdx(0)
+FileLexer::FileLexer(const std::string& fileName) : Lexer(fileName)
 {
 	// Read the whole file and create a list of all symbols
 	std::string line;
@@ -17,9 +17,11 @@ FileLexer::FileLexer(const std::string& fileName) : Lexer(fileName), currentIdx(
 		for (unsigned int i = 0; i < symbs.size(); ++i)
 		{
 			symboles.push_back(symbs[i]);
-		}	
+		}
 	}
 	symboles.push_back(new SymboleTerminal(FIN));
+
+	currentSymbole = symboles.begin();
 }
 
 FileLexer::~FileLexer()
@@ -34,7 +36,8 @@ Symbole* FileLexer::getNext()
 	if (isLastSymbol())
 		return 0;
 		
-	Symbole* nextSymbole = symboles[currentIdx++];
+	Symbole* nextSymbole = *currentSymbole;
+	currentSymbole++;
 	logger.debug(StringHelper::format("Get next %s", nextSymbole->toString().c_str()));
 	
 	return nextSymbole;
@@ -45,10 +48,15 @@ Symbole* FileLexer::readNext() const
 	if (isLastSymbol())
 		return 0;
 
-	return symboles[currentIdx];
+	return *currentSymbole;
 }
 
 bool FileLexer::isLastSymbol() const
 {
-	return currentIdx >= symboles.size();
+	return currentSymbole == symboles.end();
+}
+
+void FileLexer::begin()
+{
+	currentSymbole = symboles.begin();
 }
