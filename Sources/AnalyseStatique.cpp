@@ -139,10 +139,35 @@ void AnalyseStatique::check()
 				// Constante
 				else if(dynamic_cast<DeclarationConstante*>(it1->second)!=NULL)
 				{
+					/* non delcaree, non affectee, non utilisee --> pas possible
+					 * non declaree, non affectee, utilisee --> erreur
+					 * non declaree, affectee, non utilisee --> erreur
+					 * non delcaree, affectee, utilisee --> erreur
+					 * declaree, non affectee, non utilisee --> ok 
+					 * declaree, non affectee, utilisee --> ok
+					 * declaree, affectee, non utilisee --> erreur (on peut pas affecter une constante)
+					 * declaree, affectee, utilisee --> erreur
+					 */
 
+					 // Constante non declaree => erreur
+					if(!it2->second.declared)
+					{
+						// TODO : Traitement du non decare, non affecte, non utilise ?
+
+						throw std::runtime_error(StringHelper::format("Error : Undeclared constante %s.",
+													it1->first.c_str())); // already string, don't need toString()
+					}
+					else
+					{
+						// Constante affecté --> pas le droit
+						if(it2->second.affected)
+						{
+							throw std::runtime_error(StringHelper::format("Error : Affected constante %s.",
+														it1->first.c_str())); 
+						}
+					}
 				}
 			}
-
 			else 
 			{
 				throw std::runtime_error("Error : id (string) of tableDesSymboles does not exist in tableAnalyseStatique.");					
