@@ -90,7 +90,7 @@ void AnalyseStatique::check()
 					/* non delcaree, non affectee, non utilisee --> pas possible
 					 * non declaree, non affectee, utilisee --> erreur
 					 * non declaree, affectee, non utilisee --> erreur
-					 * non delcaree, affectee, utilisee --> erreur
+					 * non declaree, affectee, utilisee --> erreur
 					 * declaree, non affectee, non utilisee --> warning
 					 * declaree, non affectee, utilisee --> erreur (sûr ? pas juste warning, puis ça fera n'importe quoi je dirais)
 					 * declaree, affectee, non utilisee --> warning
@@ -142,20 +142,18 @@ void AnalyseStatique::check()
 					/* non delcaree, non affectee, non utilisee --> pas possible
 					 * non declaree, non affectee, utilisee --> erreur
 					 * non declaree, affectee, non utilisee --> erreur
-					 * non delcaree, affectee, utilisee --> erreur
-					 * declaree, non affectee, non utilisee --> ok 
+					 * non declaree, affectee, utilisee --> erreur
+					 * declaree, non affectee, non utilisee --> warning non utilise
 					 * declaree, non affectee, utilisee --> ok
 					 * declaree, affectee, non utilisee --> erreur (on peut pas affecter une constante)
-					 * declaree, affectee, utilisee --> erreur
+					 * declaree, affectee, utilisee --> erreur (on peut pas affecter une constante)
 					 */
 
 					 // Constante non declaree => erreur
 					if(!it2->second.declared)
 					{
-						// TODO : Traitement du non decare, non affecte, non utilise ?
-
 						throw std::runtime_error(StringHelper::format("Error : Undeclared constante %s.",
-													it1->first.c_str())); // already string, don't need toString()
+													it1->first.c_str())); 
 					}
 					else
 					{
@@ -164,6 +162,14 @@ void AnalyseStatique::check()
 						{
 							throw std::runtime_error(StringHelper::format("Error : Affected constante %s.",
 														it1->first.c_str())); 
+						}
+						else
+						{
+							if(!it2->second.used)
+							{
+								throw std::runtime_error(StringHelper::format("Warning : %s declared but not used.",
+													it1->first.c_str()));
+							}
 						}
 					}
 				}
