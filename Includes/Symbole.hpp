@@ -18,6 +18,7 @@ protected:
 	SymboleEnum enumRepresentation;
 	
 	static const Logger logger;
+	static uint32_t nbInstances;
 };
 
 #endif // SYMBOLE_HPP

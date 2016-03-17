@@ -55,19 +55,3 @@ bool FileLexer::isLastSymbol() const
 {
 	return currentSymbole == symboles.end();
 }
-
-void FileLexer::begin()
-{
-	currentSymbole = symboles.begin();
-}
-
-
-bool FileLexer::isInList(const Symbole* s) const	
-{
-	for (auto it = symboles.begin(); it != symboles.end(); ++it)
-	{
-		if(**it == *s)
-			return true;
-	}	
-	return false;
-}

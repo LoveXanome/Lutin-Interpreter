@@ -25,12 +25,13 @@ valeurRetour E10::transition(AutomateLutin* automate, Symbole * s)
         case I2:
         case FIN:
         {
-			automate->popSymbole();
+			delete automate->popSymbole();
 			Expression* e = (Expression*) automate->popSymbole();
-			automate->popSymbole();
+			delete automate->popSymbole();
 			Identifiant* i = (Identifiant*) automate->popSymbole();
 			
 			InstructionAffectation* instructionAffectation = new InstructionAffectation(i->getIdentifiant(), e);
+			delete i;
 			automate->addInstructionToProgram(instructionAffectation);
 
 			automate->reduction(new SymboleDefaut(I2), 4, s);

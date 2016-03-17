@@ -24,9 +24,9 @@ valeurRetour E15::transition(AutomateLutin* automate, Symbole * s)
 		case DIVISER:
 		case PARENTHESE_FERMANTE:
 		case POINT_VIRGULE:
-			automate->popSymbole();
+			delete automate->popSymbole();
 			Expression* e = (Expression*) automate->popSymbole();
-			automate->popSymbole();
+			delete automate->popSymbole();
 			ExpressionParenthese* ep = new ExpressionParenthese(e);
 			
             automate->reduction(ep, 3, s);

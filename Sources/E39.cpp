@@ -21,9 +21,9 @@ valeurRetour E39::transition(AutomateLutin* automate, Symbole * s)
         case IDENTIFIANT:
         case LIRE:
         case ECRIRE:
-        	automate->popSymbole();
-            automate->popSymbole();
-            automate->popSymbole();
+        	delete automate->popSymbole();
+            delete automate->popSymbole();
+            delete automate->popSymbole();
             automate->reduction(new SymboleDefaut(D2), 3, s);
             return REDUIT;
     }

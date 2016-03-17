@@ -23,9 +23,9 @@ valeurRetour E31::transition(AutomateLutin* automate, Symbole* s)
 		case VAR:
 		case CONST:
 		case FIN:
-			automate->popSymbole();
-			automate->popSymbole();
-			automate->popSymbole();
+			delete automate->popSymbole();
+			delete automate->popSymbole();
+			delete automate->popSymbole();
 			automate->reduction(new SymboleDefaut(D2), 3, s);
 			return REDUIT;
 	}

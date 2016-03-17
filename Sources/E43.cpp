@@ -22,12 +22,14 @@ valeurRetour E43::transition(AutomateLutin* automate, Symbole * s)
         case VIRGULE:
         case POINT_VIRGULE: 
             Valeur* v = (Valeur*) automate->popSymbole();
-            automate->popSymbole();
+            delete automate->popSymbole();
             Identifiant* i = (Identifiant*) automate->popSymbole();
-            automate->popSymbole();
-            automate->popSymbole();
+            delete automate->popSymbole();
+            delete automate->popSymbole();
             
             automate->addDeclarationToProgram(new DeclarationConstante(i->getIdentifiant(), v->getValeur()));
+            delete v;
+            delete i;
             automate->reduction(new SymboleDefaut(EQ), 5, s);
             return REDUIT;
     }

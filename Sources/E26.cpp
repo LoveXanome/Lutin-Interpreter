@@ -23,9 +23,9 @@ valeurRetour E26::transition(AutomateLutin* automate, Symbole * s)
 		case ECRIRE:
 		case LIRE:
 		case FIN:
-			automate->popSymbole();
+			delete automate->popSymbole();
 			Expression* e = (Expression*) automate->popSymbole();
-			automate->popSymbole();
+			delete automate->popSymbole();
 
 			InstructionEcriture* instrEcriture = new InstructionEcriture(e);
 			automate->addInstructionToProgram(instrEcriture);

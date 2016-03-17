@@ -13,11 +13,10 @@ public:
 	
 	Symbole* getNext();
 	Symbole* readNext() const;
-	bool isInList(const Symbole* s) const;
 
 private:
 	std::vector<Symbole*> symboles;
-	std::vector<Symbole*>::iterator currentSymbole;
+	std::vector<Symbole*>::const_iterator currentSymbole;
 	
 	static const Logger logger;
 	
