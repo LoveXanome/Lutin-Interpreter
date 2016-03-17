@@ -99,11 +99,12 @@ int AutomateLutin::lecture()
 	if (options & TRANSFORMATION)
 		transformation();
 	
+	if (options & AFFICHAGE)
+		affichage();
+	
 	if (options & EXECUTION)
 		execution();
 	
-	if (options & AFFICHAGE)
-		affichage();
 		
 	logger.debug("Fin lecture");
 	return 0;

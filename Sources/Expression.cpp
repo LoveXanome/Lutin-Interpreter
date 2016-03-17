@@ -14,10 +14,3 @@ Expression::~Expression()
 {
 
 }
-
-double Expression::eval(std::string variables)
-{
-	
-	// TODO impl?
-	return 0;
-}
