@@ -26,9 +26,6 @@ FileLexer::FileLexer(const std::string& fileName) : Lexer(fileName)
 
 FileLexer::~FileLexer()
 {
-	logger.destruction(StringHelper::format("Deleting %d symboles", symboles.size()));
-	for (auto it = symboles.begin(); it != symboles.end(); ++it)
-		delete (*it);
 }
 	
 Symbole* FileLexer::getNext()

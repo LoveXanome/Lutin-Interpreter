@@ -4,7 +4,7 @@
 
 const Logger Instruction::logger("Instruction");
 
-Instruction::Instruction() : Symbole(I)
+Instruction::Instruction()
 {
 	logger.construction(StringHelper::format("Construction Instruction"));
 }

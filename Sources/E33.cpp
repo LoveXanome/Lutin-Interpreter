@@ -20,11 +20,10 @@ valeurRetour E33::transition(AutomateLutin* automate, Symbole* s)
 		case POINT_VIRGULE:
 		case VIRGULE:
 			Identifiant* i = (Identifiant*) automate->popSymbole();
-			delete automate->popSymbole();
-			delete automate->popSymbole();
+			automate->popSymbole();
+			automate->popSymbole();
 			automate->addDeclarationToProgram(new DeclarationVariable(i->getIdentifiant()));
-			delete i;
-			
+						
 			automate->reduction(new SymboleDefaut(ID), 3, s);
 			return REDUIT;
 	}

@@ -21,8 +21,8 @@ valeurRetour E27::transition(AutomateLutin* automate, Symbole* s)
 		case VAR:
 		case CONST:
 		case FIN:
-			delete automate->popSymbole();
-			delete automate->popSymbole();
+			automate->popSymbole();
+			automate->popSymbole();
 			automate->reduction(new SymboleDefaut(D), 2, s);
 			return REDUIT;
 	}

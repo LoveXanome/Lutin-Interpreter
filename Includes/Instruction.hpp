@@ -1,11 +1,10 @@
 #ifndef INSTRUCTION_HPP
 #define INSTRUCTION_HPP
 
-#include "Symbole.hpp"
 #include "AnalyseStatique.hpp"
 #include "Logger.hpp"
 
-class Instruction : public Symbole
+class Instruction
 {
 public:
 	Instruction();

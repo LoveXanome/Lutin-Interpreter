@@ -29,7 +29,6 @@ valeurRetour E11::transition(AutomateLutin* automate, Symbole * s)
         	Identifiant* i = (Identifiant*) automate->popSymbole();
 			
 			Identifiant* expIdentifiant = new Identifiant(i->getIdentifiant(), EXP);
-			delete i;
 			automate->reduction(expIdentifiant, 1, s);
             retour = REDUIT;
             break;

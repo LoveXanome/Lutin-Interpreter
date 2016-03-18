@@ -11,7 +11,6 @@
 #include "SymbolFabric.hpp"
 #include "SymboleDefaut.hpp"
 
-#include <set>
 #include <iostream>
 #include <string>
 #include <stdexcept>
@@ -40,58 +39,20 @@ AutomateLutin::~AutomateLutin()
 		delete e;
 	}
 	
-	std::set<Symbole*> uniqueSymbols;
-	while (!reductionSymboles.empty())
-	{
-		Symbole* s = reductionSymboles.top();
-		reductionSymboles.pop();
-		uniqueSymbols.insert(s);
-	}
+	logger.destruction("Poped symbols");
+	for (Symbole* s : popedSymboles)
+		if (!dynamic_cast<Expression*>(s))
+			delete s;
+	
+	logger.destruction(StringHelper::format("Deleteing %d symbols", symboles.size()));
 	while (!symboles.empty())
 	{
 		Symbole* s = symboles.top();
 		symboles.pop();
-		uniqueSymbols.insert(s);
-	}
-	
-	logger.destruction("Delete unique symbols");
-	for (Symbole* s : uniqueSymbols)
 		delete s;
-	
-	//Destruction des symboles créer lors des réducions
-	//On ôte de la liste le 'E' généré pour la dernière réduction
-	/*reductionSymboles.pop();
-	logger.destruction(StringHelper::format("========== Destruction des symboles générées (%d) ==========", reductionSymboles.size()));
-	while (!reductionSymboles.empty())
-	{
-		Symbole* s = reductionSymboles.top();
-		reductionSymboles.pop();
-		if (dynamic_cast<SymboleDefaut*>(s) != NULL)
-			delete s;
 	}
-	
-	logger.destruction(StringHelper::format("========== Destruction des symboles (%d) ==========", symboles.size()));
-	while (!symboles.empty())
-	{
-		logger.destruction("COUCOU1");
-		Symbole* s = symboles.top();
-		symboles.pop();
-		logger.destruction("COUCOU3");
-		if (dynamic_cast<SymboleDefaut*>(s) == NULL)
-			delete s;
-		logger.destruction("COUCOU4");
-	}*/
-	
-	/*
-	
-	logger.destruction(StringHelper::format("========== Destruction des symboles (%d)  ==========", symbolesToBeDeleted.size()));
-	for (Symbole* s : symbolesToBeDeleted)
-	{
-		delete s;
-	}	*/
 
 	delete programme;
-	
 	delete lexer;
 
 	logger.destruction("End destruction");
@@ -145,7 +106,6 @@ valeurRetour AutomateLutin::decalage(Symbole* symbole, Etat* etat, bool readNext
 		symbole = lexer->getNext();
 	
 	etats.push(etat);
-	
 	// Récupère la valeur de retour de la transition
 	valeurRetour ret = etat->transition(this, symbole);
 	
@@ -204,6 +164,7 @@ std::string AutomateLutin::getExpectedSymbolsErrorMessage(const Etat* lastState)
 
 valeurRetour AutomateLutin::reduction(Symbole* symbole, const unsigned int nbEtats, Symbole* previousSymbol)
 {
+	logger.debug("Start reduction");
 	for (unsigned int i = 0; i < nbEtats; ++i)
 	{
 		Etat* e = etats.top();
@@ -236,6 +197,7 @@ Symbole* AutomateLutin::popSymbole()
 {
 	Symbole* s = symboles.top();
 	symboles.pop();
+	popedSymboles.insert(s);
 	return s;
 }
 

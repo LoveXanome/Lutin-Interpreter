@@ -17,7 +17,6 @@ ExpressionBinaire::ExpressionBinaire(const SymboleEnum& enumRepresentation, Expr
 
 }
 
-
 ExpressionBinaire::~ExpressionBinaire()
 {
 	delete membreGauche;

@@ -23,12 +23,11 @@ valeurRetour E6::transition(AutomateLutin* automate, Symbole* s)
 		case ECRIRE:
 		case LIRE:
 		case FIN:
-			delete automate->popSymbole();
+			automate->popSymbole();
 			Identifiant* i = (Identifiant*) automate->popSymbole();
-			delete automate->popSymbole();
+			automate->popSymbole();
 			
 			automate->addInstructionToProgram(new InstructionLecture(i->getIdentifiant()));
-			delete i;
 			automate->reduction(new SymboleDefaut(I2), 3, s);
 			retour = REDUIT;
 			break;

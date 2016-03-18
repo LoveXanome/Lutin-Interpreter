@@ -26,7 +26,7 @@ valeurRetour E23::transition(AutomateLutin* automate, Symbole * s)
         case POINT_VIRGULE :
 		{
             Expression* membreDroite = (Expression*)automate->popSymbole();
-            delete automate->popSymbole();
+			automate->popSymbole();
 			Expression* membreGauche = (Expression*)automate->popSymbole();
 
             ExpressionSoustraction* expSoustraction = new ExpressionSoustraction(membreGauche, membreDroite);
