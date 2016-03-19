@@ -164,7 +164,6 @@ std::string AutomateLutin::getExpectedSymbolsErrorMessage(const Etat* lastState)
 
 valeurRetour AutomateLutin::reduction(Symbole* symbole, const unsigned int nbEtats, Symbole* previousSymbol)
 {
-	logger.debug("Start reduction");
 	for (unsigned int i = 0; i < nbEtats; ++i)
 	{
 		Etat* e = etats.top();
