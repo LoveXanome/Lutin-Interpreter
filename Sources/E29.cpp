@@ -20,7 +20,6 @@ valeurRetour E29::transition(AutomateLutin* automate, Symbole* s)
 		case VIRGULE:
 			Identifiant* i = (Identifiant*) automate->popSymbole();
 			automate->addDeclarationToProgram(new DeclarationVariable(i->getIdentifiant()));
-			
 			automate->reduction(new SymboleDefaut(ID), 1, s);
 			return REDUIT;
 	}

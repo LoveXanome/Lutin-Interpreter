@@ -29,28 +29,9 @@ AutomateLutin::AutomateLutin(const std::string& fileName, const int options) : o
 
 AutomateLutin::~AutomateLutin()
 {		
-	logger.destruction(StringHelper::format("Start destruction AutomateLutin (%d etats )", etats.size()));
+	logger.destruction("Start destruction AutomateLutin");
 	
-	//Crée une liste unique de symboles
-	std::vector<Symbole*> symbolesToBeDeleted;
-	while (!symboles.empty())
-	{
-		Symbole* s = symboles.top();
-		symboles.pop();
-		//Ajout dans la liste des symboles à supprimer si il est pas déjà dans la liste des symboles lus par le lexer 
-		//(symboles généré au cours de la création des états)
-		if(! ((FileLexer*)lexer)->isInList(s) )
-			symbolesToBeDeleted.push_back(s);
-	}
-
-	logger.destruction("========== Destruction des symboles  ==========");
-	for (Symbole* s : symbolesToBeDeleted)
-	{
-		delete s;
-	}	
-	
-	
-	logger.destruction("========== Destruction des états ==========");
+	logger.destruction(StringHelper::format("========== Destruction des états (%d) ==========", etats.size()));
 	while (!etats.empty())
 	{
 		Etat* e = etats.top();
@@ -58,21 +39,20 @@ AutomateLutin::~AutomateLutin()
 		delete e;
 	}
 	
-	
-	//Destruction des symboles créer lors des réducions
-	//On ôte de la liste le 'E' généré pour la dernière réduction
-	reductionSymboles.pop();
-	logger.destruction(StringHelper::format("========== Destruction des symboles générées (%d)==========", reductionSymboles.size()));
-	while (!reductionSymboles.empty())
-	{
-		Symbole* s = reductionSymboles.top();
-		reductionSymboles.pop();
-		if(dynamic_cast<SymboleDefaut*>(s) != NULL)
+	logger.destruction("Poped symbols");
+	for (Symbole* s : popedSymboles)
+		if (!dynamic_cast<Expression*>(s))
 			delete s;
-	} 
+	
+	logger.destruction(StringHelper::format("Deleteing %d symbols", symboles.size()));
+	while (!symboles.empty())
+	{
+		Symbole* s = symboles.top();
+		symboles.pop();
+		delete s;
+	}
 
 	delete programme;
-	
 	delete lexer;
 
 	logger.destruction("End destruction");
@@ -218,6 +198,7 @@ Symbole* AutomateLutin::popSymbole()
 {
 	Symbole* s = symboles.top();
 	symboles.pop();
+	popedSymboles.insert(s);
 	return s;
 }
 

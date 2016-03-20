@@ -29,7 +29,6 @@ valeurRetour E12::transition(AutomateLutin* automate, Symbole * s)
 			Valeur* val = (Valeur*) automate->popSymbole();
 
 			Valeur* expValeur = new Valeur(val->getValeur(), EXP);
-			
 			automate->reduction(expValeur, 1, s);
 
 			retour = REDUIT;

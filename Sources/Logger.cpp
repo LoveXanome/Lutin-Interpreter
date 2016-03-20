@@ -9,7 +9,8 @@
 
 const std::list<std::string> Logger::IGNORED_CLASSES ({
 	"RegexHelper",
-	"SymbolFabric"
+	"SymbolFabric",
+	"Etat"
 });
 
 Logger::Logger(const std::string& className) : className(className)

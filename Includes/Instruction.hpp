@@ -5,7 +5,7 @@
 #include "TypeDefinitions.hpp"
 #include "Logger.hpp"
 
-class Instruction : public Symbole
+class Instruction
 {
 public:
 	Instruction();

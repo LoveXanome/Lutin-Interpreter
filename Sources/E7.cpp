@@ -20,7 +20,6 @@ valeurRetour E7::transition(AutomateLutin* automate, Symbole * s)
 	switch (*s){
         case AFFECTATION:
             automate->decalage(s, new E8, true);
-
             retour = RECONNU;
             break;
 		default:

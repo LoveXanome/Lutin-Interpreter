@@ -16,9 +16,8 @@ class Lexer;
 
 #include <string>
 #include <stack>
+#include <set>
 #include <unordered_map>
-
-
 
 class AutomateLutin
 {
@@ -36,7 +35,7 @@ private:
 	int options;
 	std::stack<Etat*> etats;
 	std::stack<Symbole*> symboles;
-	std::stack<Symbole*> reductionSymboles;
+	std::set<Symbole*> popedSymboles;
 	TableDesSymboles tableSymboles;
 	Lexer* lexer;
 	Programme* programme;
