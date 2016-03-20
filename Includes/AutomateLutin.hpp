@@ -36,6 +36,7 @@ private:
 	std::stack<Etat*> etats;
 	std::stack<Symbole*> symboles;
 	std::set<Symbole*> popedSymboles;
+	std::set<Etat*> removedStates;
 	TableDesSymboles tableSymboles;
 	Lexer* lexer;
 	Programme* programme;

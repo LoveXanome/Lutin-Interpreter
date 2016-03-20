@@ -1,8 +1,8 @@
 #include "E22.hpp"
 
-#include "E8.hpp"
 #include "E11.hpp"
 #include "E12.hpp"
+#include "E13.hpp"
 #include "E23.hpp"
 
 E22::E22() : Etat(22)
@@ -20,7 +20,7 @@ valeurRetour E22::transition(AutomateLutin* automate, Symbole * s)
     valeurRetour retour;
     switch (*s){
         case PARENTHESE_OUVRANTE :
-            automate->decalage(s, new E8, true);
+            automate->decalage(s, new E13, true);
             retour = RECONNU;
             break;
         case IDENTIFIANT :

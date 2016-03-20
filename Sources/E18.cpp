@@ -1,8 +1,8 @@
 #include "E18.hpp"
 
-#include "E8.hpp"
 #include "E11.hpp"
 #include "E12.hpp"
+#include "E13.hpp"
 #include "E19.hpp"
 
 E18::E18() : Etat(18)
@@ -21,7 +21,7 @@ valeurRetour E18::transition(AutomateLutin* automate, Symbole * s)
     switch (*s)
     {
         case PARENTHESE_OUVRANTE :
-            automate->decalage(s, new E8, true);
+            automate->decalage(s, new E13, true);
             retour = RECONNU;
             break;
         case IDENTIFIANT :

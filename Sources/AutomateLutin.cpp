@@ -43,6 +43,10 @@ AutomateLutin::~AutomateLutin()
 	for (Symbole* s : popedSymboles)
 		if (!dynamic_cast<Expression*>(s))
 			delete s;
+			
+	logger.destruction("Removed states");
+	for (Etat* e : removedStates)
+		delete e;
 	
 	logger.destruction(StringHelper::format("Deleteing %d symbols", symboles.size()));
 	while (!symboles.empty())
@@ -115,7 +119,7 @@ valeurRetour AutomateLutin::decalage(Symbole* symbole, Etat* etat, bool readNext
 		programme->accept();
 		logger.debug("Programme accepté !");
 	}
-	
+
 	// Si on a une erreur, on va essayer de lire le symbole suivant, et si on à une encore une erreur => stop
 	if (ret == NON_RECONNU)
 		handleUnrecognizedSymbol(symbole);
@@ -128,13 +132,12 @@ void AutomateLutin::handleUnrecognizedSymbol(Symbole* errorSymbol)
 	Etat* dernierEtat = etats.top();
 	Symbole* nextSymbol = lexer->getNext();
 	valeurRetour ret2;
-	
+
 	if (nextSymbol != 0) // if not end of file
 	{
-		
 		logger.debug(StringHelper::format("Unexpected symbol, try again : state %s with symbol %s", dernierEtat->toString().c_str(), nextSymbol->toString().c_str()));
 		ret2 = dernierEtat->transition(this, nextSymbol);
-		
+	
 		// Si le nouveau symbole est à nouveau pas reconnu
 		if (ret2 == NON_RECONNU)
 			throw std::runtime_error(StringHelper::format("Unexpected symbols %s (and then %s). Expected: %s",
@@ -142,7 +145,7 @@ void AutomateLutin::handleUnrecognizedSymbol(Symbole* errorSymbol)
 															nextSymbol->toString().c_str(),
 															getExpectedSymbolsErrorMessage(dernierEtat).c_str()));
 		else if (dernierEtat->toString() != Etat::ACCEPT_STATE) // Only show warning if not last state
-				std::cerr << "Warning: Encountered an unexpected symbol " << errorSymbol->toString() << " and expecting: " << getExpectedSymbolsErrorMessage(dernierEtat) << ", but could continue" << std::endl;
+			std::cerr << "Warning: Encountered an unexpected symbol " << errorSymbol->toString() << " and expecting: " << getExpectedSymbolsErrorMessage(dernierEtat) << ", but could continue" << std::endl;
 	}
 	else if (dernierEtat->toString() != Etat::ACCEPT_STATE)
 		throw std::runtime_error(StringHelper::format("Unexpected end of file (%s). Expected: %s", symboles.top()->toString().c_str(), getExpectedSymbolsErrorMessage(dernierEtat).c_str()));
@@ -152,14 +155,18 @@ std::string AutomateLutin::getExpectedSymbolsErrorMessage(const Etat* lastState)
 {
 	std::vector<SymboleEnum> expectedEnum = lastState->getExpectedSymbols();
 	std::string errorMessage;
-		
+
+	bool onePassageAtLeast = false;
 	for (SymboleEnum currentEnum : expectedEnum)
 	{
 		errorMessage.append(SymbolFabric::makeSymbolNameFromNumber(currentEnum));
 		errorMessage.append(", ");
+		onePassageAtLeast = true;
 	}
+
 	// Supprime la derniere virgule
-	errorMessage.resize(errorMessage.size() - 2);
+	if (onePassageAtLeast)
+		errorMessage.resize(errorMessage.size() - 2);
 	
 	return errorMessage;
 }
@@ -170,13 +177,12 @@ valeurRetour AutomateLutin::reduction(Symbole* symbole, const unsigned int nbEta
 	{
 		Etat* e = etats.top();
 		etats.pop();
-		delete e;
-	}	
+		removedStates.insert(e);
+	}
 	
 	logger.debug(StringHelper::format("Reduction de %d etats. Retour vers %s (symbole %s)", nbEtats, etats.top()->toString().c_str(), symbole->toString().c_str()));
 	
 	symbolBeforeReduction = previousSymbol;
-	reductionSymboles.push(symbole);
 	
 	Etat* etat = etats.top();	
 
