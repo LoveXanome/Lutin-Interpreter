@@ -2,7 +2,7 @@
 #define INSTRUCTION_HPP
 
 #include "Symbole.hpp"
-#include "AnalyseStatique.hpp"
+#include "TypeDefinitions.hpp"
 #include "Logger.hpp"
 
 class Instruction : public Symbole

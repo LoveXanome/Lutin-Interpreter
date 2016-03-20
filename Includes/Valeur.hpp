@@ -15,6 +15,7 @@ public:
 	std::string toString() const;
 	std::string toPrintString() const;
 	Expression* toTransform();
+	std::list<std::string> getIdentifiants() const;
 	
 private:
 	double valeur;

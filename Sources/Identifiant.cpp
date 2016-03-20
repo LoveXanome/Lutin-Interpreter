@@ -42,3 +42,8 @@ double Identifiant::eval(TableDesSymboles& tableDesSymboles)
 	Declaration* d = tableDesSymboles[identifiant];
 	return d->getExecValue();
 }
+
+std::list<std::string> Identifiant::getIdentifiants() const
+{
+	return std::list<std::string>({identifiant});
+}

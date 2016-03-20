@@ -6,18 +6,27 @@
 #include <iostream> 
 #include <string>
 
-const Logger AnalyseStatique::logger("AnalyseStatique");	
+const Logger AnalyseStatique::logger("AnalyseStatique");
 
 AnalyseStatique::AnalyseStatique(TableDesSymboles* tableDesSymboles, Programme* programme) : tableDesSymboles(tableDesSymboles), programme(programme)
 {
 	logger.construction("Construction");
 	fillTableSymboles();
 	fillTableStatique();
+	
+	logger.debug("== Show table analyse statique ==");
+	for (auto it = tableAnalyseStatique.begin(); it != tableAnalyseStatique.end(); ++it)
+		logger.debug(StringHelper::format("%s declared : %d / affected : %d / used : %d", it->first.c_str(), it->second->isDeclared(), it->second->isAffected(), it->second->isUsed()));
+	
 	logger.construction("End of construction");
 }
 
 AnalyseStatique::~AnalyseStatique() 
-{}
+{
+	logger.destruction("Deleting table analyse statique");
+	for (auto map_it = tableAnalyseStatique.begin(); map_it != tableAnalyseStatique.end() ; ++map_it)
+		delete map_it->second;
+}
 
 /**
 *	Parcours les declarations
@@ -31,22 +40,25 @@ void AnalyseStatique::fillTableSymboles()
 	
 	for (Declaration* declaration : *declarations)
 	{
-		logger.debug(StringHelper::format("adding %s to symbols", declaration->getIdentifiant().c_str()));
-		addSymboleToTableSymbole(declaration->getIdentifiant(), declaration);
+		std::string key = declaration->getIdentifiant();
+		if (symbolExists(key))
+			printWarning(StringHelper::format("Identifiant '%s' declared more than once", key.c_str()));
+		else
+		{
+			logger.debug(StringHelper::format("adding %s to symbols", key.c_str()));
+			addSymboleToTableSymbole(key, declaration);
 
-		/*logger.debug(StringHelper::format("adding %s to 'table statique'", declaration->getIdentifiant().c_str()));
-		//Specify id declared
-		EtatIdentifiant etat(true, false, false); // TODO comme ça marchera pas muhaha
-		addEtatIdentifiantToTableStatique(declaration->getIdentifiant(), &etat); // TODO comme ça ne marchera pas muhahaha */
-		logger.debug(StringHelper::format("%s added !", declaration->getIdentifiant().c_str()));
+			logger.debug(StringHelper::format("adding %s to 'table statique'", key.c_str()));
+			EtatIdentifiant* etat = new EtatIdentifiant;
+			addEtatIdentifiantToTableStatique(key, etat);
+			
+			logger.debug(StringHelper::format("%s added !", key.c_str()));
+		}
 	}
 }
 
 void AnalyseStatique::addSymboleToTableSymbole(const std::string& key, Declaration* value)
-{
-	if (symbolExists(key))
-		throw std::runtime_error(StringHelper::format("Identifiant <%s> already used !", key.c_str()));
-	
+{	
 	tableDesSymboles->insert(pairSymbole(key, value));
 }
 
@@ -56,9 +68,14 @@ bool AnalyseStatique::symbolExists(const std::string& key)
 	return search != tableDesSymboles->end();
 }
 
+void AnalyseStatique::printWarning(const std::string& msg) const
+{
+	std::cerr << "WARN: " << msg << std::endl;
+}
+
 void AnalyseStatique::addEtatIdentifiantToTableStatique(const std::string& key, EtatIdentifiant* strucIdentifiant)
 {
-	tableAnalyseStatique.insert(pairAnalyse(key, *strucIdentifiant));
+	tableAnalyseStatique.insert(pairAnalyse(key, strucIdentifiant));
 }
 
 /**
@@ -67,14 +84,71 @@ void AnalyseStatique::addEtatIdentifiantToTableStatique(const std::string& key, 
 */
 void AnalyseStatique::fillTableStatique()
 {
-	// ListeInstructions* instructions = programme->getInstructions();
+	ListeInstructions* instructions = programme->getInstructions();
 
-	// for (Instruction* instruction : *instructions)
-	// {
-	// 	std::cout << *instruction << std::endl;
-	// }
+	for (Instruction* instruction : *instructions)
+		handleInstruction(instruction);
 }
 
+void AnalyseStatique::handleInstruction(Instruction* instruction)
+{
+	if (InstructionAffectation* affectation = dynamic_cast<InstructionAffectation*>(instruction))
+		handleInstructionAffectation(affectation);
+	else if (InstructionLecture* lecture = dynamic_cast<InstructionLecture*>(instruction))
+		handleInstructionLecture(lecture);
+	else if (InstructionEcriture* ecriture = dynamic_cast<InstructionEcriture*>(instruction))
+		handleInstructionEcriture(ecriture);
+	else
+		throw std::runtime_error("Unexpected error: instruction could not be casted to any derived type (should never reach this code).");
+}
+
+void AnalyseStatique::handleInstructionAffectation(InstructionAffectation* affectation)
+{
+	logger.debug("Handle instruction affectation");
+	
+	// Identifiant à gauche est affecté
+	std::string identifiant = affectation->getIdentifiant();
+	if (symbolExists(identifiant))
+		tableAnalyseStatique[identifiant]->affect();
+	else
+		throwError(StringHelper::format("Affecting undeclared variable %s", identifiant.c_str()));
+	
+	// S'il y a des identifiants dans l'expression, ils sont utilisés
+	for (std::string ident : affectation->getIdentifiantsInExpression())
+		if (symbolExists(ident))
+			tableAnalyseStatique[ident]->use();
+		else
+			throwError(StringHelper::format("Using undeclared variable %s in affectation expression", ident.c_str()));
+}
+
+void AnalyseStatique::handleInstructionLecture(InstructionLecture* lecture)
+{
+	logger.debug("Handle instruction lecture");
+	
+	// Identifiant est affecté
+	std::string identifiant = lecture->getIdentifiant();
+	if (symbolExists(identifiant))
+		tableAnalyseStatique[identifiant]->affect();
+	else
+		throwError(StringHelper::format("Reading undeclared variable %s", identifiant.c_str()));
+}
+
+void AnalyseStatique::handleInstructionEcriture(InstructionEcriture* ecriture)
+{
+	logger.debug("Handle instruction ecriture");
+	
+	// S'il y a des identifiants dans l'expression, il sont utilisés
+	for (std::string ident : ecriture->getIdentifiantsInExpression())
+		if (symbolExists(ident))
+			tableAnalyseStatique[ident]->use();
+		else
+			throwError(StringHelper::format("Using undeclared variable %s in writing expression", ident.c_str()));
+}
+
+void AnalyseStatique::throwError(const std::string& msg) const
+{
+	throw std::runtime_error("ERR: " + msg);
+}
 
 void AnalyseStatique::check()
 {
@@ -98,7 +172,7 @@ void AnalyseStatique::check()
 					 */
 					  
 					// Variable non declaree => erreur
-					if(!it2->second.declared)
+					if(!it2->second->isDeclared())
 					{
 						// TODO : Traitement du non decare, non affecte, non utilise ?
 
@@ -109,19 +183,19 @@ void AnalyseStatique::check()
 					// erreur/warning/OK selon "affected" ou "used" d'une variable "declared"
 					else
 					{
-						if(!it2->second.affected && !it2->second.used)
+						if(!it2->second->isAffected() && !it2->second->isUsed())
 						{
 							throw std::runtime_error(StringHelper::format("Warning : %s declared but not affected nor used.",
 													it1->first.c_str())); // already string, don't need toString()
 						}
 
-						else if(!it2->second.affected && it2->second.used)
+						else if(!it2->second->isAffected() && it2->second->isUsed())
 						{
 							throw std::runtime_error(StringHelper::format("Error : %s declared and used but not affected.",
 													it1->first.c_str())); // already string, don't need toString()
 						}
 
-						else if(it2->second.affected && !it2->second.used)
+						else if(it2->second->isAffected() && !it2->second->isUsed())
 						{
 							throw std::runtime_error(StringHelper::format("Warning : %s declared and affected but not used.",
 													it1->first.c_str())); // already string, don't need toString()
@@ -150,7 +224,7 @@ void AnalyseStatique::check()
 					 */
 
 					 // Constante non declaree => erreur
-					if(!it2->second.declared)
+					if(!it2->second->isDeclared())
 					{
 						throw std::runtime_error(StringHelper::format("Error : Undeclared constante %s.",
 													it1->first.c_str())); 
@@ -158,14 +232,14 @@ void AnalyseStatique::check()
 					else
 					{
 						// Constante affecté --> pas le droit
-						if(it2->second.affected)
+						if(it2->second->isAffected())
 						{
 							throw std::runtime_error(StringHelper::format("Error : Affected constante %s.",
 														it1->first.c_str())); 
 						}
 						else
 						{
-							if(!it2->second.used)
+							if(!it2->second->isUsed())
 							{
 								throw std::runtime_error(StringHelper::format("Warning : %s declared but not used.",
 													it1->first.c_str()));
@@ -180,26 +254,4 @@ void AnalyseStatique::check()
 			}
 		}
 	}	
-}
-
-void AnalyseStatique::setEtat(etats* etat, EtatIdentifiant* strucIdentifiant)
-{
-	switch(*etat)
-	{
-		case DECLAREE:
-			strucIdentifiant->declared = true;
-			break;
-
-		case AFFECTEE:
-			strucIdentifiant->affected = true;
-			break;
-
-		case UTILISEE:
-			strucIdentifiant->used = true;
-			break;
-
-		default :
-			throw std::runtime_error("ERROR : Incorrect call to AnalyseStatique::setEtat !");
-			break;
-	}
 }

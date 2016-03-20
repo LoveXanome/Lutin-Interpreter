@@ -30,3 +30,8 @@ void InstructionLecture::exec(TableDesSymboles& tableDesSymboles)
 	DeclarationVariable* d = (DeclarationVariable*) tableDesSymboles[identifiant]; // should never fail because of static analysis
 	d->setExecValue(readValue);
 }
+
+std::string InstructionLecture::getIdentifiant() const
+{
+	return identifiant;
+}

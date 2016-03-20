@@ -15,6 +15,7 @@ public:
 	virtual std::string toString() const = 0;
 	virtual std::string toPrintString() const = 0;
 	virtual Expression* toTransform() = 0;
+	std::list<std::string> getIdentifiants() const;
 	
 protected:
 	Expression* membreGauche;

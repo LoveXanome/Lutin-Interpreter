@@ -41,3 +41,8 @@ double ExpressionParenthese::eval(TableDesSymboles& tableDesSymboles)
 {
 	return membreInt->eval(tableDesSymboles);
 }
+
+std::list<std::string> ExpressionParenthese::getIdentifiants() const
+{
+	return membreInt->getIdentifiants();
+}

@@ -14,14 +14,10 @@ Programme::~Programme()
 	logger.destruction(StringHelper::format("Start destruction Programme (%d declaration & %d instructions )", declarations.size(), instructions.size()));
 
 	for (Declaration* d : declarations)
-	{
 		delete d;
-	}
 				
 	for (Instruction* i : instructions)
-	{
 		delete i;
-	}
 }
 
 void Programme::addDeclaration(Declaration* d)
@@ -64,7 +60,7 @@ void Programme::exec(TableDesSymboles& tableDesSymboles) const
 	for (Instruction* i : instructions)
 		i->exec(tableDesSymboles);
 }
-
+	
 bool Programme::isAccepted() const
 {
 	return accepted;

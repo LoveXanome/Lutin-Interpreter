@@ -2,9 +2,10 @@
 #define EXPRESSION_HPP
 
 #include <string>
+#include <list>
 #include "Symbole.hpp"
 #include "SymboleEnum.hpp"
-#include "AnalyseStatique.hpp"
+#include "TypeDefinitions.hpp"
 
 class Expression : public Symbole
 {
@@ -16,6 +17,7 @@ public:
 	virtual std::string toString() const = 0;
 	virtual std::string toPrintString() const = 0;
 	virtual Expression* toTransform() = 0;
+	virtual std::list<std::string> getIdentifiants() const = 0;
 };
 
 #endif // EXPRESSION_HPP

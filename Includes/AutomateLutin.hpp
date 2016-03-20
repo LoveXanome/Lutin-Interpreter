@@ -12,6 +12,7 @@ class Lexer;
 #include "Programme.hpp"
 #include "Logger.hpp"
 #include "AnalyseStatique.hpp"
+#include "TypeDefinitions.hpp"
 
 #include <string>
 #include <stack>

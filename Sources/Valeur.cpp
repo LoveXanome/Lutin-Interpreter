@@ -45,3 +45,8 @@ double Valeur::eval(TableDesSymboles& tableDesSymboles)
 {
 	return valeur;
 }
+
+std::list<std::string> Valeur::getIdentifiants() const
+{
+	return std::list<std::string>();
+}

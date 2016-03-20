@@ -2,7 +2,6 @@
 #define INSTRUCTION_LECTURE_HPP
 
 #include "Instruction.hpp"
-#include "AnalyseStatique.hpp"
 #include <string>
 
 class InstructionLecture : public Instruction
@@ -13,6 +12,7 @@ public:
 	void print() const;
 	void transform();
 	void exec(TableDesSymboles& tableDesSymboles);
+	std::string getIdentifiant() const;
 
 private:
 	std::string identifiant;

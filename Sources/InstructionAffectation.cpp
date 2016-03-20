@@ -42,3 +42,13 @@ void InstructionAffectation::exec(TableDesSymboles& tableDesSymboles)
 	DeclarationVariable* d = (DeclarationVariable*) tableDesSymboles[identifiant];
 	d->setExecValue(val);
 }
+
+std::string InstructionAffectation::getIdentifiant() const
+{
+	return identifiant;
+}
+
+std::list<std::string> InstructionAffectation::getIdentifiantsInExpression() const
+{
+	return expression->getIdentifiants();
+}

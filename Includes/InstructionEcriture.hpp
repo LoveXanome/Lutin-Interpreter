@@ -1,6 +1,8 @@
 #ifndef INSTRUCTION_ECRITURE_HPP
 #define INSTRUCTION_ECRITURE_HPP
 
+class Expression;
+
 #include "Instruction.hpp"
 #include "Expression.hpp"
 
@@ -13,6 +15,8 @@ public:
 	void transform();
 	void exec(TableDesSymboles& tableDesSymboles);
 	void setExpression(Expression* e);
+	std::list<std::string> getIdentifiantsInExpression() const;
+	
 private:
 	Expression* expression;
 };

@@ -92,7 +92,6 @@ int AutomateLutin::lecture()
 		return 1;
 	}
 	
-	
 	if (options & ANALYSE_STATIQUE || options & TRANSFORMATION || options & EXECUTION)
 		analyseStatique();
 	
@@ -212,7 +211,6 @@ valeurRetour AutomateLutin::reduction(Symbole* symbole, const unsigned int nbEta
 		std::cerr << std::endl;
 	}
 
-	
 	return ret;
 }
 

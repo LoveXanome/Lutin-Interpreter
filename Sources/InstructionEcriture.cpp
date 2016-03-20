@@ -39,3 +39,8 @@ void InstructionEcriture::exec(TableDesSymboles& tableDesSymboles)
 	double val = expression->eval(tableDesSymboles);
 	std::cout << StringHelper::doubleToString(val) << std::endl;
 }
+
+std::list<std::string> InstructionEcriture::getIdentifiantsInExpression() const
+{
+	return expression->getIdentifiants();
+}
