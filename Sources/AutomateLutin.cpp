@@ -239,7 +239,7 @@ void AutomateLutin::transformation()
 void AutomateLutin::analyseStatique()
 {
 	AnalyseStatique analyseStatique(&tableSymboles, programme);
-	//analyseStatique.check();
+	analyseStatique.check();
 }
 
 void AutomateLutin::execution()

@@ -94,10 +94,13 @@ void AnalyseStatique::handleInstruction(Instruction* instruction)
 {
 	if (InstructionAffectation* affectation = dynamic_cast<InstructionAffectation*>(instruction))
 		handleInstructionAffectation(affectation);
+		
 	else if (InstructionLecture* lecture = dynamic_cast<InstructionLecture*>(instruction))
 		handleInstructionLecture(lecture);
+		
 	else if (InstructionEcriture* ecriture = dynamic_cast<InstructionEcriture*>(instruction))
 		handleInstructionEcriture(ecriture);
+		
 	else
 		throw std::runtime_error("Unexpected error: instruction could not be casted to any derived type (should never reach this code).");
 }
@@ -115,10 +118,12 @@ void AnalyseStatique::handleInstructionAffectation(InstructionAffectation* affec
 	
 	// S'il y a des identifiants dans l'expression, ils sont utilisés
 	for (std::string ident : affectation->getIdentifiantsInExpression())
+	{
 		if (symbolExists(ident))
 			tableAnalyseStatique[ident]->use();
 		else
 			throwError(StringHelper::format("Using undeclared variable %s in affectation expression", ident.c_str()));
+	}
 }
 
 void AnalyseStatique::handleInstructionLecture(InstructionLecture* lecture)
@@ -152,106 +157,83 @@ void AnalyseStatique::throwError(const std::string& msg) const
 
 void AnalyseStatique::check()
 {
-	for (auto it1 = tableDesSymboles->begin(); it1!=tableDesSymboles->end(); ++it1)
+	for (auto it = tableAnalyseStatique.begin(); it != tableAnalyseStatique.end(); ++it)
 	{
-		for (auto it2 = tableAnalyseStatique.begin(); it2!=tableAnalyseStatique.end(); ++it2)
-		{
-			if (it1->first == it2->first)
-			{
-				// Variable
-				if (dynamic_cast<DeclarationVariable*>(it1->second)!=NULL)
-				{
-					/* non delcaree, non affectee, non utilisee --> pas possible
-					 * non declaree, non affectee, utilisee --> erreur
-					 * non declaree, affectee, non utilisee --> erreur
-					 * non declaree, affectee, utilisee --> erreur
-					 * declaree, non affectee, non utilisee --> warning
-					 * declaree, non affectee, utilisee --> erreur (sûr ? pas juste warning, puis ça fera n'importe quoi je dirais)
-					 * declaree, affectee, non utilisee --> warning
-					 * declaree, affectee, utilisee --> it's all good
-					 */
-					  
-					// Variable non declaree => erreur
-					if(!it2->second->isDeclared())
-					{
-						// TODO : Traitement du non decare, non affecte, non utilise ?
+		if (isVariable(it->first))
+			checkVariable(it->first, it->second);
+ 
+		else if (isConstant(it->first))
+			checkConstant(it->first, it->second);
+	}
+}
 
-						throw std::runtime_error(StringHelper::format("Error : Undeclared variable %s.",
-													it1->first.c_str())); // already string, don't need toString()
-					}
+bool AnalyseStatique::isVariable(const std::string& id) const
+{
+	Declaration* d = tableDesSymboles->at(id);
+	return dynamic_cast<DeclarationVariable*>(d);
+}
 
-					// erreur/warning/OK selon "affected" ou "used" d'une variable "declared"
-					else
-					{
-						if(!it2->second->isAffected() && !it2->second->isUsed())
-						{
-							throw std::runtime_error(StringHelper::format("Warning : %s declared but not affected nor used.",
-													it1->first.c_str())); // already string, don't need toString()
-						}
+void AnalyseStatique::checkVariable(const std::string& id, EtatIdentifiant* const etat) const
+{
+	/* non delcaree, non affectee, non utilisee --> pas possible
+	* non declaree, non affectee, utilisee --> erreur
+	* non declaree, affectee, non utilisee --> erreur
+	* non declaree, affectee, utilisee --> erreur
+	* declaree, non affectee, non utilisee --> warning
+	* declaree, non affectee, utilisee --> erreur (sûr ? pas juste warning, puis ça fera n'importe quoi je dirais)
+	* declaree, affectee, non utilisee --> warning
+	* declaree, affectee, utilisee --> it's all good
+	*/
+	// Variable non declaree => erreur
+	if (!etat->isDeclared())
+	{
+		// TODO : Traitement du non decare, non affecte, non utilise ?
+		throwError(StringHelper::format("Undeclared variable %s", id.c_str()));
+	}
+	else // erreur/warning/OK selon "affected" ou "used" d'une variable "declared"
+	{
+		if (!etat->isAffected() && !etat->isUsed())
+			printWarning(StringHelper::format("%s declared but not affected nor used.", id.c_str()));
 
-						else if(!it2->second->isAffected() && it2->second->isUsed())
-						{
-							throw std::runtime_error(StringHelper::format("Error : %s declared and used but not affected.",
-													it1->first.c_str())); // already string, don't need toString()
-						}
+		else if (!etat->isAffected() && etat->isUsed())
+			throwError(StringHelper::format("%s declared and used but not affected.", id.c_str()));
 
-						else if(it2->second->isAffected() && !it2->second->isUsed())
-						{
-							throw std::runtime_error(StringHelper::format("Warning : %s declared and affected but not used.",
-													it1->first.c_str())); // already string, don't need toString()
-						}
+		else if (etat->isAffected() && !etat->isUsed())
+			printWarning(StringHelper::format("%s declared and affected but not used.", id.c_str()));
+	}
+}
 
-						// Dernier cas : variable "declared", "affected" et "used"
-						else
-						{
-							std::cout << it1->first.c_str() << "OK : declared, affected and used." << std::endl;
-						}
-					}
-					
-				}
 
-				// Constante
-				else if(dynamic_cast<DeclarationConstante*>(it1->second)!=NULL)
-				{
-					/* non delcaree, non affectee, non utilisee --> pas possible
-					 * non declaree, non affectee, utilisee --> erreur
-					 * non declaree, affectee, non utilisee --> erreur
-					 * non declaree, affectee, utilisee --> erreur
-					 * declaree, non affectee, non utilisee --> warning non utilise
-					 * declaree, non affectee, utilisee --> ok
-					 * declaree, affectee, non utilisee --> erreur (on peut pas affecter une constante)
-					 * declaree, affectee, utilisee --> erreur (on peut pas affecter une constante)
-					 */
+bool AnalyseStatique::isConstant(const std::string& id) const
+{
+	Declaration* d = tableDesSymboles->at(id);
+	return dynamic_cast<DeclarationConstante*>(d);
+}
 
-					 // Constante non declaree => erreur
-					if(!it2->second->isDeclared())
-					{
-						throw std::runtime_error(StringHelper::format("Error : Undeclared constante %s.",
-													it1->first.c_str())); 
-					}
-					else
-					{
-						// Constante affecté --> pas le droit
-						if(it2->second->isAffected())
-						{
-							throw std::runtime_error(StringHelper::format("Error : Affected constante %s.",
-														it1->first.c_str())); 
-						}
-						else
-						{
-							if(!it2->second->isUsed())
-							{
-								throw std::runtime_error(StringHelper::format("Warning : %s declared but not used.",
-													it1->first.c_str()));
-							}
-						}
-					}
-				}
-			}
-			else 
-			{
-				throw std::runtime_error("Error : id (string) of tableDesSymboles does not exist in tableAnalyseStatique.");					
-			}
-		}
-	}	
+void AnalyseStatique::checkConstant(const std::string& id, EtatIdentifiant* const etat) const
+{
+	/* non delcaree, non affectee, non utilisee --> pas possible
+	* non declaree, non affectee, utilisee --> erreur
+	* non declaree, affectee, non utilisee --> erreur
+	* non declaree, affectee, utilisee --> erreur
+	* declaree, non affectee, non utilisee --> warning non utilise
+	* declaree, non affectee, utilisee --> ok
+	* declaree, affectee, non utilisee --> erreur (on peut pas affecter une constante)
+	* declaree, affectee, utilisee --> erreur (on peut pas affecter une constante)
+	*/
+
+	// Constante non declaree => erreur
+	if (!etat->isDeclared())
+	{
+		throwError(StringHelper::format("Undeclared constant %s", id.c_str())); 
+	}
+	else
+	{
+		// Constante affecté --> pas le droit
+		if (etat->isAffected())
+			throwError(StringHelper::format("Affected constante %s.", id.c_str()));
+				
+		else if (!etat->isUsed())
+			printWarning(StringHelper::format("%s declared but not used.", id.c_str()));
+	}
 }

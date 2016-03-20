@@ -43,6 +43,11 @@ private:
 	void handleInstructionLecture(InstructionLecture* lecture);
 	void handleInstructionEcriture(InstructionEcriture* ecriture);
 	
+	bool isVariable(const std::string& id) const;
+	void checkVariable(const std::string& id, EtatIdentifiant* const etat) const;
+	bool isConstant(const std::string& id) const;
+	void checkConstant(const std::string& id, EtatIdentifiant* const etat) const;
+	
 	static const Logger logger;
 };
 
