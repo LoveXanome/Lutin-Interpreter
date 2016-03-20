@@ -11,6 +11,6 @@ The file `coverage.sh` (in folder Tests/) :
 * Process the information with `lcov` (based on the .gcda files)
 * `genhtml` generates a nice html, with css, to see the results
 
-Now you just have to open `Objects/cov_htmp/index.html` and you see a beautiful interface for test coverage.
+Now you just have to open `Objects/cov_html/index.html` and you see a beautiful interface for test coverage.
 
 Objectif : `100% coverage`
