@@ -68,11 +68,6 @@ bool AnalyseStatique::symbolExists(const std::string& key)
 	return search != tableDesSymboles->end();
 }
 
-void AnalyseStatique::printWarning(const std::string& msg) const
-{
-	std::cerr << "WARN: " << msg << std::endl;
-}
-
 void AnalyseStatique::addEtatIdentifiantToTableStatique(const std::string& key, EtatIdentifiant* strucIdentifiant)
 {
 	tableAnalyseStatique.insert(pairAnalyse(key, strucIdentifiant));
@@ -150,10 +145,7 @@ void AnalyseStatique::handleInstructionEcriture(InstructionEcriture* ecriture)
 			throwError(StringHelper::format("Using undeclared variable %s in writing expression", ident.c_str()));
 }
 
-void AnalyseStatique::throwError(const std::string& msg) const
-{
-	throw std::runtime_error("ERR: " + msg);
-}
+
 
 void AnalyseStatique::check()
 {
@@ -193,13 +185,13 @@ void AnalyseStatique::checkVariable(const std::string& id, EtatIdentifiant* cons
 	else // erreur/warning/OK selon "affected" ou "used" d'une variable "declared"
 	{
 		if (!etat->isAffected() && !etat->isUsed())
-			printWarning(StringHelper::format("%s declared but not affected nor used.", id.c_str()));
+			printWarning(StringHelper::format("%s declared but not affected nor used", id.c_str()));
 
 		else if (!etat->isAffected() && etat->isUsed())
-			throwError(StringHelper::format("%s declared and used but not affected.", id.c_str()));
+			printWarning(StringHelper::format("%s declared and used but not affected (undefined behavior)", id.c_str()));
 
 		else if (etat->isAffected() && !etat->isUsed())
-			printWarning(StringHelper::format("%s declared and affected but not used.", id.c_str()));
+			printWarning(StringHelper::format("%s declared and affected but not used", id.c_str()));
 	}
 }
 
@@ -231,9 +223,19 @@ void AnalyseStatique::checkConstant(const std::string& id, EtatIdentifiant* cons
 	{
 		// Constante affecté --> pas le droit
 		if (etat->isAffected())
-			throwError(StringHelper::format("Affected constante %s.", id.c_str()));
+			throwError(StringHelper::format("Affecting constant %s", id.c_str()));
 				
 		else if (!etat->isUsed())
-			printWarning(StringHelper::format("%s declared but not used.", id.c_str()));
+			printWarning(StringHelper::format("%s declared but not used", id.c_str()));
 	}
+}
+
+void AnalyseStatique::printWarning(const std::string& msg) const
+{
+	std::cerr << "WARN: " << msg << std::endl;
+}
+
+void AnalyseStatique::throwError(const std::string& msg) const
+{
+	throw std::runtime_error("ERR: " + msg);
 }
