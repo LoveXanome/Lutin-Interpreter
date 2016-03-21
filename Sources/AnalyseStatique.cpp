@@ -172,7 +172,7 @@ void AnalyseStatique::checkVariable(const std::string& id, EtatIdentifiant* cons
 	* non declaree, affectee, non utilisee --> erreur
 	* non declaree, affectee, utilisee --> erreur
 	* declaree, non affectee, non utilisee --> warning
-	* declaree, non affectee, utilisee --> erreur (sûr ? pas juste warning, puis ça fera n'importe quoi je dirais)
+	* declaree, non affectee, utilisee --> erreur
 	* declaree, affectee, non utilisee --> warning
 	* declaree, affectee, utilisee --> it's all good
 	*/
@@ -188,7 +188,7 @@ void AnalyseStatique::checkVariable(const std::string& id, EtatIdentifiant* cons
 			printWarning(StringHelper::format("%s declared but not affected nor used", id.c_str()));
 
 		else if (!etat->isAffected() && etat->isUsed())
-			printWarning(StringHelper::format("%s declared and used but not affected (undefined behavior)", id.c_str()));
+			throwError(StringHelper::format("%s declared and used but not affected (undefined behavior)", id.c_str()));
 
 		else if (etat->isAffected() && !etat->isUsed())
 			printWarning(StringHelper::format("%s declared and affected but not used", id.c_str()));
@@ -204,14 +204,16 @@ bool AnalyseStatique::isConstant(const std::string& id) const
 
 void AnalyseStatique::checkConstant(const std::string& id, EtatIdentifiant* const etat) const
 {
-	/* non delcaree, non affectee, non utilisee --> pas possible
+	/*
+	* Gestion de l'affectation multiple ailleurs 
+	* non declaree, non affectee, non utilisee --> pas possible
 	* non declaree, non affectee, utilisee --> erreur
 	* non declaree, affectee, non utilisee --> erreur
 	* non declaree, affectee, utilisee --> erreur
-	* declaree, non affectee, non utilisee --> warning non utilise
-	* declaree, non affectee, utilisee --> ok
-	* declaree, affectee, non utilisee --> erreur (on peut pas affecter une constante)
-	* declaree, affectee, utilisee --> erreur (on peut pas affecter une constante)
+	* declaree, non affectee, non utilisee --> erreur pas affectee
+	* declaree, non affectee, utilisee --> erreur pas affectee
+	* declaree, affectee, non utilisee --> warning pas utilisee
+	* declaree, affectee, utilisee --> nickel
 	*/
 
 	// Constante non declaree => erreur
