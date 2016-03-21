@@ -1,7 +1,7 @@
 var a,b; 
 const c = 4;
 const d = 6;
-a := (((c+d)*3)-5);
+a := (((c+d)*3)-0);
 ecrire a;
 b := 6+0;
 b := 7*1;
@@ -13,4 +13,8 @@ b := 1-11;
 b := 1/12;
 b := 13-1;
 b := b*1;
+b := d;
+a := c+d;
 ecrire (a+0);
+ecrire ((((a+b))));
+ecrire ((((c*d)*6)+a)-b);

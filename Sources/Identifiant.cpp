@@ -1,7 +1,8 @@
 #include "Identifiant.hpp"
-
+#include "DeclarationConstante.hpp"
 #include "SymbolFabric.hpp"
 #include "DeclarationVariable.hpp"
+#include "Valeur.hpp"
 
 Identifiant::Identifiant(const std::string& identifiant) : Identifiant(identifiant, IDENTIFIANT)
 {
@@ -32,8 +33,17 @@ std::string Identifiant::toPrintString() const
 	return identifiant;
 }
 
-Expression* Identifiant::toTransform()
+Expression* Identifiant::toTransform(TableDesSymboles& tableDesSymboles)
 {
+	Declaration* d = tableDesSymboles[identifiant];
+	
+	if(d != NULL)
+	{
+		if(DeclarationConstante* constante = dynamic_cast<DeclarationConstante*>(d))
+		{	
+			return new Valeur(constante->getExecValue());
+		}
+	}
 	return this;
 }
 

@@ -24,18 +24,23 @@ std::string ExpressionSoustraction::toPrintString() const
 	return membreGauche->toPrintString() + " - " + membreDroite->toPrintString();
 }
 
-Expression* ExpressionSoustraction::toTransform()
+Expression* ExpressionSoustraction::toTransform(TableDesSymboles& tableDesSymboles)
 {
 	if(Valeur* val = dynamic_cast<Valeur*>(membreDroite))
 	{
 		if(val->getValeur() == 0)
 		{
-			return membreGauche;
+			return membreGauche->toTransform(tableDesSymboles);
 		}
 	}
-	else
+	membreDroite = membreDroite->toTransform(tableDesSymboles);
+	membreGauche = membreGauche->toTransform(tableDesSymboles);
+	if(Valeur* valGauche = dynamic_cast<Valeur*>(membreGauche))
 	{
-		membreDroite->toTransform();
+		if(Valeur* valDroite = dynamic_cast<Valeur*>(membreDroite))
+		{
+			return new Valeur(valGauche->getValeur() - valDroite->getValeur());
+		}
 	}
 	return this;
 }
