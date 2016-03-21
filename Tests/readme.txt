@@ -40,3 +40,10 @@ mktest.sh
 
 Fichier à personnaliser. Dans l'état, il cherche à valider tous les tests 
 contenus dans les répertoires dont le nom correspond à ??.*
+
+-------------------------------------------------------------------------------
+Description des valeurs de retour des tests
+
+- 0 : Le test fonctionne
+- 1 : Le test ne fonctionne pas (throwError va retourner un 1 dans le main donc
+erreur)
