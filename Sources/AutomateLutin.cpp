@@ -30,7 +30,7 @@ AutomateLutin::AutomateLutin(const std::string& fileName, const int options) : o
 AutomateLutin::~AutomateLutin()
 {		
 	logger.destruction("Start destruction AutomateLutin");
-	
+		
 	logger.destruction(StringHelper::format("========== Destruction des états (%d) ==========", etats.size()));
 	while (!etats.empty())
 	{
@@ -39,16 +39,16 @@ AutomateLutin::~AutomateLutin()
 		delete e;
 	}
 	
-	logger.destruction("Poped symbols");
+	logger.destruction("========== Popped symbols ========== ");
 	for (Symbole* s : popedSymboles)
-		if (!dynamic_cast<Expression*>(s))
+		if (dynamic_cast<Identifiant*>(s) || !dynamic_cast<Expression*>(s))
 			delete s;
 			
-	logger.destruction("Removed states");
+	logger.destruction("========== Removed states ========== ");
 	for (Etat* e : removedStates)
 		delete e;
 	
-	logger.destruction(StringHelper::format("Deleteing %d symbols", symboles.size()));
+	logger.destruction(StringHelper::format("========== Deleting %d symbols ========== ", symboles.size()));
 	while (!symboles.empty())
 	{
 		Symbole* s = symboles.top();
@@ -116,6 +116,9 @@ valeurRetour AutomateLutin::decalage(Symbole* symbole, Etat* etat, bool readNext
 	
 	if (ret == ACCEPTE)
 	{
+		//Ajoute le symbole FIN dans la pile pour qu'il soit supprimé dans le desctructeur
+		symboles.push(symbole);
+
 		programme->accept();
 		logger.debug("Programme accepté !");
 	}
@@ -173,6 +176,7 @@ std::string AutomateLutin::getExpectedSymbolsErrorMessage(const Etat* lastState)
 
 valeurRetour AutomateLutin::reduction(Symbole* symbole, const unsigned int nbEtats, Symbole* previousSymbol)
 {
+
 	for (unsigned int i = 0; i < nbEtats; ++i)
 	{
 		Etat* e = etats.top();
@@ -206,6 +210,11 @@ Symbole* AutomateLutin::popSymbole()
 	symboles.pop();
 	popedSymboles.insert(s);
 	return s;
+}
+
+void AutomateLutin::popPoppedSymbolesSymbole(Symbole* s)
+{
+	popedSymboles.erase(popedSymboles.find(s));
 }
 
 void AutomateLutin::addDeclarationToProgram(Declaration* d)

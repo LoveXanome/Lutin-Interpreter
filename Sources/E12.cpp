@@ -27,8 +27,12 @@ valeurRetour E12::transition(AutomateLutin* automate, Symbole * s)
         case PARENTHESE_FERMANTE:
 		{
 			Valeur* val = (Valeur*) automate->popSymbole();
-
 			Valeur* expValeur = new Valeur(val->getValeur(), EXP);
+
+			//Supprime la valeur poppé, et l'enlève de la pile 
+			automate->popPoppedSymbolesSymbole(val);
+			delete val;
+
 			automate->reduction(expValeur, 1, s);
 
 			retour = REDUIT;

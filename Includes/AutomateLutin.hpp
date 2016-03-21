@@ -28,6 +28,7 @@ public:
 	valeurRetour decalage(Symbole* symbole, Etat* etat, bool readNext);
 	valeurRetour reduction(Symbole* symbole, const unsigned int nbEtats, Symbole* previousSymbol);
 	Symbole* popSymbole();
+	void popPoppedSymbolesSymbole(Symbole* s);
 	void addDeclarationToProgram(Declaration* d);
 	void addInstructionToProgram(Instruction* i);
 	
