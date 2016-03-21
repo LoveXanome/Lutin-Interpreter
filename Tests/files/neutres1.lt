@@ -1,0 +1,11 @@
+var a,b;
+a := 0;
+b := 0;
+ecrire (a+0);
+a := 0+2;
+ecrire (b-0);
+b := 0-10;
+ecrire (1*a);
+a := 15*1;
+ecrire (1/b);
+b := 5/1;

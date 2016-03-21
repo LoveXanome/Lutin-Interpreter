@@ -1,0 +1,12 @@
+var a;
+var b;
+a := 0;
+b := 0;
+ecrire a;
+a := 2;
+ecrire b;
+b := -10;
+ecrire a;
+a := 15;
+ecrire (1/b);
+b := 5;
