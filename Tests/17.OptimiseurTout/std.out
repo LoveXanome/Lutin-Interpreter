@@ -1,0 +1,23 @@
+var a;
+var b;
+const c = 4;
+const d = 6;
+const e = 0;
+a := 30;
+ecrire a;
+b := 6;
+b := 7;
+b := 8;
+b := 9;
+b := 10;
+b := 0;
+b := -10;
+b := 0.083333;
+b := 12;
+b := b;
+b := 6;
+a := 10;
+ecrire a;
+ecrire (a + b);
+ecrire ((144 + a) - b);
+
