@@ -1,1 +1,1 @@
-Undeclared variable a
+ERR: Using undeclared variable a in affectation expression
