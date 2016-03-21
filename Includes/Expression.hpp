@@ -18,6 +18,11 @@ public:
 	virtual std::string toPrintString() const = 0;
 	virtual Expression* toTransform(TableDesSymboles& tableDesSymboles) = 0;
 	virtual std::list<std::string> getIdentifiants() const = 0;
+	
+	static void deleteCreatedExpressionInOptimization();
+	
+protected:
+	static std::list<Expression*> createdExpressionInOptimization;
 };
 
 #endif // EXPRESSION_HPP

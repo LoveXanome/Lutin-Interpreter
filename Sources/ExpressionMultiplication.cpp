@@ -44,7 +44,9 @@ Expression* ExpressionMultiplication::toTransform(TableDesSymboles& tableDesSymb
 	{
 		if (Valeur* valDroite = dynamic_cast<Valeur*>(membreDroite))
 		{
-			return new Valeur(valGauche->getValeur() * valDroite->getValeur());
+			Valeur* v = new Valeur(valGauche->getValeur() * valDroite->getValeur());
+			createdExpressionInOptimization.push_back(v);
+			return v;
 		}
 	}
 	return this;

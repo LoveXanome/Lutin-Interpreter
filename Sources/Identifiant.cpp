@@ -41,7 +41,9 @@ Expression* Identifiant::toTransform(TableDesSymboles& tableDesSymboles)
 	{
 		if (DeclarationConstante* constante = dynamic_cast<DeclarationConstante*>(d))
 		{	
-			return new Valeur(constante->getExecValue());
+			Valeur* v = new Valeur(constante->getExecValue());
+			createdExpressionInOptimization.push_back(v);
+			return v;
 		}
 	}
 	return this;

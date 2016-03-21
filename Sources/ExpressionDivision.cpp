@@ -46,7 +46,9 @@ Expression* ExpressionDivision::toTransform(TableDesSymboles& tableDesSymboles)
 			}
 			else
 			{
-				return new Valeur(valGauche->getValeur() / valDroite->getValeur());
+				Valeur* v = new Valeur(valGauche->getValeur() / valDroite->getValeur());
+				createdExpressionInOptimization.push_back(v);
+				return v;
 			}
 		}
 	}
