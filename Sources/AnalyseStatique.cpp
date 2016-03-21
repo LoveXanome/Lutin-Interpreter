@@ -224,8 +224,8 @@ void AnalyseStatique::checkConstant(const std::string& id, EtatIdentifiant* cons
 	else
 	{
 		// Constante affecté --> pas le droit
-		if (etat->isAffected())
-			throwError(StringHelper::format("Affecting constant %s", id.c_str()));
+		if (!etat->isAffected())
+			throwError(StringHelper::format("Non affecting constant %s", id.c_str()));
 				
 		else if (!etat->isUsed())
 			printWarning(StringHelper::format("%s declared but not used", id.c_str()));
