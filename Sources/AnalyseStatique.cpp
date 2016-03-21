@@ -40,6 +40,8 @@ void AnalyseStatique::fillTableSymboles()
 	
 	for (Declaration* declaration : *declarations)
 	{
+		declaration->print();
+
 		std::string key = declaration->getIdentifiant();
 		if (symbolExists(key))
 			printWarning(StringHelper::format("Identifiant '%s' declared more than once", key.c_str()));
@@ -109,13 +111,14 @@ void AnalyseStatique::handleInstructionAffectation(InstructionAffectation* affec
 	{
 		if (symbolExists(ident))
 		{
-			if(tableAnalyseStatique[ident]->isAffected())
+			if((tableAnalyseStatique[ident]->isAffected() && isVariable(ident)) 
+				|| isConstant(ident))
 				tableAnalyseStatique[ident]->use();
 			else
-				throwError(StringHelper::format("Using unaffected variable %s in affectation expression", ident.c_str()));
+				throwError(StringHelper::format("Using unaffected variable %s in affectation expression1", ident.c_str()));
 		}
 		else
-			throwError(StringHelper::format("Using undeclared variable %s in affectation expression", ident.c_str()));
+			throwError(StringHelper::format("Using undeclared variable %s in affectation expression2", ident.c_str()));
 	}
 	
 	// Identifiant à gauche est affecté
