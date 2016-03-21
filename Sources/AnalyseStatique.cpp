@@ -154,7 +154,7 @@ void AnalyseStatique::handleInstructionEcriture(InstructionEcriture* ecriture)
 				|| isConstant(ident))
 				tableAnalyseStatique[ident]->use();
 			else
-				throwError(StringHelper::format("Using unaffected variable %s in affectation expression", ident.c_str()));
+				throwError(StringHelper::format("Using unaffected variable %s in writing expression", ident.c_str()));
 		}
 		else
 			throwError(StringHelper::format("Using undeclared variable %s in writing expression", ident.c_str()));
