@@ -145,7 +145,7 @@ void AutomateLutin::handleUnrecognizedSymbol(Symbole* errorSymbol)
 															nextSymbol->toString().c_str(),
 															getExpectedSymbolsErrorMessage(dernierEtat).c_str()));
 		else if (dernierEtat->toString() != Etat::ACCEPT_STATE) // Only show warning if not last state
-			std::cerr << "Warning: Encountered an unexpected symbol " << errorSymbol->toString() << " and expecting: " << getExpectedSymbolsErrorMessage(dernierEtat) << ", but could continue" << std::endl;
+			logger.debug(StringHelper::format("Warning: Encountered an unexpected symbol %s and expecting: %s , but could continue", errorSymbol->toString().c_str(), getExpectedSymbolsErrorMessage(dernierEtat).c_str()));
 	}
 	else if (dernierEtat->toString() != Etat::ACCEPT_STATE)
 		throw std::runtime_error(StringHelper::format("Unexpected end of file (%s). Expected: %s", symboles.top()->toString().c_str(), getExpectedSymbolsErrorMessage(dernierEtat).c_str()));
