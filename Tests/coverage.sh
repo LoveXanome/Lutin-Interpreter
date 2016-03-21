@@ -1,14 +1,20 @@
-(cd .. && make remake)
+(cd .. && make)
 
-BASE_DIR=/home/david/INSA/Lutin-Interpreter/
-GCOV_PREFIX=/home/david/INSA/Lutin-Interpreter/Objects/
-GCOV_PREFIX_STRIP=4
+BASE_DIR=/home/david/Lutin-Interpreter/ # PATH TO CUSTOMIZE
+
+GCOV_PREFIX=${BASE_DIR}Objects/
 OUTPUT_FILE=${GCOV_PREFIX}app.info
+OUTPUT_HTML_LOCATION=${GCOV_PREFIX}cov_html
+
+lcov -b $BASE_DIR -d $GCOV_PREFIX -z
 
 ./mktest.sh
 
 lcov --no-external -b $BASE_DIR -d $GCOV_PREFIX -c -o $OUTPUT_FILE 
 
-#lcov -b /home/david/INSA/Lutin-Interpreter/ -d /home/david/INSA/Lutin-Interpreter/Objects/ -c -o /home/david/INSA/Lutin-Interpreter/Objects/app.info
+genhtml -o $OUTPUT_HTML_LOCATION $OUTPUT_FILE
 
-genhtml -o ${GCOV_PREFIX}cov_html $OUTPUT_FILE
+if type "firefox" > /dev/null
+then
+	firefox ${OUTPUT_HTML_LOCATION}/index.html >/dev/null 2>&1 &
+fi
