@@ -115,10 +115,10 @@ void AnalyseStatique::handleInstructionAffectation(InstructionAffectation* affec
 				|| isConstant(ident))
 				tableAnalyseStatique[ident]->use();
 			else
-				throwError(StringHelper::format("Using unaffected variable %s in affectation expression1", ident.c_str()));
+				throwError(StringHelper::format("Using unaffected variable %s in affectation expression", ident.c_str()));
 		}
 		else
-			throwError(StringHelper::format("Using undeclared variable %s in affectation expression2", ident.c_str()));
+			throwError(StringHelper::format("Using undeclared variable %s in affectation expression", ident.c_str()));
 	}
 	
 	// Identifiant à gauche est affecté
@@ -153,7 +153,13 @@ void AnalyseStatique::handleInstructionEcriture(InstructionEcriture* ecriture)
 	// S'il y a des identifiants dans l'expression, il sont utilisés
 	for (std::string ident : ecriture->getIdentifiantsInExpression())
 		if (symbolExists(ident))
-			tableAnalyseStatique[ident]->use();
+		{
+			if((tableAnalyseStatique[ident]->isAffected() && isVariable(ident)) 
+				|| isConstant(ident))
+				tableAnalyseStatique[ident]->use();
+			else
+				throwError(StringHelper::format("Using unaffected variable %s in affectation expression", ident.c_str()));
+		}
 		else
 			throwError(StringHelper::format("Using undeclared variable %s in writing expression", ident.c_str()));
 }
