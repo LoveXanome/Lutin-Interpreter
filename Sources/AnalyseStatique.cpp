@@ -40,8 +40,6 @@ void AnalyseStatique::fillTableSymboles()
 	
 	for (Declaration* declaration : *declarations)
 	{
-		declaration->print();
-
 		std::string key = declaration->getIdentifiant();
 		if (symbolExists(key))
 			printWarning(StringHelper::format("Identifiant '%s' declared more than once", key.c_str()));
