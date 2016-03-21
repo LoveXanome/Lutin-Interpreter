@@ -11,7 +11,7 @@ InstructionAffectation::InstructionAffectation(const std::string& identifiant, E
 
 InstructionAffectation::~InstructionAffectation()
 {
-	delete expression;
+	//delete expression;
 }
 
 void InstructionAffectation::print() const

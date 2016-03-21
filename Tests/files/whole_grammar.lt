@@ -1,9 +1,9 @@
 var a;
-var b c;
+var b;
 var d, e, f;
 const z = 1;
-const y = = 2;
-const i = 3, j = 4, k = 6 7;
+const y = 2;
+const i = 3, j = 4, k = 6;
 
 lire a;
 ecrire a;

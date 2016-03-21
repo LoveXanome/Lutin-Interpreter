@@ -19,7 +19,7 @@ ExpressionParenthese::ExpressionParenthese(const SymboleEnum& enumRepresentation
 
 ExpressionParenthese::~ExpressionParenthese()
 {
-	delete membreInt;
+	//delete membreInt;
 }
 
 std::string ExpressionParenthese::toString() const

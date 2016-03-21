@@ -41,8 +41,7 @@ AutomateLutin::~AutomateLutin()
 	
 	logger.destruction("========== Popped symbols ========== ");
 	for (Symbole* s : popedSymboles)
-		if (dynamic_cast<Identifiant*>(s) || !dynamic_cast<Expression*>(s))
-			delete s;
+		delete s;
 			
 	logger.destruction("========== Removed states ========== ");
 	for (Etat* e : removedStates)

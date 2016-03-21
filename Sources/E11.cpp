@@ -30,6 +30,7 @@ valeurRetour E11::transition(AutomateLutin* automate, Symbole * s)
 			
 			Identifiant* expIdentifiant = new Identifiant(i->getIdentifiant(), EXP);
 			automate->reduction(expIdentifiant, 1, s);
+			
             retour = REDUIT;
             break;
 		}

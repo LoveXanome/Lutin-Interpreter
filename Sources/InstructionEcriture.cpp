@@ -10,7 +10,7 @@ InstructionEcriture::InstructionEcriture(Expression* e) : Instruction(), express
 
 InstructionEcriture::~InstructionEcriture()
 {
-	delete expression;
+	//delete expression;
 }
 
 void InstructionEcriture::print() const

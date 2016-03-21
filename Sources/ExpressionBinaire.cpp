@@ -18,8 +18,8 @@ ExpressionBinaire::ExpressionBinaire(const SymboleEnum& enumRepresentation, Expr
 
 ExpressionBinaire::~ExpressionBinaire()
 {
-	delete membreGauche;
-	delete membreDroite;
+	//delete membreGauche;
+	//delete membreDroite;
 }
 
 std::list<std::string> ExpressionBinaire::getIdentifiants() const
