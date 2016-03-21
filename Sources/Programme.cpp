@@ -49,10 +49,10 @@ void Programme::print() const
 		i->print();
 }
 
-void Programme::transform() const
+void Programme::transform(TableDesSymboles& tableDesSymboles) const
 {
 	for (Instruction* i : instructions)
-		i->transform();
+		i->transform(tableDesSymboles);
 }
 
 void Programme::exec(TableDesSymboles& tableDesSymboles) const

@@ -25,7 +25,7 @@ public:
 	ListeDeclarations* getDeclarations();
 	
 	void print() const;
-	void transform() const;
+	void transform(TableDesSymboles& tableDesSymboles) const;
 	void exec(TableDesSymboles& tableDesSymboles) const;
 	bool isAccepted() const;
 	void accept();

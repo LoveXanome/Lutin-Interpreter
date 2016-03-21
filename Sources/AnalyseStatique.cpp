@@ -3,7 +3,7 @@
 #include "DeclarationVariable.hpp"
 #include "DeclarationConstante.hpp"
 
-#include <iostream> 
+#include <iostream>
 #include <string>
 
 const Logger AnalyseStatique::logger("AnalyseStatique");
@@ -103,22 +103,33 @@ void AnalyseStatique::handleInstruction(Instruction* instruction)
 void AnalyseStatique::handleInstructionAffectation(InstructionAffectation* affectation)
 {
 	logger.debug("Handle instruction affectation");
-	
-	// Identifiant à gauche est affecté
-	std::string identifiant = affectation->getIdentifiant();
-	if (symbolExists(identifiant))
-		tableAnalyseStatique[identifiant]->affect();
-	else
-		throwError(StringHelper::format("Affecting undeclared variable %s", identifiant.c_str()));
-	
+
 	// S'il y a des identifiants dans l'expression, ils sont utilisés
 	for (std::string ident : affectation->getIdentifiantsInExpression())
 	{
 		if (symbolExists(ident))
-			tableAnalyseStatique[ident]->use();
+		{
+			if((tableAnalyseStatique[ident]->isAffected() && isVariable(ident)) 
+				|| isConstant(ident))
+				tableAnalyseStatique[ident]->use();
+			else
+				throwError(StringHelper::format("Using unaffected variable %s in affectation expression", ident.c_str()));
+		}
 		else
 			throwError(StringHelper::format("Using undeclared variable %s in affectation expression", ident.c_str()));
 	}
+	
+	// Identifiant à gauche est affecté
+	std::string identifiant = affectation->getIdentifiant();
+	if (symbolExists(identifiant))
+	{
+		if(isConstant(identifiant) && tableAnalyseStatique[identifiant]->isAffected())
+			throwError(StringHelper::format("Affecting new value to const %s", identifiant.c_str()));
+		else
+			tableAnalyseStatique[identifiant]->affect();
+	}
+	else
+		throwError(StringHelper::format("Affecting undeclared variable %s", identifiant.c_str()));
 }
 
 void AnalyseStatique::handleInstructionLecture(InstructionLecture* lecture)
@@ -140,7 +151,13 @@ void AnalyseStatique::handleInstructionEcriture(InstructionEcriture* ecriture)
 	// S'il y a des identifiants dans l'expression, il sont utilisés
 	for (std::string ident : ecriture->getIdentifiantsInExpression())
 		if (symbolExists(ident))
-			tableAnalyseStatique[ident]->use();
+		{
+			if((tableAnalyseStatique[ident]->isAffected() && isVariable(ident)) 
+				|| isConstant(ident))
+				tableAnalyseStatique[ident]->use();
+			else
+				throwError(StringHelper::format("Using unaffected variable %s in affectation expression", ident.c_str()));
+		}
 		else
 			throwError(StringHelper::format("Using undeclared variable %s in writing expression", ident.c_str()));
 }
@@ -172,7 +189,7 @@ void AnalyseStatique::checkVariable(const std::string& id, EtatIdentifiant* cons
 	* non declaree, affectee, non utilisee --> erreur
 	* non declaree, affectee, utilisee --> erreur
 	* declaree, non affectee, non utilisee --> warning
-	* declaree, non affectee, utilisee --> erreur (sûr ? pas juste warning, puis ça fera n'importe quoi je dirais)
+	* declaree, non affectee, utilisee --> erreur
 	* declaree, affectee, non utilisee --> warning
 	* declaree, affectee, utilisee --> it's all good
 	*/
@@ -188,7 +205,7 @@ void AnalyseStatique::checkVariable(const std::string& id, EtatIdentifiant* cons
 			printWarning(StringHelper::format("%s declared but not affected nor used", id.c_str()));
 
 		else if (!etat->isAffected() && etat->isUsed())
-			printWarning(StringHelper::format("%s declared and used but not affected (undefined behavior)", id.c_str()));
+			throwError(StringHelper::format("%s declared and used but not affected (undefined behavior)", id.c_str()));
 
 		else if (etat->isAffected() && !etat->isUsed())
 			printWarning(StringHelper::format("%s declared and affected but not used", id.c_str()));
@@ -204,14 +221,17 @@ bool AnalyseStatique::isConstant(const std::string& id) const
 
 void AnalyseStatique::checkConstant(const std::string& id, EtatIdentifiant* const etat) const
 {
-	/* non delcaree, non affectee, non utilisee --> pas possible
+	/*
+	* Gestion de l'affectation multiple deja prise en compte dans la grammaire
+	* si la constante est affectee pour l'analyse statique, il y a donc une erreur
+	* non declaree, non affectee, non utilisee --> pas possible
 	* non declaree, non affectee, utilisee --> erreur
 	* non declaree, affectee, non utilisee --> erreur
 	* non declaree, affectee, utilisee --> erreur
-	* declaree, non affectee, non utilisee --> warning non utilise
+	* declaree, non affectee, non utilisee --> warning
 	* declaree, non affectee, utilisee --> ok
-	* declaree, affectee, non utilisee --> erreur (on peut pas affecter une constante)
-	* declaree, affectee, utilisee --> erreur (on peut pas affecter une constante)
+	* declaree, affectee, non utilisee --> erreur, affectee
+	* declaree, affectee, utilisee --> erreur affectee
 	*/
 
 	// Constante non declaree => erreur
@@ -221,9 +241,9 @@ void AnalyseStatique::checkConstant(const std::string& id, EtatIdentifiant* cons
 	}
 	else
 	{
-		// Constante affecté --> pas le droit
+		// Pas le droit d'affecter une constante
 		if (etat->isAffected())
-			throwError(StringHelper::format("Affecting constant %s", id.c_str()));
+			throwError(StringHelper::format("Constant %s affected", id.c_str()));
 				
 		else if (!etat->isUsed())
 			printWarning(StringHelper::format("%s declared but not used", id.c_str()));

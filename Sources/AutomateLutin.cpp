@@ -231,7 +231,7 @@ void AutomateLutin::addInstructionToProgram(Instruction* i)
 
 void AutomateLutin::transformation()
 {
-	programme->transform();
+	programme->transform(tableSymboles);
 }
 
 void AutomateLutin::analyseStatique()

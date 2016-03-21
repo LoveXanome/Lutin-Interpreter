@@ -14,7 +14,7 @@ public:
 	double getValeur() const;
 	std::string toString() const;
 	std::string toPrintString() const;
-	Expression* toTransform();
+	Expression* toTransform(TableDesSymboles& tableDesSymboles);
 	std::list<std::string> getIdentifiants() const;
 	
 private:

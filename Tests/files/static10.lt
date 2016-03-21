@@ -1,0 +1,4 @@
+var a,b;
+b := 2;
+b := b + a;
+ecrire b;

@@ -23,10 +23,10 @@ void InstructionEcriture::setExpression(Expression* e)
 	this->expression = e;
 }
 
-void InstructionEcriture::transform()
+void InstructionEcriture::transform(TableDesSymboles& tableDesSymboles)
 {
 	Expression* expressionTampon;
-	expressionTampon = expression->toTransform();
+	expressionTampon = expression->toTransform(tableDesSymboles);
 	if(expression != expressionTampon)
 	{
 		//delete expression;

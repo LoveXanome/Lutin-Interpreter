@@ -27,6 +27,16 @@ all: builddir lutin
 
 remake: clean all
 
+tests: all
+	unlink Tests/lut || echo "Nothing to delete"
+	ln -s -t Tests/ ../lut
+	(cd Tests/ && bash mktest.sh)
+	
+coverage:
+	unlink Tests/lut || echo "Nothing to delete"
+	ln -s -t Tests/ ../lut
+	(cd Tests/ && bash coverage.sh)
+
 $(BUILDDIR)%.o : $(SRCDIR)%.cpp
 	$(ECHO) "Compiling $< (generating $@)"
 	$(COMP) -o $@ -c $< $(COMPFLAGS) -I $(INCDIR)

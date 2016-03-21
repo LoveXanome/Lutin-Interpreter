@@ -1,6 +1,6 @@
 (cd .. && make)
 
-BASE_DIR=/home/david/Lutin-Interpreter/ # PATH TO CUSTOMIZE
+BASE_DIR=`(cd .. && pwd)`/
 
 GCOV_PREFIX=${BASE_DIR}Objects/
 OUTPUT_FILE=${GCOV_PREFIX}app.info

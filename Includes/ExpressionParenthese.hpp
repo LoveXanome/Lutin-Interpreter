@@ -8,13 +8,11 @@ class ExpressionParenthese : public Expression
 {
 public:
 	ExpressionParenthese(Expression* membre);
-	ExpressionParenthese(const SymboleEnum& enumRepresentation);
-	ExpressionParenthese(const SymboleEnum& enumRepresentation, Expression* membre);
 	virtual ~ExpressionParenthese();
 	double eval(TableDesSymboles& tableDesSymboles);
 	std::string toString() const;
 	std::string toPrintString() const;
-	Expression* toTransform();
+	Expression* toTransform(TableDesSymboles& tableDesSymboles);
 	std::list<std::string> getIdentifiants() const;
 		
 private:

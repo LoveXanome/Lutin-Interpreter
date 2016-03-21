@@ -36,7 +36,7 @@ std::string Valeur::toPrintString() const
 	return StringHelper::doubleToString(valeur);
 }
 
-Expression* Valeur::toTransform()
+Expression* Valeur::toTransform(TableDesSymboles& tableDesSymboles)
 {
 	return this;
 }

@@ -12,7 +12,7 @@ public:
 	InstructionEcriture(Expression* e);
 	virtual ~InstructionEcriture();
 	void print() const;
-	void transform();
+	void transform(TableDesSymboles& tableDesSymboles);
 	void exec(TableDesSymboles& tableDesSymboles);
 	void setExpression(Expression* e);
 	std::list<std::string> getIdentifiantsInExpression() const;

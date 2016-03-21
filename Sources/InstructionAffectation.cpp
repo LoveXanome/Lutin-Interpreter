@@ -24,10 +24,10 @@ void InstructionAffectation::setExpression(Expression* e)
 	this->expression = e;
 }
 
-void InstructionAffectation::transform()
+void InstructionAffectation::transform(TableDesSymboles& tableDesSymboles)
 {
 	Expression* expressionTampon;
-	expressionTampon = expression->toTransform();
+	expressionTampon = expression->toTransform(tableDesSymboles);
 	if(expression != expressionTampon)
 	{
 		//delete expression;

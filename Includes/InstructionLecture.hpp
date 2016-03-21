@@ -10,7 +10,7 @@ public:
 	InstructionLecture(const std::string& identifiant);
 	virtual ~InstructionLecture();
 	void print() const;
-	void transform();
+	void transform(TableDesSymboles& tableDesSymboles);
 	void exec(TableDesSymboles& tableDesSymboles);
 	std::string getIdentifiant() const;
 

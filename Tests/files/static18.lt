@@ -1,0 +1,3 @@
+var a;
+const z = 1;
+a := z;
