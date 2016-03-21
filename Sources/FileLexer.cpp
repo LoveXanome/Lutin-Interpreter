@@ -26,7 +26,6 @@ FileLexer::FileLexer(const std::string& fileName) : Lexer(fileName)
 
 FileLexer::~FileLexer()
 {
-	
 }
 	
 Symbole* FileLexer::getNext()

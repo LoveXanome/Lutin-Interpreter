@@ -16,7 +16,7 @@ E6::~E6()
 
 valeurRetour E6::transition(AutomateLutin* automate, Symbole* s)
 {
-	valeurRetour retour = SUIVANT_NON_VALIDE;
+	valeurRetour retour = NON_RECONNU;
 	switch (*s)
 	{
 		case IDENTIFIANT:

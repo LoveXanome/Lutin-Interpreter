@@ -1,4 +1,6 @@
-var a;
+
+var 3 a;
+var l 3;
 var b c;
 var d, e, f;
 const z = 1;
@@ -7,19 +9,20 @@ const i = 3, j = 4, k = 6 7;
 
 lire a;
 ecrire a;
-a := b;
-a := b + c;
-a := b+c;
+a := b b;
+a := b 3;
+a := b + c a;
+a := b+c 7;
 a := (a+b);
 a := (a+b)*4;
-a := (a+b)*a;
+a := (a+b)*a a;
 a := (a+b)/7;
-a := (a+b)/g;
+a := (a+b)/g g;
 a := (a+b)-4;
-a := (a+b)-z;
+a := (a+b)-z g;
 
 a := ((a+b)*4);
-a := ((a+b)*a);
+a := ((a+b)*a h );
 a := ((a+b)/7);
 a := ((a+b)/g);
 a := ((a+b)-4);
@@ -32,11 +35,11 @@ ecrire b + c;
 ecrire b+c;
 ecrire (a+b);
 ecrire (a+b)*4;
-ecrire (a+b)*a;
+ecrire (a+b)*a 0;
 ecrire (a+b)/7;
-ecrire (a+b)/g;
+ecrire (a+b)/g 0;
 ecrire (a+b)-4;
-ecrire (a+b)-z;
+ecrire (a+b)-z 0;
 
 ecrire ((a+b)*4);
 ecrire ((a+b)*a);

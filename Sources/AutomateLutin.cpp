@@ -48,12 +48,20 @@ AutomateLutin::~AutomateLutin()
 		delete e;
 	
 	logger.destruction(StringHelper::format("========== Deleting %d symbols ========== ", symboles.size()));
+	std::set<Symbole*> uniqueSymbols;
 	while (!symboles.empty())
 	{
 		Symbole* s = symboles.top();
 		symboles.pop();
-		delete s;
+		uniqueSymbols.insert(s);
 	}
+	for (Symbole* s : uniqueSymbols)
+		delete s;
+	
+	// Delete remaining lexer symbols
+	Symbole* s;
+	while ((s = lexer->getNext()) != 0)
+		delete s;
 
 	delete programme;
 	delete lexer;
@@ -142,18 +150,26 @@ void AutomateLutin::handleUnrecognizedSymbol(Symbole* errorSymbol)
 	{
 		logger.debug(StringHelper::format("Unexpected symbol, try again : state %s with symbol %s", dernierEtat->toString().c_str(), nextSymbol->toString().c_str()));
 		ret2 = dernierEtat->transition(this, nextSymbol);
-	
 		// Si le nouveau symbole est à nouveau pas reconnu
 		if (ret2 == NON_RECONNU)
-			throw std::runtime_error(StringHelper::format("Unexpected symbols %s (and then %s). Expected: %s",
+		{
+			std::string errorMsg = StringHelper::format("Unexpected symbols %s (and then %s). Expected: %s",
 															errorSymbol->toString().c_str(),
 															nextSymbol->toString().c_str(),
-															getExpectedSymbolsErrorMessage(dernierEtat).c_str()));
+															getExpectedSymbolsErrorMessage(dernierEtat).c_str());
+			delete errorSymbol;
+			delete nextSymbol;
+			throw std::runtime_error(errorMsg);
+		}
 		else if (dernierEtat->toString() != Etat::ACCEPT_STATE) // Only show warning if not last state
 			logger.debug(StringHelper::format("Warning: Encountered an unexpected symbol %s and expecting: %s , but could continue", errorSymbol->toString().c_str(), getExpectedSymbolsErrorMessage(dernierEtat).c_str()));
 	}
 	else if (dernierEtat->toString() != Etat::ACCEPT_STATE)
-		throw std::runtime_error(StringHelper::format("Unexpected end of file (%s). Expected: %s", symboles.top()->toString().c_str(), getExpectedSymbolsErrorMessage(dernierEtat).c_str()));
+	{
+		std::string errorMsg = StringHelper::format("Unexpected end of file (%s). Expected: %s", symboles.top()->toString().c_str(), getExpectedSymbolsErrorMessage(dernierEtat).c_str());
+		delete errorSymbol;
+		throw std::runtime_error(errorMsg);
+	}
 }
 
 std::string AutomateLutin::getExpectedSymbolsErrorMessage(const Etat* lastState) const
