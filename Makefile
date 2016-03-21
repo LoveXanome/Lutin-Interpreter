@@ -32,7 +32,7 @@ tests: all
 	ln -s -t Tests/ ../lut
 	(cd Tests/ && bash mktest.sh)
 	
-coverage: all
+coverage:
 	unlink Tests/lut || echo "Nothing to delete"
 	ln -s -t Tests/ ../lut
 	(cd Tests/ && bash coverage.sh)
