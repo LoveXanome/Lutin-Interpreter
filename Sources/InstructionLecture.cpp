@@ -18,7 +18,7 @@ void InstructionLecture::print() const
 	std::cout << "lire " << identifiant << ";" << std::endl;
 }
 
-void InstructionLecture::transform()
+void InstructionLecture::transform(TableDesSymboles& tableDesSymboles)
 {
 }
 
