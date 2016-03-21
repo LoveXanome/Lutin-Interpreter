@@ -10,7 +10,7 @@ const Logger AnalyseStatique::logger("AnalyseStatique");
 
 AnalyseStatique::AnalyseStatique(TableDesSymboles* tableDesSymboles, Programme* programme) : tableDesSymboles(tableDesSymboles), programme(programme)
 {
-	logger.construction("Construction");
+	logger.construction("Begin construction");
 	fillTableSymboles();
 	fillTableStatique();
 	
@@ -23,9 +23,8 @@ AnalyseStatique::AnalyseStatique(TableDesSymboles* tableDesSymboles, Programme* 
 
 AnalyseStatique::~AnalyseStatique() 
 {
-	logger.destruction("Deleting table analyse statique");
-	for (auto map_it = tableAnalyseStatique.begin(); map_it != tableAnalyseStatique.end() ; ++map_it)
-		delete map_it->second;
+	logger.destruction("Begin destruction");
+	deleteTableStatique();
 }
 
 /**
@@ -109,8 +108,7 @@ void AnalyseStatique::handleInstructionAffectation(InstructionAffectation* affec
 	{
 		if (symbolExists(ident))
 		{
-			if((tableAnalyseStatique[ident]->isAffected() && isVariable(ident)) 
-				|| isConstant(ident))
+			if ((tableAnalyseStatique[ident]->isAffected() && isVariable(ident)) || isConstant(ident))
 				tableAnalyseStatique[ident]->use();
 			else
 				throwError(StringHelper::format("Using unaffected variable %s in affectation expression", ident.c_str()));
@@ -123,7 +121,7 @@ void AnalyseStatique::handleInstructionAffectation(InstructionAffectation* affec
 	std::string identifiant = affectation->getIdentifiant();
 	if (symbolExists(identifiant))
 	{
-		if(isConstant(identifiant) && tableAnalyseStatique[identifiant]->isAffected())
+		if (isConstant(identifiant) && tableAnalyseStatique[identifiant]->isAffected())
 			throwError(StringHelper::format("Affecting new value to const %s", identifiant.c_str()));
 		else
 			tableAnalyseStatique[identifiant]->affect();
@@ -257,5 +255,13 @@ void AnalyseStatique::printWarning(const std::string& msg) const
 
 void AnalyseStatique::throwError(const std::string& msg) const
 {
+	deleteTableStatique();
 	throw std::runtime_error("ERR: " + msg);
+}
+
+void AnalyseStatique::deleteTableStatique() const
+{
+	logger.destruction("==== Deleting table analyse statique ====");
+	for (auto map_it = tableAnalyseStatique.begin(); map_it != tableAnalyseStatique.end() ; ++map_it)
+		delete map_it->second;
 }

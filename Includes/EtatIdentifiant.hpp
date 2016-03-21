@@ -1,6 +1,8 @@
 #ifndef ETAT_IDENTIFIANT_HPP
 #define ETAT_IDENTIFIANT_HPP
 
+#include "Logger.hpp"
+
 // Structure pour analyse statique
 class EtatIdentifiant
 {
@@ -16,6 +18,8 @@ public:
 	bool isUsed();
 	
 private:
+	static const Logger logger;
+	static uint32_t nbInstances;
 	bool declared;
     bool affected;
     bool used;

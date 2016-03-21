@@ -48,6 +48,8 @@ private:
 	bool isConstant(const std::string& id) const;
 	void checkConstant(const std::string& id, EtatIdentifiant* const etat) const;
 	
+	void deleteTableStatique() const;
+	
 	static const Logger logger;
 };
 

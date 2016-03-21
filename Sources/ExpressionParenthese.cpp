@@ -24,15 +24,15 @@ std::string ExpressionParenthese::toPrintString() const
 Expression* ExpressionParenthese::toTransform(TableDesSymboles& tableDesSymboles)
 {
 	membreInt = membreInt->toTransform(tableDesSymboles);
-	if(Valeur* val = dynamic_cast<Valeur*>(membreInt))
+	if (Valeur* val = dynamic_cast<Valeur*>(membreInt))
 	{
 		return val->toTransform(tableDesSymboles);
 	}
-	if(Identifiant* id = dynamic_cast<Identifiant*>(membreInt))
+	if (Identifiant* id = dynamic_cast<Identifiant*>(membreInt))
 	{
 		return id->toTransform(tableDesSymboles);
 	}
-	if(ExpressionParenthese* membreP = dynamic_cast<ExpressionParenthese*>(membreInt))
+	if (ExpressionParenthese* membreP = dynamic_cast<ExpressionParenthese*>(membreInt))
 	{
 		return membreP->toTransform(tableDesSymboles);
 	}

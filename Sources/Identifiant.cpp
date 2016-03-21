@@ -37,9 +37,9 @@ Expression* Identifiant::toTransform(TableDesSymboles& tableDesSymboles)
 {
 	Declaration* d = tableDesSymboles[identifiant];
 	
-	if(d != NULL)
+	if (d != NULL)
 	{
-		if(DeclarationConstante* constante = dynamic_cast<DeclarationConstante*>(d))
+		if (DeclarationConstante* constante = dynamic_cast<DeclarationConstante*>(d))
 		{	
 			return new Valeur(constante->getExecValue());
 		}

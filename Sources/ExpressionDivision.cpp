@@ -36,13 +36,13 @@ Expression* ExpressionDivision::toTransform(TableDesSymboles& tableDesSymboles)
 	}
 	membreGauche = membreGauche->toTransform(tableDesSymboles);
 	membreDroite = membreDroite->toTransform(tableDesSymboles);
-	if(Valeur* valGauche = dynamic_cast<Valeur*>(membreGauche))
+	if (Valeur* valGauche = dynamic_cast<Valeur*>(membreGauche))
 	{
-		if(Valeur* valDroite = dynamic_cast<Valeur*>(membreDroite))
+		if (Valeur* valDroite = dynamic_cast<Valeur*>(membreDroite))
 		{
-			if(valDroite->getValeur() == 0)
+			if (valDroite->getValeur() == 0)
 			{
-				throw std::runtime_error("Unexpected error: division by zero.");
+				throw std::runtime_error("ERROR: Division by zero");
 			}
 			else
 			{

@@ -24,25 +24,25 @@ std::string ExpressionMultiplication::toPrintString() const
 
 Expression* ExpressionMultiplication::toTransform(TableDesSymboles& tableDesSymboles)
 {
-	if(Valeur* val = dynamic_cast<Valeur*>(membreGauche))
+	if (Valeur* val = dynamic_cast<Valeur*>(membreGauche))
 	{
-		if(val->getValeur() == 1)
+		if (val->getValeur() == 1)
 		{
 			return membreDroite->toTransform(tableDesSymboles);
 		}
 	}
-	if(Valeur* val = dynamic_cast<Valeur*>(membreDroite))
+	if (Valeur* val = dynamic_cast<Valeur*>(membreDroite))
 	{
-		if(val->getValeur() == 1)
+		if (val->getValeur() == 1)
 		{
 			return membreGauche->toTransform(tableDesSymboles);
 		}
 	}
 	membreDroite = membreDroite->toTransform(tableDesSymboles);
 	membreGauche = membreGauche->toTransform(tableDesSymboles);
-	if(Valeur* valGauche = dynamic_cast<Valeur*>(membreGauche))
+	if (Valeur* valGauche = dynamic_cast<Valeur*>(membreGauche))
 	{
-		if(Valeur* valDroite = dynamic_cast<Valeur*>(membreDroite))
+		if (Valeur* valDroite = dynamic_cast<Valeur*>(membreDroite))
 		{
 			return new Valeur(valGauche->getValeur() * valDroite->getValeur());
 		}
