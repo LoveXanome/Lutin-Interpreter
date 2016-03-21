@@ -3,7 +3,7 @@
 #include "DeclarationVariable.hpp"
 #include "DeclarationConstante.hpp"
 
-#include <iostream> 
+#include <iostream>
 #include <string>
 
 const Logger AnalyseStatique::logger("AnalyseStatique");
