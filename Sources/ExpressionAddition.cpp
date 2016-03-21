@@ -38,13 +38,16 @@ Expression* ExpressionAddition::toTransform(TableDesSymboles& tableDesSymboles)
 			return membreGauche->toTransform(tableDesSymboles);
 		}
 	}
+	
 	membreDroite = membreDroite->toTransform(tableDesSymboles);
 	membreGauche = membreGauche->toTransform(tableDesSymboles);
 	if (Valeur* valGauche = dynamic_cast<Valeur*>(membreGauche))
 	{
 		if (Valeur* valDroite = dynamic_cast<Valeur*>(membreDroite))
 		{
-			return new Valeur(valGauche->getValeur() + valDroite->getValeur());
+			Valeur* v = new Valeur(valGauche->getValeur() + valDroite->getValeur());
+			createdExpressionInOptimization.push_back(v);
+			return v;
 		}
 	}
 	return this;

@@ -18,6 +18,8 @@ Programme::~Programme()
 				
 	for (Instruction* i : instructions)
 		delete i;
+		
+	Expression::deleteCreatedExpressionInOptimization();
 }
 
 void Programme::addDeclaration(Declaration* d)

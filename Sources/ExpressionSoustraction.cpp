@@ -1,7 +1,6 @@
 #include "ExpressionSoustraction.hpp"
 
 #include "SymboleEnum.hpp"
-
 #include "Valeur.hpp"
 
 ExpressionSoustraction::ExpressionSoustraction(Expression* membreG , Expression* membreD) : ExpressionBinaire(membreG, membreD)
@@ -37,7 +36,9 @@ Expression* ExpressionSoustraction::toTransform(TableDesSymboles& tableDesSymbol
 	{
 		if (Valeur* valDroite = dynamic_cast<Valeur*>(membreDroite))
 		{
-			return new Valeur(valGauche->getValeur() - valDroite->getValeur());
+			Valeur* v = new Valeur(valGauche->getValeur() - valDroite->getValeur());
+			createdExpressionInOptimization.push_back(v);
+			return v;
 		}
 	}
 	return this;

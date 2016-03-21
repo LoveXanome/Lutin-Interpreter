@@ -14,3 +14,11 @@ Expression::~Expression()
 {
 
 }
+
+void Expression::deleteCreatedExpressionInOptimization()
+{
+	for (Expression* e : createdExpressionInOptimization)
+		delete e;
+}
+
+std::list<Expression*> Expression::createdExpressionInOptimization;

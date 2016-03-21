@@ -11,7 +11,6 @@ const std::list<std::string> Logger::IGNORED_CLASSES ({
 	"RegexHelper",
 	"SymbolFabric",
 	"Etat",
-	"Symbole",
 	"Instruction"
 });
 
