@@ -20,4 +20,3 @@ a := 10;
 ecrire a;
 ecrire (a + b);
 ecrire ((144 + a) - b);
-
