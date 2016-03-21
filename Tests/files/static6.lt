@@ -1,0 +1,3 @@
+var b;
+b := a+1;
+ecrire b;
