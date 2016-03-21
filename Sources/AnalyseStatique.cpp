@@ -103,22 +103,28 @@ void AnalyseStatique::handleInstruction(Instruction* instruction)
 void AnalyseStatique::handleInstructionAffectation(InstructionAffectation* affectation)
 {
 	logger.debug("Handle instruction affectation");
-	
-	// Identifiant à gauche est affecté
-	std::string identifiant = affectation->getIdentifiant();
-	if (symbolExists(identifiant))
-		tableAnalyseStatique[identifiant]->affect();
-	else
-		throwError(StringHelper::format("Affecting undeclared variable %s", identifiant.c_str()));
-	
+
 	// S'il y a des identifiants dans l'expression, ils sont utilisés
 	for (std::string ident : affectation->getIdentifiantsInExpression())
 	{
 		if (symbolExists(ident))
-			tableAnalyseStatique[ident]->use();
+		{
+			if(tableAnalyseStatique[ident]->isAffected())
+				tableAnalyseStatique[ident]->use();
+			else
+				throwError(StringHelper::format("Using unaffected variable %s in affectation expression", ident.c_str()));
+		}
 		else
 			throwError(StringHelper::format("Using undeclared variable %s in affectation expression", ident.c_str()));
 	}
+	
+	// Identifiant à gauche est affecté
+	std::string identifiant = affectation->getIdentifiant();
+	if (symbolExists(identifiant))
+		//	TODO : handle error affecting const
+		tableAnalyseStatique[identifiant]->affect();
+	else
+		throwError(StringHelper::format("Affecting undeclared variable %s", identifiant.c_str()));
 }
 
 void AnalyseStatique::handleInstructionLecture(InstructionLecture* lecture)
