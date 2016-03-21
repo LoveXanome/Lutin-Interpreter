@@ -121,8 +121,12 @@ void AnalyseStatique::handleInstructionAffectation(InstructionAffectation* affec
 	// Identifiant à gauche est affecté
 	std::string identifiant = affectation->getIdentifiant();
 	if (symbolExists(identifiant))
-		//	TODO : handle error affecting const
-		tableAnalyseStatique[identifiant]->affect();
+	{
+		if(isConstant(identifiant) && tableAnalyseStatique[identifiant]->isAffected())
+			throwError(StringHelper::format("Affecting new value to const %s", identifiant.c_str()));
+		else
+			tableAnalyseStatique[identifiant]->affect();
+	}
 	else
 		throwError(StringHelper::format("Affecting undeclared variable %s", identifiant.c_str()));
 }
