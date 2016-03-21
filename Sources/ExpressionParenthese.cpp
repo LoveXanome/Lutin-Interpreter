@@ -8,16 +8,6 @@ ExpressionParenthese::ExpressionParenthese(Expression* membre)
 {
 
 }
-ExpressionParenthese::ExpressionParenthese(const SymboleEnum& enumRepresentation)
-: Expression(enumRepresentation)
-{
-
-}
-ExpressionParenthese::ExpressionParenthese(const SymboleEnum& enumRepresentation, Expression* membre)
-: Expression(enumRepresentation), membreInt(membre)
-{
-
-}
 
 ExpressionParenthese::~ExpressionParenthese()
 {

@@ -20,8 +20,3 @@ std::string Symbole::toString() const
 {
 	return SymbolFabric::makeSymbolNameFromNumber(enumRepresentation);
 }
-
-SymboleEnum Symbole::getEnum()
-{
-	return enumRepresentation;
-}

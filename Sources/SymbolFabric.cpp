@@ -8,14 +8,6 @@
 
 const Logger SymbolFabric::logger("SymbolFabric");
 
-SymbolFabric::SymbolFabric()
-{
-}
-
-SymbolFabric::~SymbolFabric()
-{
-}
-
 std::vector<Symbole*> SymbolFabric::makeSymbolsFromLine(std::string& line)
 {
 	std::vector<Symbole*> symboles;

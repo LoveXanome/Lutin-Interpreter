@@ -9,12 +9,10 @@
 class SymbolFabric
 {
 public:
-	virtual ~SymbolFabric();
 	static std::vector<Symbole*> makeSymbolsFromLine(std::string& line);
 	static std::string makeSymbolNameFromNumber(const SymboleEnum enumRepresentation);
 	
 private:
-	SymbolFabric();
 	static const Logger logger;
 	
 	static Symbole* createCorrespondingSymbol(const std::string& regStr, const std::string& str);

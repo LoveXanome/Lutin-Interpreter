@@ -5,14 +5,6 @@
 #include <cstring>
 #include <algorithm>
 
-StringHelper::StringHelper()
-{
-}
-
-StringHelper::~StringHelper()
-{
-}
-
 /* http://stackoverflow.com/a/8098080 */
 std::string StringHelper::format(const std::string& fmt_str, ...)
 {
