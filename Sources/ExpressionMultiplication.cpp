@@ -6,12 +6,10 @@
 
 ExpressionMultiplication::ExpressionMultiplication(Expression* membreG , Expression* membreD) : ExpressionBinaire(membreG, membreD)
 {
-
 }
 
 ExpressionMultiplication::~ExpressionMultiplication()
 {
-
 }
 
 std::string ExpressionMultiplication::toString() const

@@ -226,6 +226,7 @@ Symbole* AutomateLutin::popSymbole()
 {
 	Symbole* s = symboles.top();
 	symboles.pop();
+	logger.debug(StringHelper::format("POP symbol : %s", s->toString().c_str()));
 	popedSymboles.insert(s);
 	return s;
 }

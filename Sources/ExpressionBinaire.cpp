@@ -1,15 +1,11 @@
 #include "ExpressionBinaire.hpp"
 
-ExpressionBinaire::ExpressionBinaire(Expression* membreG , Expression* membreD)
-: Expression(), membreGauche(membreG), membreDroite(membreD)
+ExpressionBinaire::ExpressionBinaire(Expression* membreG , Expression* membreD) : Expression(), membreGauche(membreG), membreDroite(membreD)
 {
-
 }
 
 ExpressionBinaire::~ExpressionBinaire()
 {
-	//delete membreGauche;
-	//delete membreDroite;
 }
 
 std::list<std::string> ExpressionBinaire::getIdentifiants() const

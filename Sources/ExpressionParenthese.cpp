@@ -3,15 +3,12 @@
 #include "Identifiant.hpp"
 
 
-ExpressionParenthese::ExpressionParenthese(Expression* membre)
-:Expression(), membreInt(membre)
+ExpressionParenthese::ExpressionParenthese(Expression* membre) : Expression(), membreInt(membre)
 {
-
 }
 
 ExpressionParenthese::~ExpressionParenthese()
 {
-	//delete membreInt;
 }
 
 std::string ExpressionParenthese::toString() const

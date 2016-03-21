@@ -6,12 +6,10 @@
 
 ExpressionAddition::ExpressionAddition(Expression* membreG , Expression* membreD) : ExpressionBinaire(membreG, membreD)
 {
-
 }
 
 ExpressionAddition::~ExpressionAddition()
 {
-
 }
 
 std::string ExpressionAddition::toString() const

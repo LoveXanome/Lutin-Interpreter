@@ -30,6 +30,7 @@ valeurRetour E15::transition(AutomateLutin* automate, Symbole * s)
 			ExpressionParenthese* ep = new ExpressionParenthese(e);
 			
             automate->reduction(ep, 3, s);
+            return REDUIT;
             break;
     }
 	return NON_RECONNU;

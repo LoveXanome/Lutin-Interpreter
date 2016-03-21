@@ -6,12 +6,10 @@
 
 ExpressionSoustraction::ExpressionSoustraction(Expression* membreG , Expression* membreD) : ExpressionBinaire(membreG, membreD)
 {
-
 }
 
 ExpressionSoustraction::~ExpressionSoustraction()
 {
-
 }
 
 std::string ExpressionSoustraction::toString() const
