@@ -40,6 +40,8 @@ void AnalyseStatique::fillTableSymboles()
 	
 	for (Declaration* declaration : *declarations)
 	{
+		declaration->print();
+
 		std::string key = declaration->getIdentifiant();
 		if (symbolExists(key))
 			printWarning(StringHelper::format("Identifiant '%s' declared more than once", key.c_str()));
@@ -103,22 +105,33 @@ void AnalyseStatique::handleInstruction(Instruction* instruction)
 void AnalyseStatique::handleInstructionAffectation(InstructionAffectation* affectation)
 {
 	logger.debug("Handle instruction affectation");
-	
-	// Identifiant à gauche est affecté
-	std::string identifiant = affectation->getIdentifiant();
-	if (symbolExists(identifiant))
-		tableAnalyseStatique[identifiant]->affect();
-	else
-		throwError(StringHelper::format("Affecting undeclared variable %s", identifiant.c_str()));
-	
+
 	// S'il y a des identifiants dans l'expression, ils sont utilisés
 	for (std::string ident : affectation->getIdentifiantsInExpression())
 	{
 		if (symbolExists(ident))
-			tableAnalyseStatique[ident]->use();
+		{
+			if((tableAnalyseStatique[ident]->isAffected() && isVariable(ident)) 
+				|| isConstant(ident))
+				tableAnalyseStatique[ident]->use();
+			else
+				throwError(StringHelper::format("Using unaffected variable %s in affectation expression", ident.c_str()));
+		}
 		else
 			throwError(StringHelper::format("Using undeclared variable %s in affectation expression", ident.c_str()));
 	}
+	
+	// Identifiant à gauche est affecté
+	std::string identifiant = affectation->getIdentifiant();
+	if (symbolExists(identifiant))
+	{
+		if(isConstant(identifiant) && tableAnalyseStatique[identifiant]->isAffected())
+			throwError(StringHelper::format("Affecting new value to const %s", identifiant.c_str()));
+		else
+			tableAnalyseStatique[identifiant]->affect();
+	}
+	else
+		throwError(StringHelper::format("Affecting undeclared variable %s", identifiant.c_str()));
 }
 
 void AnalyseStatique::handleInstructionLecture(InstructionLecture* lecture)
@@ -140,7 +153,13 @@ void AnalyseStatique::handleInstructionEcriture(InstructionEcriture* ecriture)
 	// S'il y a des identifiants dans l'expression, il sont utilisés
 	for (std::string ident : ecriture->getIdentifiantsInExpression())
 		if (symbolExists(ident))
-			tableAnalyseStatique[ident]->use();
+		{
+			if((tableAnalyseStatique[ident]->isAffected() && isVariable(ident)) 
+				|| isConstant(ident))
+				tableAnalyseStatique[ident]->use();
+			else
+				throwError(StringHelper::format("Using unaffected variable %s in affectation expression", ident.c_str()));
+		}
 		else
 			throwError(StringHelper::format("Using undeclared variable %s in writing expression", ident.c_str()));
 }
