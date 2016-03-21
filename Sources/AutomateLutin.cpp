@@ -124,7 +124,10 @@ valeurRetour AutomateLutin::decalage(Symbole* symbole, Etat* etat, bool readNext
 
 	// Si on a une erreur, on va essayer de lire le symbole suivant, et si on à une encore une erreur => stop
 	if (ret == NON_RECONNU)
+	{
 		handleUnrecognizedSymbol(symbole);
+		delete symbole;
+	}	
 	
 	return ret;
 }

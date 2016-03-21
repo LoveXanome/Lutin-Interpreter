@@ -2,7 +2,7 @@
 
 
 ExpressionParenthese::ExpressionParenthese(Expression* membre)
-:membreInt(membre)
+:Expression(), membreInt(membre)
 {
 
 }
