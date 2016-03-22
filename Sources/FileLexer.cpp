@@ -26,6 +26,10 @@ FileLexer::FileLexer(const std::string& fileName) : Lexer(fileName)
 
 FileLexer::~FileLexer()
 {
+	// Delete remaining lexer symbols
+	Symbole* s;
+	while ((s = getNext()) != 0)
+		delete s;
 }
 	
 Symbole* FileLexer::getNext()
@@ -38,14 +42,6 @@ Symbole* FileLexer::getNext()
 	logger.debug(StringHelper::format("Get next %s", nextSymbole->toString().c_str()));
 	
 	return nextSymbole;
-}
-
-Symbole* FileLexer::readNext() const
-{
-	if (isLastSymbol())
-		return 0;
-
-	return *currentSymbole;
 }
 
 bool FileLexer::isLastSymbol() const

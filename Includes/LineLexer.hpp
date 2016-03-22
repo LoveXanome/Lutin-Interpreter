@@ -3,6 +3,11 @@
 
 #include "Lexer.hpp"
 
+#include <string>
+#include <deque>
+#include <vector>
+#include "Symbole.hpp"
+
 class LineLexer : public Lexer
 {
 public:
@@ -10,7 +15,12 @@ public:
 	virtual ~LineLexer();
 	
 	Symbole* getNext();
-	Symbole* readNext() const;
+	
+private:
+	std::deque<Symbole*> currentSymbols;
+	
+	std::vector<Symbole*> getSymbolsFromNextLine();
+	std::string getNextLineFromFile();
 };
 
 #endif // LINE_LEXER_HPP

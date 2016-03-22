@@ -2,6 +2,7 @@
 
 #include "StringHelper.hpp"
 #include "FileLexer.hpp"
+#include "LineLexer.hpp"
 #include "Programme.hpp"
 #include "E0.hpp"
 #include "LutinArgs.hpp"
@@ -20,7 +21,8 @@ const Logger AutomateLutin::logger("AutomateLutin");
 
 AutomateLutin::AutomateLutin(const std::string& fileName, const int options) : options(options), symbolBeforeReduction(0)
 {
-	lexer = new FileLexer(fileName);
+	//lexer = new FileLexer(fileName);
+	lexer = new LineLexer(fileName);
 	
 	etats.push(new E0);
 
@@ -58,11 +60,6 @@ AutomateLutin::~AutomateLutin()
 	for (Symbole* s : uniqueSymbols)
 		delete s;
 	
-	// Delete remaining lexer symbols
-	Symbole* s;
-	while ((s = lexer->getNext()) != 0)
-		delete s;
-
 	delete programme;
 	delete lexer;
 

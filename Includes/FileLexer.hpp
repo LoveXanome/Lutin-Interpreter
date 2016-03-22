@@ -12,7 +12,6 @@ public:
 	virtual ~FileLexer();
 	
 	Symbole* getNext();
-	Symbole* readNext() const;
 
 private:
 	std::vector<Symbole*> symboles;

@@ -13,7 +13,6 @@ public:
 	virtual ~Lexer();
 	
 	virtual Symbole* getNext() = 0;
-	virtual Symbole* readNext() const = 0;
 	
 protected:
 	std::ifstream* fileStream;
