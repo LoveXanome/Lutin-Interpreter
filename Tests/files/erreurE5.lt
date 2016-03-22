@@ -1,0 +1,4 @@
+var a;
+const b=0;
+a:= b;
+lire a 3
