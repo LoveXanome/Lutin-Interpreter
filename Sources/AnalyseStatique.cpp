@@ -96,7 +96,7 @@ void AnalyseStatique::handleInstruction(Instruction* instruction)
 		handleInstructionEcriture(ecriture);
 		
 	else
-		throw std::runtime_error("Unexpected error: instruction could not be casted to any derived type (should never reach this code).");
+		throwError("Instruction could not be casted to any derived type (should never reach this code).");
 }
 
 void AnalyseStatique::handleInstructionAffectation(InstructionAffectation* affectation)
@@ -180,7 +180,7 @@ bool AnalyseStatique::isVariable(const std::string& id) const
 	return dynamic_cast<DeclarationVariable*>(d);
 }
 
-void AnalyseStatique::checkVariable(const std::string& id, EtatIdentifiant* const etat) const
+void AnalyseStatique::checkVariable(const std::string& id, EtatIdentifiant* const etat)
 {
 	/* non delcaree, non affectee, non utilisee --> pas possible
 	* non declaree, non affectee, utilisee --> erreur
@@ -217,7 +217,7 @@ bool AnalyseStatique::isConstant(const std::string& id) const
 	return dynamic_cast<DeclarationConstante*>(d);
 }
 
-void AnalyseStatique::checkConstant(const std::string& id, EtatIdentifiant* const etat) const
+void AnalyseStatique::checkConstant(const std::string& id, EtatIdentifiant* const etat)
 {
 	/*
 	* Gestion de l'affectation multiple deja prise en compte dans la grammaire
@@ -234,9 +234,7 @@ void AnalyseStatique::checkConstant(const std::string& id, EtatIdentifiant* cons
 
 	// Constante non declaree => erreur
 	if (!etat->isDeclared())
-	{
 		throwError(StringHelper::format("Undeclared constant %s", id.c_str())); 
-	}
 	else
 	{
 		// Pas le droit d'affecter une constante
@@ -253,15 +251,16 @@ void AnalyseStatique::printWarning(const std::string& msg) const
 	std::cerr << "WARN: " << msg << std::endl;
 }
 
-void AnalyseStatique::throwError(const std::string& msg) const
+void AnalyseStatique::throwError(const std::string& msg)
 {
 	deleteTableStatique();
 	throw std::runtime_error("ERR: " + msg);
 }
 
-void AnalyseStatique::deleteTableStatique() const
+void AnalyseStatique::deleteTableStatique()
 {
 	logger.destruction("==== Deleting table analyse statique ====");
 	for (auto map_it = tableAnalyseStatique.begin(); map_it != tableAnalyseStatique.end() ; ++map_it)
 		delete map_it->second;
+	tableAnalyseStatique.clear();
 }

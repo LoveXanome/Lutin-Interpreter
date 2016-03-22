@@ -35,7 +35,7 @@ private:
 	void addSymboleToTableSymbole(const std::string& key, Declaration* value);
 	bool symbolExists(const std::string& key);
 	void printWarning(const std::string& msg) const;
-	void throwError(const std::string& msg) const;
+	void throwError(const std::string& msg);
 	void addEtatIdentifiantToTableStatique(const std::string& key, EtatIdentifiant* strucIdentifiant);
 	
 	void handleInstruction(Instruction* instruction);
@@ -44,11 +44,11 @@ private:
 	void handleInstructionEcriture(InstructionEcriture* ecriture);
 	
 	bool isVariable(const std::string& id) const;
-	void checkVariable(const std::string& id, EtatIdentifiant* const etat) const;
+	void checkVariable(const std::string& id, EtatIdentifiant* const etat);
 	bool isConstant(const std::string& id) const;
-	void checkConstant(const std::string& id, EtatIdentifiant* const etat) const;
+	void checkConstant(const std::string& id, EtatIdentifiant* const etat);
 	
-	void deleteTableStatique() const;
+	void deleteTableStatique();
 	
 	static const Logger logger;
 };
