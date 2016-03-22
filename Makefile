@@ -27,7 +27,7 @@ all: builddir lutin
 
 remake: clean all
 
-tests: all
+test: all
 	unlink Tests/lut || echo "Nothing to delete"
 	ln -s -t Tests/ ../lut
 	(cd Tests/ && bash mktest.sh)
