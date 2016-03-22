@@ -6,9 +6,9 @@ An interpreter for the basic Lutin script programming language.
 
 You can specify several options to the program. All options are usable together.
 * `-p` prints the parsed program
-* '-a' realizes a static analysis of the programm to detect semantic errors.
-* '-o' optimizes the program
-* '-e' executes the program
+* `-a` realizes a static analysis of the programm to detect semantic errors.
+* `-o` optimizes the program
+* `-e` executes the program
 
 ## Make targets
 
