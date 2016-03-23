@@ -1,0 +1,5 @@
+var a;
+
+lire a;
+ecrire a+2*3;
+ecrire (a+2)*3;
